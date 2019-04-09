@@ -107,7 +107,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="预处理,分类变量,">
 
 
 
@@ -120,17 +120,20 @@
 
 
 
-<meta name="description" content="生活会给你一切，请相信它。">
-<meta name="keywords" content="数据竞赛，深度学习">
-<meta property="og:type" content="website">
-<meta property="og:title" content="小黑屋">
-<meta property="og:url" content="http://kodgv.xyz/tags/预处理/index.html">
+<meta name="description" content="​    自然语言处理系统一直以来都将字词视为离散的原子符号，因此“cat”可能表示为 Id537，“dog”可能表示为 Id143。这些编码是任意的，并未向系统提供有关各个符号之间可能存在的关系的有用信息。这意味着模型在处理有关“狗”的数据时，几乎不可能利用到它所学的关于“猫”的知识（例如它们都属于动物、宠物，有四条腿等）。将字词表示为唯一的离散 ID 还会导致数据稀疏性，并且通常意味着我们可能">
+<meta name="keywords" content="预处理,分类变量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vector Representation">
+<meta property="og:url" content="http://kodgv.xyz/2019/04/09/representation/index.html">
 <meta property="og:site_name" content="小黑屋">
-<meta property="og:description" content="生活会给你一切，请相信它。">
+<meta property="og:description" content="​    自然语言处理系统一直以来都将字词视为离散的原子符号，因此“cat”可能表示为 Id537，“dog”可能表示为 Id143。这些编码是任意的，并未向系统提供有关各个符号之间可能存在的关系的有用信息。这意味着模型在处理有关“狗”的数据时，几乎不可能利用到它所学的关于“猫”的知识（例如它们都属于动物、宠物，有四条腿等）。将字词表示为唯一的离散 ID 还会导致数据稀疏性，并且通常意味着我们可能">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://www.tensorflow.org/images/tsne.png">
+<meta property="og:updated_time" content="2019-04-09T12:39:25.230Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="小黑屋">
-<meta name="twitter:description" content="生活会给你一切，请相信它。">
+<meta name="twitter:title" content="Vector Representation">
+<meta name="twitter:description" content="​    自然语言处理系统一直以来都将字词视为离散的原子符号，因此“cat”可能表示为 Id537，“dog”可能表示为 Id143。这些编码是任意的，并未向系统提供有关各个符号之间可能存在的关系的有用信息。这意味着模型在处理有关“狗”的数据时，几乎不可能利用到它所学的关于“猫”的知识（例如它们都属于动物、宠物，有四条腿等）。将字词表示为唯一的离散 ID 还会导致数据稀疏性，并且通常意味着我们可能">
+<meta name="twitter:image" content="https://www.tensorflow.org/images/tsne.png">
 
 
 
@@ -160,13 +163,13 @@
 
 
 
-  <link rel="canonical" href="http://kodgv.xyz/tags/预处理/">
+  <link rel="canonical" href="http://kodgv.xyz/2019/04/09/representation/">
 
 
 
 
 
-  <title>标签: 预处理 | 小黑屋</title>
+  <title>Vector Representation | 小黑屋</title>
   
 
 
@@ -185,7 +188,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -321,130 +324,234 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block tag">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>预处理<small>标签</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://kodgv.xyz/2019/04/09/representation/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KODGV">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黑屋">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/04/09/representation/" itemprop="url">
-              
-                <span itemprop="name">Vector Representation</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Vector Representation</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-09T20:10:18+08:00" content="2019-04-09">
-          04-09
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-09T20:10:18+08:00">
+                2019-04-09
+              </time>
+            
 
-    </header>
-  </article>
+            
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-09T20:39:25+08:00">
+                2019-04-09
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据竞赛/" itemprop="url" rel="index">
+                    <span itemprop="name">数据竞赛</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/04/09/representation/" class="leancloud_visitors" data-flag-title="Vector Representation">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  902字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/04/09/特征选择/" itemprop="url">
-              
-                <span itemprop="name">特征选择</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-09T19:52:45+08:00" content="2019-04-09">
-          04-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/04/08/targetencoding/" itemprop="url">
-              
-                <span itemprop="name">分类变量：Target Encoding</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-08T22:57:06+08:00" content="2019-04-08">
-          04-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/04/08/比赛EDA/" itemprop="url">
-              
-                <span itemprop="name">比赛EDA</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-08T18:38:48+08:00" content="2019-04-08">
-          04-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <p>​    自然语言处理系统一直以来都将字词视为离散的原子符号，因此“cat”可能表示为 <code>Id537</code>，“dog”可能表示为 <code>Id143</code>。这些编码是任意的，并未向系统提供有关各个符号之间可能存在的关系的有用信息。这意味着模型在处理有关“狗”的数据时，几乎不可能利用到它所学的关于“猫”的知识（例如它们都属于动物、宠物，有四条腿等）。将字词表示为唯一的离散 ID 还会导致数据稀疏性，并且通常意味着我们可能需要更多数据才能成功训练统计模型。使用向量表示法可以扫除其中一些障碍。</p>
+<a id="more"></a>
+<p>来源：<a href="https://www.tensorflow.org/tutorials/representation/word2vec" target="_blank" rel="noopener">https://www.tensorflow.org/tutorials/representation/word2vec</a></p>
+<p>​    自然语言处理系统一直以来都将字词视为离散的原子符号，因此“cat”可能表示为 <code>Id537</code>，“dog”可能表示为 <code>Id143</code>。这些编码是任意的，并未向系统提供有关各个符号之间可能存在的关系的有用信息。这意味着模型在处理有关“狗”的数据时，几乎不可能利用到它所学的关于“猫”的知识（例如它们都属于动物、宠物，有四条腿等）。将字词表示为唯一的离散 ID 还会导致数据稀疏性，并且通常意味着我们可能需要更多数据才能成功训练统计模型。使用向量表示法可以扫除其中一些障碍。</p>
+<p>​    <a href="https://en.wikipedia.org/wiki/Vector_space_model" target="_blank" rel="noopener">向量空间模型</a> (VSM) 在连续向量空间中表示（嵌入）字词，其中语义相似的字词会映射到附近的点（“在彼此附近嵌入”）。VSM 在 NLP 方面有着悠久而丰富的历史，但所有方法均以某种方式依赖于<a href="https://en.wikipedia.org/wiki/Distributional_semantics#Distributional_Hypothesis" target="_blank" rel="noopener">分布假设</a>，这种假设指明在相同上下文中显示的字词语义相同。利用该原则的不同方法可分为两类：基于计数的方法（例如<a href="https://en.wikipedia.org/wiki/Latent_semantic_analysis" target="_blank" rel="noopener">潜在语义分析</a>）以及预测方法（例如<a href="http://www.scholarpedia.org/article/Neural_net_language_models" target="_blank" rel="noopener">神经概率语言模型</a>）。</p>
+<p>​    Word2vec 是一种计算效率特别高的预测模型，用于学习原始文本中的字词嵌入。它分为两种类型：连续词袋模型 (CBOW) 和 Skip-Gram 模型。数据量少的时候使用CBOW，数据量大的时候Skip-gram，一般都用Skip-gram。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="tensorflow"><a href="#tensorflow" class="headerlink" title="tensorflow"></a>tensorflow</h3><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">https:</span>//www.tensorflow<span class="meta">.org</span>/tutorials/representation/word2vec</span><br></pre></td></tr></table></figure>
+<h3 id="python"><a href="#python" class="headerlink" title="python"></a>python</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> gensim.corpora <span class="keyword">import</span> WikiCorpus</span><br><span class="line"><span class="keyword">from</span> gensim.models <span class="keyword">import</span> Word2Vec</span><br><span class="line"><span class="keyword">from</span> gensim.models.word2vec <span class="keyword">import</span> LineSentence</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> multiprocessing</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">L = <span class="number">10</span></span><br><span class="line"></span><br><span class="line">path = <span class="string">'./'</span></span><br><span class="line">save_path = path + <span class="string">'/w2v'</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(save_path):</span><br><span class="line">    print(save_path)</span><br><span class="line">    os.makedirs(save_path)</span><br><span class="line"></span><br><span class="line">train1 = pd.read_csv(path + <span class="string">'/train.csv'</span>)</span><br><span class="line">train = pd.read_csv(path + <span class="string">'/train_old.csv'</span>)</span><br><span class="line">test = pd.read_csv(path + <span class="string">'/test.csv'</span>)</span><br><span class="line"></span><br><span class="line">data = pd.concat([train, test, train1]).reset_index(drop=<span class="literal">True</span>).sample(frac=<span class="number">1</span>, random_state=<span class="number">2018</span>).fillna(<span class="number">0</span>)</span><br><span class="line">data = data.replace(<span class="string">'\\N'</span>, <span class="number">999</span>)</span><br><span class="line">sentence = []</span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> list(data[[<span class="string">'1_total_fee'</span>, <span class="string">'2_total_fee'</span>, <span class="string">'3_total_fee'</span>, <span class="string">'4_total_fee'</span>]].values):</span><br><span class="line">    sentence.append([str(float(l)) <span class="keyword">for</span> idx, l <span class="keyword">in</span> enumerate(line)])</span><br><span class="line"></span><br><span class="line">print(<span class="string">'training...'</span>)</span><br><span class="line">model = Word2Vec(sentence, size=L, window=<span class="number">2</span>, min_count=<span class="number">1</span>, workers=multiprocessing.cpu_count(),</span><br><span class="line">                 iter=<span class="number">10</span>)</span><br><span class="line">print(<span class="string">'outputing...'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> fea <span class="keyword">in</span> [<span class="string">'1_total_fee'</span>, <span class="string">'2_total_fee'</span>, <span class="string">'3_total_fee'</span>, <span class="string">'4_total_fee'</span>]:</span><br><span class="line">    values = []</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> list(data[fea].values):</span><br><span class="line">        values.append(line)</span><br><span class="line">    values = set(values)</span><br><span class="line">    print(len(values))</span><br><span class="line">    w2v = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> values:</span><br><span class="line">        a = [i]</span><br><span class="line">        a.extend(model[str(float(i))])</span><br><span class="line">        w2v.append(a)</span><br><span class="line">    out_df = pd.DataFrame(w2v)</span><br><span class="line"></span><br><span class="line">    name = [fea]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(L):</span><br><span class="line">        name.append(name[<span class="number">0</span>] + <span class="string">'W'</span> + str(i))</span><br><span class="line">    out_df.columns = name</span><br><span class="line">    out_df.to_csv(save_path + <span class="string">'/'</span> + fea + <span class="string">'.csv'</span>, index=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="TSNE降维可视化"><a href="#TSNE降维可视化" class="headerlink" title="TSNE降维可视化"></a>TSNE降维可视化</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_with_labels</span><span class="params">(low_dim_embs, labels, filename = <span class="string">'tsne.png'</span>)</span>:</span></span><br><span class="line">    <span class="keyword">assert</span> low_dim_embs.shape[<span class="number">0</span>] &gt;= len(labels), <span class="string">"More labels than embeddings"</span></span><br><span class="line">    plt.figure(figsize= (<span class="number">10</span>, <span class="number">18</span>))</span><br><span class="line">    <span class="keyword">for</span> i, label <span class="keyword">in</span> enumerate(labels):</span><br><span class="line">        x, y = low_dim_embs[i, :]</span><br><span class="line">        plt.scatter(x, y)</span><br><span class="line">        plt.annotate(label, xy = (x, y), textcoords = <span class="string">'offset points'</span>, ha = <span class="string">'right'</span>, va = <span class="string">'bottom'</span>)</span><br><span class="line">    plt.savefig(filename)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">polt_tnse</span><span class="params">(df,df_target,plot_only=<span class="number">300</span>)</span>:</span></span><br><span class="line">    df_target=list(df_target.astype(<span class="string">'str'</span>))</span><br><span class="line">    tsne = TSNE(perplexity = <span class="number">30</span>, n_components = <span class="number">2</span>, init = <span class="string">'pca'</span>, n_iter = <span class="number">5000</span>)</span><br><span class="line">    low_dim_embs = tsne.fit_transform(df.iloc[:plot_only][:])</span><br><span class="line">    labels = [df_target[i] <span class="keyword">for</span> i <span class="keyword">in</span> range(plot_only)]</span><br><span class="line">    plot_with_labels(low_dim_embs, labels)</span><br></pre></td></tr></table></figure>
+<p><img src="https://www.tensorflow.org/images/tsne.png" alt></p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/预处理/" rel="tag"><i class="fa fa-tag"></i> 预处理</a>
+          
+            <a href="/tags/分类变量/" rel="tag"><i class="fa fa-tag"></i> 分类变量</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/09/特征选择/" rel="next" title="特征选择">
+                <i class="fa fa-chevron-left"></i> 特征选择
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -452,6 +559,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MzU5OS8yMDEzOA=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -472,8 +588,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -577,6 +702,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">1.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#tensorflow"><span class="nav-number">1.1.</span> <span class="nav-text">tensorflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python"><span class="nav-number">1.2.</span> <span class="nav-text">python</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TSNE降维可视化"><span class="nav-number">2.</span> <span class="nav-text">TSNE降维可视化</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -733,6 +874,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -761,6 +906,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 

@@ -1,14 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[Target Encoding]]></title>
-    <url>%2F2019%2F04%2F08%2Ftargetencoding%2F</url>
-    <content type="text"><![CDATA[​ 当你在进行监督学习时，你经常要处理分类变量。也就是说，变量没有一个自然的数值表示。问题是大多数机器学习算法都要求输入数据是数值的。在某个时候，数据科学管道将需要将分类变量转换为数值变量。 来源：https://maxhalford.github.io/blog/target-encoding-done-the-right-way/ 前言​ 当你在进行监督学习时，你经常要处理分类变量。也就是说，变量没有一个自然的数值表示。问题是大多数机器学习算法都要求输入数据是数值的。在某个时候，数据科学管道将需要将分类变量转换为数值变量。 有很多方法可以做到这一点: Label encoding 为每个类别选择数字 One-hot encoding:为每个类别创建一个二进制列 Vector representation ：也就是word2vec，在这里您可以找到一个适合您的数据的低维子空间 Optimal binning ：在依赖于LightGBM或CatBoost等树学习器 Target encoding: 按类别平均目标值 ​ 每种方法都有其优缺点，通常取决于您的数据和需求。如果一个变量有很多类别，那么一个[One-hot encoding:方案将产生许多列，这可能导致内存问题。根据我的经验，依赖LightGBM/CatBoost是最好的分箱方法。Label encoding是没有用的，最好不要使用它。然而，如果你的分类变量恰好是有序的，那么你可以而且应该用递增的数字来表示它(例如，“cold”变成0，“mild”变成1，“hot”变成2)。word2vec和其他类似的方法很酷也很好，但是它们需要进行一些微调，而且并不总是奏效。 target encoding​ target encoding是很容易理解的一种思想，假设你有分类变量X和变量Y，然后对于X中每一个distinct的元素计算其对应Y值的平局之，然后用这个平均值替换 $ x_i $ .下面这个例子显而易见： x0 x1 y aa cc 1 aa cc 1 aa cc 1 aa cc 1 aa cc 0 bb cc 1 bb cc 0 bb cc 0 bb cc 0 bb dd 0 x0 x1 y 0.8 cc 1 0.8 cc 1 0.8 cc 1 0.8 cc 1 0.8 cc 0 0.2 cc 1 0.2 cc 0 0.2 cc 0 0.2 cc 0 0.2 dd 0 ​ Target encoding的好处在于它提取了那些可以解释Y值，比如这里得aa拥有了一个Y值的平均值0.8，这会很好的帮助下游机器学习分类算法。 ​ 目标编码的问题有一个名称:过拟合。事实上，当平均值的数值很低时，依赖平均值并不总是一个好主意。您必须记住，您正在训练的数据集是一个更大的数据集的样本。这意味着，当您将训练集中发现的任何工件应用到另一个数据集(即测试集)时，可能都不成立。因为有可能训练集内它对应的Y值都是0，但是在测试集中它对应的Y值1比较多。 ​ 得出结论，永远不要用基础的target encoding,要用也是用以下的进阶encoding。 Target encoding进阶有很多方法可以处理这个问题。 交叉验证一种流行的方法是使用交叉验证并计算每个切分数据集中的平均值。这就是H20和许多kaggler所做的。 additive smoothing另一种则是 使用additive smoothing：它使用了全局的平均值来smooth较少数据带来过拟合的影响 数学上它等价于:$$u=\frac{n\times \hat x+m\times w}{n+m}$$ where μ is the mean we’re trying to compute (the one that’s going to replace our categorical values) n is the number of values you have ¯x is your estimated mean m is the “weight” you want to assign to the overall mean w is the overall mean 其中m就是用来调节全局的权重，根据他的经验，他发现m取300的时候适用于大多数场合。 1234567891011121314def calc_smooth_mean(df, by, on, m): # Compute the global mean mean = df[on].mean() # Compute the number of values and the mean of each group agg = df.groupby(by)[on].agg(['count', 'mean']) counts = agg['count'] means = agg['mean'] # Compute the "smoothed" means smooth = (counts * means + m * mean) / (counts + m) # Replace each value by the according smoothed mean return df[by].map(smooth) popular on Kaggle]]></content>
+    <title><![CDATA[Vector Representation]]></title>
+    <url>%2F2019%2F04%2F09%2Frepresentation%2F</url>
+    <content type="text"><![CDATA[​ 自然语言处理系统一直以来都将字词视为离散的原子符号，因此“cat”可能表示为 Id537，“dog”可能表示为 Id143。这些编码是任意的，并未向系统提供有关各个符号之间可能存在的关系的有用信息。这意味着模型在处理有关“狗”的数据时，几乎不可能利用到它所学的关于“猫”的知识（例如它们都属于动物、宠物，有四条腿等）。将字词表示为唯一的离散 ID 还会导致数据稀疏性，并且通常意味着我们可能需要更多数据才能成功训练统计模型。使用向量表示法可以扫除其中一些障碍。 来源：https://www.tensorflow.org/tutorials/representation/word2vec ​ 自然语言处理系统一直以来都将字词视为离散的原子符号，因此“cat”可能表示为 Id537，“dog”可能表示为 Id143。这些编码是任意的，并未向系统提供有关各个符号之间可能存在的关系的有用信息。这意味着模型在处理有关“狗”的数据时，几乎不可能利用到它所学的关于“猫”的知识（例如它们都属于动物、宠物，有四条腿等）。将字词表示为唯一的离散 ID 还会导致数据稀疏性，并且通常意味着我们可能需要更多数据才能成功训练统计模型。使用向量表示法可以扫除其中一些障碍。 ​ 向量空间模型 (VSM) 在连续向量空间中表示（嵌入）字词，其中语义相似的字词会映射到附近的点（“在彼此附近嵌入”）。VSM 在 NLP 方面有着悠久而丰富的历史，但所有方法均以某种方式依赖于分布假设，这种假设指明在相同上下文中显示的字词语义相同。利用该原则的不同方法可分为两类：基于计数的方法（例如潜在语义分析）以及预测方法（例如神经概率语言模型）。 ​ Word2vec 是一种计算效率特别高的预测模型，用于学习原始文本中的字词嵌入。它分为两种类型：连续词袋模型 (CBOW) 和 Skip-Gram 模型。数据量少的时候使用CBOW，数据量大的时候Skip-gram，一般都用Skip-gram。 代码tensorflow1https://www.tensorflow.org/tutorials/representation/word2vec python1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950import pandas as pdfrom gensim.corpora import WikiCorpusfrom gensim.models import Word2Vecfrom gensim.models.word2vec import LineSentenceimport pandas as pdimport multiprocessingimport numpy as npL = 10path = './'save_path = path + '/w2v'if not os.path.exists(save_path): print(save_path) os.makedirs(save_path)train1 = pd.read_csv(path + '/train.csv')train = pd.read_csv(path + '/train_old.csv')test = pd.read_csv(path + '/test.csv')data = pd.concat([train, test, train1]).reset_index(drop=True).sample(frac=1, random_state=2018).fillna(0)data = data.replace('\\N', 999)sentence = []for line in list(data[['1_total_fee', '2_total_fee', '3_total_fee', '4_total_fee']].values): sentence.append([str(float(l)) for idx, l in enumerate(line)])print('training...')model = Word2Vec(sentence, size=L, window=2, min_count=1, workers=multiprocessing.cpu_count(), iter=10)print('outputing...')for fea in ['1_total_fee', '2_total_fee', '3_total_fee', '4_total_fee']: values = [] for line in list(data[fea].values): values.append(line) values = set(values) print(len(values)) w2v = [] for i in values: a = [i] a.extend(model[str(float(i))]) w2v.append(a) out_df = pd.DataFrame(w2v) name = [fea] for i in range(L): name.append(name[0] + 'W' + str(i)) out_df.columns = name out_df.to_csv(save_path + '/' + fea + '.csv', index=False) TSNE降维可视化1234567891011121314def plot_with_labels(low_dim_embs, labels, filename = 'tsne.png'): assert low_dim_embs.shape[0] &gt;= len(labels), "More labels than embeddings" plt.figure(figsize= (10, 18)) for i, label in enumerate(labels): x, y = low_dim_embs[i, :] plt.scatter(x, y) plt.annotate(label, xy = (x, y), textcoords = 'offset points', ha = 'right', va = 'bottom') plt.savefig(filename)def polt_tnse(df,df_target,plot_only=300): df_target=list(df_target.astype('str')) tsne = TSNE(perplexity = 30, n_components = 2, init = 'pca', n_iter = 5000) low_dim_embs = tsne.fit_transform(df.iloc[:plot_only][:]) labels = [df_target[i] for i in range(plot_only)] plot_with_labels(low_dim_embs, labels)]]></content>
       <categories>
         <category>数据竞赛</category>
       </categories>
       <tags>
         <tag>预处理</tag>
+        <tag>分类变量</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[特征选择]]></title>
+    <url>%2F2019%2F04%2F09%2F%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9%2F</url>
+    <content type="text"><![CDATA[[TOC] 如何进行特征选择 feature importace特征重要度高如果发现特征重要度有明显很高的情况下，可以将这个特征去除再尝试，因为有可能模型过于依赖此特征而导致了过拟合的存在。比如下图中的addr_state]]></content>
+      <categories>
+        <category>数据竞赛</category>
+      </categories>
+      <tags>
+        <tag>预处理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[分类变量：Target Encoding]]></title>
+    <url>%2F2019%2F04%2F08%2Ftargetencoding%2F</url>
+    <content type="text"><![CDATA[​ 当你在进行监督学习时，你经常要处理分类变量。也就是说，变量没有一个自然的数值表示。问题是大多数机器学习算法都要求输入数据是数值的。在某个时候，数据科学管道将需要将分类变量转换为数值变量。 来源：https://maxhalford.github.io/blog/target-encoding-done-the-right-way/ 前言​ 当你在进行监督学习时，你经常要处理分类变量。也就是说，变量没有一个自然的数值表示。问题是大多数机器学习算法都要求输入数据是数值的。在某个时候，数据科学管道将需要将分类变量转换为数值变量。 有很多方法可以做到这一点: Label encoding 为每个类别选择数字 One-hot encoding:为每个类别创建一个二进制列 Vector representation ：也就是word2vec，在这里您可以找到一个适合您的数据的低维子空间 Optimal binning ：在依赖于LightGBM或CatBoost等树学习器 Target encoding: 按类别平均目标值 ​ 每种方法都有其优缺点，通常取决于您的数据和需求。如果一个变量有很多类别，那么一个[One-hot encoding:方案将产生许多列，这可能导致内存问题。根据我的经验，依赖LightGBM/CatBoost是最好的分箱方法。Label encoding是没有用的，最好不要使用它。然而，如果你的分类变量恰好是有序的，那么你可以而且应该用递增的数字来表示它(例如，“cold”变成0，“mild”变成1，“hot”变成2)。word2vec和其他类似的方法很酷也很好，但是它们需要进行一些微调，而且并不总是奏效。 target encoding​ target encoding是很容易理解的一种思想，假设你有分类变量X和变量Y，然后对于X中每一个distinct的元素计算其对应Y值的平局之，然后用这个平均值替换 $ x_i $ .下面这个例子显而易见： x0 x1 y aa cc 1 aa cc 1 aa cc 1 aa cc 1 aa cc 0 bb cc 1 bb cc 0 bb cc 0 bb cc 0 bb dd 0 x0 x1 y 0.8 cc 1 0.8 cc 1 0.8 cc 1 0.8 cc 1 0.8 cc 0 0.2 cc 1 0.2 cc 0 0.2 cc 0 0.2 cc 0 0.2 dd 0 ​ Target encoding的好处在于它提取了那些可以解释Y值，比如这里得aa拥有了一个Y值的平均值0.8，这会很好的帮助下游机器学习分类算法。 ​ 目标编码的问题有一个名称:过拟合。事实上，当平均值的数值很低时，依赖平均值并不总是一个好主意。您必须记住，您正在训练的数据集是一个更大的数据集的样本。这意味着，当您将训练集中发现的任何规律应用到另一个数据集(即测试集)时，可能都不成立。比如有可能训练集内它对应的Y值都是0，但是在测试集中它对应的Y值1比较多。 ​ 得出结论，永远不要用基础的target encoding,要用也是用以下的进阶encoding。 Target encoding进阶有很多方法可以处理这个问题。交叉验证和additive smoothing可以结合使用 交叉验证一种流行的方法是使用交叉验证并计算每个切分数据集中的平均值。这就是H20和许多kaggler所做的。 None: no holdout, mean是对训练集的所有数据行的计算应用于测试数据 leave eoneout: mean是对除了当前行本身之外的所有数据行进行计算。这可以用于训练数据。当前行本身的目标不包括在平均值中，以防止过度拟合 KFold:平均值只计算out-of-fold数据(需要K-fold) 这可以用于训练数据。为了防止过拟合，目标均值是根据叠外数据计算的 additive smoothing 使用additive smoothing，因为数据集中存在数据的count较小，所以它的target值容易受到过拟合的影响。它使用了全局的平均值来smooth较少数据带来过拟合的影响 数学上它等价于:$$u=\frac{n\times \hat x+m\times w}{n+m}$$ where μ is the mean we’re trying to compute (the one that’s going to replace our categorical values) n is the number of values you have ¯x is your estimated mean m is the “weight” you want to assign to the overall mean w is the overall mean 其中m就是用来调节全局的权重，根据他的经验，他发现m取300的时候适用于大多数场合。 1234567891011121314def calc_smooth_mean(df, by, on, m): # Compute the global mean mean = df[on].mean() # Compute the number of values and the mean of each group agg = df.groupby(by)[on].agg(['count', 'mean']) counts = agg['count'] means = agg['mean'] # Compute the "smoothed" means smooth = (counts * means + m * mean) / (counts + m) # Replace each value by the according smoothed mean return df[by].map(smooth)]]></content>
+      <categories>
+        <category>数据竞赛</category>
+      </categories>
+      <tags>
+        <tag>预处理</tag>
+        <tag>分类变量</tag>
       </tags>
   </entry>
   <entry>
@@ -31,9 +55,9 @@
         <category>数据竞赛</category>
       </categories>
       <tags>
-        <tag>Numpy</tag>
         <tag>机器学习</tag>
         <tag>python</tag>
+        <tag>Numpy</tag>
       </tags>
   </entry>
   <entry>
@@ -68,9 +92,9 @@
         <category>数据竞赛</category>
       </categories>
       <tags>
+        <tag>pandas</tag>
         <tag>机器学习</tag>
         <tag>python</tag>
-        <tag>pandas</tag>
       </tags>
   </entry>
 </search>

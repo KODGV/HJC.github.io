@@ -128,7 +128,7 @@
 <meta property="og:site_name" content="小黑屋">
 <meta property="og:description" content="python 代码小技巧">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-08T12:17:39.698Z">
+<meta property="og:updated_time" content="2019-04-09T09:39:10.715Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python代码">
 <meta name="twitter:description" content="python 代码小技巧">
@@ -381,8 +381,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-04-08T20:17:39+08:00">
-                2019-04-08
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-09T17:39:10+08:00">
+                2019-04-09
               </time>
             
           </span>
@@ -442,7 +442,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  251字
+                  265字
                 </span>
               
 
@@ -484,6 +484,7 @@
 <p>[TOC]</p>
 <h2 id="通用"><a href="#通用" class="headerlink" title="通用"></a>通用</h2><h3 id="测试时间"><a href="#测试时间" class="headerlink" title="测试时间"></a>测试时间</h3><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">关注walltime</span><br><span class="line"><span class="meta">%</span><span class="meta">%</span>time</span><br></pre></td></tr></table></figure>
 <h2 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h2><h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> index, item <span class="keyword">in</span> enumerate(list1):</span><br><span class="line">    <span class="keyword">print</span> index, item</span><br></pre></td></tr></table></figure>
+<h3 id="并行遍历"><a href="#并行遍历" class="headerlink" title="并行遍历"></a>并行遍历</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (x,y) <span class="keyword">in</span> zip(a,b):</span><br><span class="line">   <span class="keyword">print</span> x,y</span><br></pre></td></tr></table></figure>
 <h3 id="通过字典保存了所有中间过程，不仅命名容易，而且便于后续操作"><a href="#通过字典保存了所有中间过程，不仅命名容易，而且便于后续操作" class="headerlink" title="通过字典保存了所有中间过程，不仅命名容易，而且便于后续操作"></a>通过字典保存了所有中间过程，不仅命名容易，而且便于后续操作</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">d=&#123;d_name:get_dvalue(d_name) <span class="keyword">for</span> d_name <span class="keyword">in</span> d_list&#125;</span><br><span class="line">best_dvalue_dname=min(d.items(),key=<span class="keyword">lambda</span> x:x[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
 <h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#这样会比单纯用readlines()快</span></span><br><span class="line">count = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> index, line <span class="keyword">in</span> enumerate(open(filepath,<span class="string">'r'</span>))： </span><br><span class="line">    count += <span class="number">1</span></span><br></pre></td></tr></table></figure>
 <h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h3><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections import defaultdict 通过这个声明dict&#123;里面的格式&#125;</span><br><span class="line">如 defaultdict(<span class="built_in">list</span>)</span><br></pre></td></tr></table></figure>
@@ -714,7 +715,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#通用"><span class="nav-number">1.</span> <span class="nav-text">通用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#测试时间"><span class="nav-number">1.1.</span> <span class="nav-text">测试时间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遍历"><span class="nav-number">2.</span> <span class="nav-text">遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#列表"><span class="nav-number">2.1.</span> <span class="nav-text">列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过字典保存了所有中间过程，不仅命名容易，而且便于后续操作"><span class="nav-number">2.2.</span> <span class="nav-text">通过字典保存了所有中间过程，不仅命名容易，而且便于后续操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件"><span class="nav-number">2.3.</span> <span class="nav-text">文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据结构"><span class="nav-number">3.</span> <span class="nav-text">数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字典"><span class="nav-number">3.1.</span> <span class="nav-text">字典</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表生成式"><span class="nav-number">3.2.</span> <span class="nav-text">列表生成式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自带算法库"><span class="nav-number">4.</span> <span class="nav-text">自带算法库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数组中查找插入的位置"><span class="nav-number">4.1.</span> <span class="nav-text">数组中查找插入的位置</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#通用"><span class="nav-number">1.</span> <span class="nav-text">通用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#测试时间"><span class="nav-number">1.1.</span> <span class="nav-text">测试时间</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遍历"><span class="nav-number">2.</span> <span class="nav-text">遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#列表"><span class="nav-number">2.1.</span> <span class="nav-text">列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并行遍历"><span class="nav-number">2.2.</span> <span class="nav-text">并行遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过字典保存了所有中间过程，不仅命名容易，而且便于后续操作"><span class="nav-number">2.3.</span> <span class="nav-text">通过字典保存了所有中间过程，不仅命名容易，而且便于后续操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件"><span class="nav-number">2.4.</span> <span class="nav-text">文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据结构"><span class="nav-number">3.</span> <span class="nav-text">数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字典"><span class="nav-number">3.1.</span> <span class="nav-text">字典</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表生成式"><span class="nav-number">3.2.</span> <span class="nav-text">列表生成式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自带算法库"><span class="nav-number">4.</span> <span class="nav-text">自带算法库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数组中查找插入的位置"><span class="nav-number">4.1.</span> <span class="nav-text">数组中查找插入的位置</span></a></li></ol></li></ol></div>
             
 
           </div>

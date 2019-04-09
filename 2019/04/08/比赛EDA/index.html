@@ -128,15 +128,15 @@
 <meta property="og:site_name" content="小黑屋">
 <meta property="og:description" content="比赛常见的EDA总结">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.kaggleusercontent.com/kf/12442041/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..mpYQM8lzueJ01ID9kr4OIQ.ku8gk3Hi_tJIUToBxBSfwfdGBwzrSiZOKQTgKK-Re6mOvsG1d-FTEFUvqk12r7Dd-c9ARbOhAu8amY9C2z3_7GSsueWolSsUHTTo0kMSUahGeqHlNjQgEHl3CueKPTwIyA2TcTJbCqHkuyexn9RlAg.xACK-rQek_3z2Ahw9Wv_BQ/__results___files/__results___34_1.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/201904091741016.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM0NjYxMjMw,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=n">
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=k">
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=k%5Cleq+n">
-<meta property="og:updated_time" content="2019-04-08T16:22:21.341Z">
+<meta property="og:updated_time" content="2019-04-09T09:41:30.354Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="比赛EDA">
 <meta name="twitter:description" content="比赛常见的EDA总结">
-<meta name="twitter:image" content="https://www.kaggleusercontent.com/kf/12442041/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..mpYQM8lzueJ01ID9kr4OIQ.ku8gk3Hi_tJIUToBxBSfwfdGBwzrSiZOKQTgKK-Re6mOvsG1d-FTEFUvqk12r7Dd-c9ARbOhAu8amY9C2z3_7GSsueWolSsUHTTo0kMSUahGeqHlNjQgEHl3CueKPTwIyA2TcTJbCqHkuyexn9RlAg.xACK-rQek_3z2Ahw9Wv_BQ/__results___files/__results___34_1.png">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/201904091741016.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM0NjYxMjMw,size_16,color_FFFFFF,t_70">
 
 
 
@@ -386,7 +386,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-04-09T00:22:21+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-09T17:41:30+08:00">
                 2019-04-09
               </time>
             
@@ -489,7 +489,7 @@
 <p>[TOC]</p>
 <h2 id="检查缺失值"><a href="#检查缺失值" class="headerlink" title="检查缺失值"></a>检查缺失值</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://www.kaggle.com/gpreda/santander-eda-and-prediction</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">missing_data</span><span class="params">(data)</span>:</span></span><br><span class="line">    total = data.isnull().sum()</span><br><span class="line">    percent = (data.isnull().sum()/data.isnull().count()*<span class="number">100</span>)</span><br><span class="line">    tt = pd.concat([total, percent], axis=<span class="number">1</span>, keys=[<span class="string">'Total'</span>, <span class="string">'Percent'</span>])</span><br><span class="line">    types = []</span><br><span class="line">    <span class="keyword">for</span> col <span class="keyword">in</span> data.columns:</span><br><span class="line">        dtype = str(data[col].dtype)</span><br><span class="line">        types.append(dtype)</span><br><span class="line">    tt[<span class="string">'Types'</span>] = types</span><br><span class="line">    <span class="keyword">return</span>(np.transpose(tt))</span><br></pre></td></tr></table></figure>
 <h2 id="观察分布值"><a href="#观察分布值" class="headerlink" title="观察分布值"></a>观察分布值</h2><h3 id="观察训练集的01分布-可以拓展到任意分布对比图"><a href="#观察训练集的01分布-可以拓展到任意分布对比图" class="headerlink" title="观察训练集的01分布(可以拓展到任意分布对比图)"></a>观察训练集的01分布(可以拓展到任意分布对比图)</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://www.kaggle.com/gpreda/santander-eda-and-prediction</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_feature_distribution</span><span class="params">(df1, df2, label1, label2, features)</span>:</span></span><br><span class="line">    i = <span class="number">0</span></span><br><span class="line">    sns.set_style(<span class="string">'whitegrid'</span>)</span><br><span class="line">    plt.figure()</span><br><span class="line">    fig, ax = plt.subplots(<span class="number">10</span>,<span class="number">10</span>,figsize=(<span class="number">18</span>,<span class="number">22</span>))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> feature <span class="keyword">in</span> features:</span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">        plt.subplot(<span class="number">10</span>,<span class="number">10</span>,i)</span><br><span class="line">        sns.distplot(df1[feature], hist=<span class="literal">False</span>,label=label1)</span><br><span class="line">        sns.distplot(df2[feature], hist=<span class="literal">False</span>,label=label2)</span><br><span class="line">        plt.xlabel(feature, fontsize=<span class="number">9</span>)</span><br><span class="line">        locs, labels = plt.xticks()</span><br><span class="line">        plt.tick_params(axis=<span class="string">'x'</span>, which=<span class="string">'major'</span>, labelsize=<span class="number">6</span>, pad=<span class="number">-6</span>)</span><br><span class="line">        plt.tick_params(axis=<span class="string">'y'</span>, which=<span class="string">'major'</span>, labelsize=<span class="number">6</span>)</span><br><span class="line">    plt.show();</span><br><span class="line">    </span><br><span class="line">t0 = train_df.loc[train_df[<span class="string">'target'</span>] == <span class="number">0</span>]</span><br><span class="line">t1 = train_df.loc[train_df[<span class="string">'target'</span>] == <span class="number">1</span>]</span><br><span class="line">features = train_df.columns.values[<span class="number">2</span>:<span class="number">102</span>]</span><br><span class="line">plot_feature_distribution(t0, t1, <span class="string">'0'</span>, <span class="string">'1'</span>, features)</span><br></pre></td></tr></table></figure>
-<p><img src="https://www.kaggleusercontent.com/kf/12442041/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..mpYQM8lzueJ01ID9kr4OIQ.ku8gk3Hi_tJIUToBxBSfwfdGBwzrSiZOKQTgKK-Re6mOvsG1d-FTEFUvqk12r7Dd-c9ARbOhAu8amY9C2z3_7GSsueWolSsUHTTo0kMSUahGeqHlNjQgEHl3CueKPTwIyA2TcTJbCqHkuyexn9RlAg.xACK-rQek_3z2Ahw9Wv_BQ/__results___files/__results___34_1.png" alt></p>
+<p><img src="https://img-blog.csdnimg.cn/201904091741016.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM0NjYxMjMw,size_16,color_FFFFFF,t_70" alt></p>
 <p>结论：We can observe that there is a considerable number of features with significant different distribution for the two target values.<br>For example, <strong>var_0</strong>, <strong>var_1</strong>, <strong>var_2</strong>, <strong>var_5</strong>, <strong>var_9</strong>, <strong>var_13</strong>, <strong>var_106</strong>, <strong>var_109</strong>, <strong>var_139</strong> and many others.</p>
 <p>Also some features, like <strong>var_2</strong>, <strong>var_13</strong>, <strong>var_26</strong>, <strong>var_55</strong>, <strong>var_175</strong>, <strong>var_184</strong>, <strong>var_196</strong> shows a distribution that resambles to a bivariate distribution.</p>
 <h3 id="train-test的分布"><a href="#train-test的分布" class="headerlink" title="train_test的分布"></a>train_test的分布</h3><p>同理可以选择train和test的行和列的mean/std/min值</p>
@@ -556,8 +556,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/04/08/targetencoding/" rel="prev" title="targetencoding">
-                targetencoding <i class="fa fa-chevron-right"></i>
+              <a href="/2019/04/08/targetencoding/" rel="prev" title="Target Encoding">
+                Target Encoding <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

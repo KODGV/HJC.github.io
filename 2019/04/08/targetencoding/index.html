@@ -123,14 +123,14 @@
 <meta name="description" content="​    当你在进行监督学习时，你经常要处理分类变量。也就是说，变量没有一个自然的数值表示。问题是大多数机器学习算法都要求输入数据是数值的。在某个时候，数据科学管道将需要将分类变量转换为数值变量。">
 <meta name="keywords" content="预处理">
 <meta property="og:type" content="article">
-<meta property="og:title" content="targetencoding">
+<meta property="og:title" content="Target Encoding">
 <meta property="og:url" content="http://kodgv.xyz/2019/04/08/targetencoding/index.html">
 <meta property="og:site_name" content="小黑屋">
 <meta property="og:description" content="​    当你在进行监督学习时，你经常要处理分类变量。也就是说，变量没有一个自然的数值表示。问题是大多数机器学习算法都要求输入数据是数值的。在某个时候，数据科学管道将需要将分类变量转换为数值变量。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-08T16:14:04.808Z">
+<meta property="og:updated_time" content="2019-04-09T09:39:49.560Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="targetencoding">
+<meta name="twitter:title" content="Target Encoding">
 <meta name="twitter:description" content="​    当你在进行监督学习时，你经常要处理分类变量。也就是说，变量没有一个自然的数值表示。问题是大多数机器学习算法都要求输入数据是数值的。在某个时候，数据科学管道将需要将分类变量转换为数值变量。">
 
 
@@ -167,7 +167,7 @@
 
 
 
-  <title>targetencoding | 小黑屋</title>
+  <title>Target Encoding | 小黑屋</title>
   
 
 
@@ -353,7 +353,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">targetencoding</h1>
+          <h1 class="post-title" itemprop="name headline">Target Encoding</h1>
         
 
         <div class="post-meta">
@@ -381,7 +381,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-04-09T00:14:04+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-09T17:39:49+08:00">
                 2019-04-09
               </time>
             
@@ -417,7 +417,7 @@
 
           
           
-             <span id="/2019/04/08/targetencoding/" class="leancloud_visitors" data-flag-title="targetencoding">
+             <span id="/2019/04/08/targetencoding/" class="leancloud_visitors" data-flag-title="Target Encoding">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -492,8 +492,8 @@
 <li><a href="http://www.saedsayad.com/encoding.htm" target="_blank" rel="noopener">Target encoding</a>: 按类别平均目标值</li>
 </ul>
 <p>​    每种方法都有其优缺点，通常取决于您的数据和需求。如果一个变量有很多类别，那么一个[<a href="http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html" target="_blank" rel="noopener">One-hot encoding</a>:方案将产生许多列，这可能导致内存问题。根据我的经验，依赖LightGBM/CatBoost是最好的分箱方法。<a href="http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html" target="_blank" rel="noopener">Label encoding</a>是没有用的，最好不要使用它。然而，如果你的分类变量恰好是有序的，那么你可以而且应该用递增的数字来表示它(例如，“cold”变成0，“mild”变成1，“hot”变成2)。word2vec和其他类似的方法很酷也很好，但是它们需要进行一些微调，而且并不总是奏效。</p>
-<h2 id="target-encoding"><a href="#target-encoding" class="headerlink" title="target encoding"></a>target encoding</h2><pre><code>target encoding是很容易理解的一种思想，假设你有分类变量X和变量Y，然后对于X中每一个distinct的元素计算其对应Y值的平局之，然后用这个平均值替换 $ x_i $ .下面这个例子显而易见：
-</code></pre><table>
+<h2 id="target-encoding"><a href="#target-encoding" class="headerlink" title="target encoding"></a>target encoding</h2><p>​    target encoding是很容易理解的一种思想，假设你有分类变量X和变量Y，然后对于X中每一个distinct的元素计算其对应Y值的平局之，然后用这个平均值替换 $ x_i $ .下面这个例子显而易见：</p>
+<table>
 <thead>
 <tr>
 <th>x0</th>

@@ -128,7 +128,7 @@
 <meta property="og:site_name" content="小黑屋">
 <meta property="og:description" content="​    当你在进行监督学习时，你经常要处理分类变量。也就是说，变量没有一个自然的数值表示。问题是大多数机器学习算法都要求输入数据是数值的。在某个时候，数据科学管道将需要将分类变量转换为数值变量。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-08T15:31:06.498Z">
+<meta property="og:updated_time" content="2019-04-08T16:14:04.808Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="targetencoding">
 <meta name="twitter:description" content="​    当你在进行监督学习时，你经常要处理分类变量。也就是说，变量没有一个自然的数值表示。问题是大多数机器学习算法都要求输入数据是数值的。在某个时候，数据科学管道将需要将分类变量转换为数值变量。">
@@ -381,8 +381,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-04-08T23:31:06+08:00">
-                2019-04-08
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-09T00:14:04+08:00">
+                2019-04-09
               </time>
             
           </span>
@@ -442,7 +442,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  814字
+                  1.1k字
                 </span>
               
 
@@ -458,7 +458,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3分钟
+                  4分钟
                 </span>
               
             </div>
@@ -618,7 +618,21 @@
 <p>​    Target encoding的好处在于它提取了那些可以解释Y值，比如这里得aa拥有了一个Y值的平均值0.8，这会很好的帮助下游机器学习分类算法。</p>
 <p>​    目标编码的问题有一个名称:过拟合。事实上，当平均值的数值很低时，依赖平均值并不总是一个好主意。您必须记住，您正在训练的数据集是一个更大的数据集的样本。这意味着，当您将训练集中发现的任何工件应用到另一个数据集(即测试集)时，可能都不成立。因为有可能训练集内它对应的Y值都是0，但是在测试集中它对应的Y值1比较多。</p>
 <p>​    得出结论，永远不要用基础的target encoding,要用也是用以下的进阶encoding。</p>
-<h2 id="Target-encoding进阶"><a href="#Target-encoding进阶" class="headerlink" title="Target encoding进阶"></a>Target encoding进阶</h2>
+<h2 id="Target-encoding进阶"><a href="#Target-encoding进阶" class="headerlink" title="Target encoding进阶"></a>Target encoding进阶</h2><p>有很多方法可以处理这个问题。</p>
+<h3 id="交叉验证"><a href="#交叉验证" class="headerlink" title="交叉验证"></a>交叉验证</h3><p>一种流行的方法是使用交叉验证并计算每个切分数据集中的平均值。这就是H20和许多kaggler所做的。</p>
+<h3 id="additive-smoothing"><a href="#additive-smoothing" class="headerlink" title="additive smoothing"></a>additive smoothing</h3><p>另一种则是 使用<a href="https://www.wikiwand.com/en/Additive_smoothing" target="_blank" rel="noopener">additive smoothing</a>：<br>它使用了全局的平均值来<strong>smooth</strong>较少数据带来过拟合的影响</p>
+<p>数学上它等价于:<br>$$<br>u=\frac{n\times \hat x+m\times w}{n+m}<br>$$</p>
+<p>where</p>
+<ul>
+<li>μ is the mean we’re trying to compute (the one that’s going to replace our categorical values)</li>
+<li>n is the number of values you have</li>
+<li>¯x is your estimated mean</li>
+<li>m is the “weight” you want to assign to the overall mean</li>
+<li>w is the overall mean</li>
+</ul>
+<p>其中m就是用来调节全局的权重，根据他的经验，他发现m取300的时候适用于大多数场合。</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">def calc_smooth_mean(df, <span class="keyword">by</span>, <span class="keyword">on</span>, <span class="keyword">m</span>):</span><br><span class="line">    # Compute the <span class="keyword">global</span> <span class="keyword">mean</span></span><br><span class="line">    <span class="keyword">mean</span> = df[<span class="keyword">on</span>].<span class="keyword">mean</span>()</span><br><span class="line"></span><br><span class="line">    # Compute the number of values and the <span class="keyword">mean</span> of each <span class="built_in">group</span></span><br><span class="line">    agg = df.groupby(<span class="keyword">by</span>)[<span class="keyword">on</span>].agg(['<span class="keyword">count</span>', '<span class="keyword">mean</span>'])</span><br><span class="line">    counts = agg['<span class="keyword">count</span>']</span><br><span class="line">    <span class="keyword">means</span> = agg['<span class="keyword">mean</span>']</span><br><span class="line"></span><br><span class="line">    # Compute the <span class="string">"smoothed"</span> <span class="keyword">means</span></span><br><span class="line">    <span class="keyword">smooth</span> = (counts * <span class="keyword">means</span> + <span class="keyword">m</span> * <span class="keyword">mean</span>) / (counts + <span class="keyword">m</span>)</span><br><span class="line"></span><br><span class="line">    # <span class="keyword">Replace</span> each value <span class="keyword">by</span> the according smoothed <span class="keyword">mean</span></span><br><span class="line">    <span class="keyword">return</span> df[<span class="keyword">by</span>].map(<span class="keyword">smooth</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="popular-on-Kaggle"><a href="#popular-on-Kaggle" class="headerlink" title="popular on Kaggle"></a>popular on Kaggle</h3>
       
     </div>
     
@@ -778,7 +792,7 @@
      <span class="site-state-item-name">访客量</span>
 </div>
 <div class="site-state-item site-state-posts">
-      <span class="site-state-item-count">2.8k</span>
+      <span class="site-state-item-count">3.1k</span>
       <span class="site-state-item-name">总字数</span>
 </div>
           </nav>
@@ -837,7 +851,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#target-encoding"><span class="nav-number">2.</span> <span class="nav-text">target encoding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Target-encoding进阶"><span class="nav-number">3.</span> <span class="nav-text">Target encoding进阶</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#target-encoding"><span class="nav-number">2.</span> <span class="nav-text">target encoding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Target-encoding进阶"><span class="nav-number">3.</span> <span class="nav-text">Target encoding进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#交叉验证"><span class="nav-number">3.1.</span> <span class="nav-text">交叉验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#additive-smoothing"><span class="nav-number">3.2.</span> <span class="nav-text">additive smoothing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#popular-on-Kaggle"><span class="nav-number">3.3.</span> <span class="nav-text">popular on Kaggle</span></a></li></ol></li></ol></div>
             
 
           </div>

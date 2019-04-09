@@ -1,8 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2F2019%2F04%2F06%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+    <title><![CDATA[targetencoding]]></title>
+    <url>%2F2019%2F04%2F08%2Ftargetencoding%2F</url>
+    <content type="text"><![CDATA[​ 当你在进行监督学习时，你经常要处理分类变量。也就是说，变量没有一个自然的数值表示。问题是大多数机器学习算法都要求输入数据是数值的。在某个时候，数据科学管道将需要将分类变量转换为数值变量。 来源：https://maxhalford.github.io/blog/target-encoding-done-the-right-way/ 前言​ 当你在进行监督学习时，你经常要处理分类变量。也就是说，变量没有一个自然的数值表示。问题是大多数机器学习算法都要求输入数据是数值的。在某个时候，数据科学管道将需要将分类变量转换为数值变量。 有很多方法可以做到这一点: Label encoding 为每个类别选择数字 One-hot encoding:为每个类别创建一个二进制列 Vector representation ：也就是word2vec，在这里您可以找到一个适合您的数据的低维子空间 Optimal binning ：在依赖于LightGBM或CatBoost等树学习器 Target encoding: 按类别平均目标值 ​ 每种方法都有其优缺点，通常取决于您的数据和需求。如果一个变量有很多类别，那么一个[One-hot encoding:方案将产生许多列，这可能导致内存问题。根据我的经验，依赖LightGBM/CatBoost是最好的分箱方法。Label encoding是没有用的，最好不要使用它。然而，如果你的分类变量恰好是有序的，那么你可以而且应该用递增的数字来表示它(例如，“cold”变成0，“mild”变成1，“hot”变成2)。word2vec和其他类似的方法很酷也很好，但是它们需要进行一些微调，而且并不总是奏效。 target encodingtarget encoding是很容易理解的一种思想，假设你有分类变量X和变量Y，然后对于X中每一个distinct的元素计算其对应Y值的平局之，然后用这个平均值替换 $ x_i $ .下面这个例子显而易见： x0 x1 y aa cc 1 aa cc 1 aa cc 1 aa cc 1 aa cc 0 bb cc 1 bb cc 0 bb cc 0 bb cc 0 bb dd 0 x0 x1 y 0.8 cc 1 0.8 cc 1 0.8 cc 1 0.8 cc 1 0.8 cc 0 0.2 cc 1 0.2 cc 0 0.2 cc 0 0.2 cc 0 0.2 dd 0 ​ Target encoding的好处在于它提取了那些可以解释Y值，比如这里得aa拥有了一个Y值的平均值0.8，这会很好的帮助下游机器学习分类算法。 ​ 目标编码的问题有一个名称:过拟合。事实上，当平均值的数值很低时，依赖平均值并不总是一个好主意。您必须记住，您正在训练的数据集是一个更大的数据集的样本。这意味着，当您将训练集中发现的任何工件应用到另一个数据集(即测试集)时，可能都不成立。因为有可能训练集内它对应的Y值都是0，但是在测试集中它对应的Y值1比较多。 ​ 得出结论，永远不要用基础的target encoding,要用也是用以下的进阶encoding。 Target encoding进阶]]></content>
+      <categories>
+        <category>数据竞赛</category>
+      </categories>
+      <tags>
+        <tag>预处理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[比赛EDA]]></title>
+    <url>%2F2019%2F04%2F08%2F%E6%AF%94%E8%B5%9BEDA%2F</url>
+    <content type="text"><![CDATA[比赛常见的EDA总结 [TOC] 检查缺失值1234567891011# https://www.kaggle.com/gpreda/santander-eda-and-predictiondef missing_data(data): total = data.isnull().sum() percent = (data.isnull().sum()/data.isnull().count()*100) tt = pd.concat([total, percent], axis=1, keys=['Total', 'Percent']) types = [] for col in data.columns: dtype = str(data[col].dtype) types.append(dtype) tt['Types'] = types return(np.transpose(tt)) 观察分布值观察训练集的01分布(可以拓展到任意分布对比图)12345678910111213141516171819202122# https://www.kaggle.com/gpreda/santander-eda-and-predictiondef plot_feature_distribution(df1, df2, label1, label2, features): i = 0 sns.set_style('whitegrid') plt.figure() fig, ax = plt.subplots(10,10,figsize=(18,22)) for feature in features: i += 1 plt.subplot(10,10,i) sns.distplot(df1[feature], hist=False,label=label1) sns.distplot(df2[feature], hist=False,label=label2) plt.xlabel(feature, fontsize=9) locs, labels = plt.xticks() plt.tick_params(axis='x', which='major', labelsize=6, pad=-6) plt.tick_params(axis='y', which='major', labelsize=6) plt.show(); t0 = train_df.loc[train_df['target'] == 0]t1 = train_df.loc[train_df['target'] == 1]features = train_df.columns.values[2:102]plot_feature_distribution(t0, t1, '0', '1', features) 结论：We can observe that there is a considerable number of features with significant different distribution for the two target values.For example, var_0, var_1, var_2, var_5, var_9, var_13, var_106, var_109, var_139 and many others. Also some features, like var_2, var_13, var_26, var_55, var_175, var_184, var_196 shows a distribution that resambles to a bivariate distribution. train_test的分布同理可以选择train和test的行和列的mean/std/min值 1234567891011121314151617181920212223242526272829https://www.kaggle.com/gpreda/santander-eda-and-predictionplt.figure(figsize=(16,6))plt.title("Distribution of mean values per column in the train and test set")sns.distplot(train_df[features].mean(axis=0),color="magenta",kde=True,bins=120, label='train')sns.distplot(test_df[features].mean(axis=0),color="darkblue", kde=True,bins=120, label='test')plt.legend()plt.show()plt.figure(figsize=(16,6))plt.title("Distribution of std values per row in the train and test set")sns.distplot(train_df[features].std(axis=1),color="black", kde=True,bins=120, label='train')sns.distplot(test_df[features].std(axis=1),color="red", kde=True,bins=120, label='test')plt.legend();plt.show()plt.figure(figsize=(16,6))plt.title("Distribution of std values per column in the train and test set")sns.distplot(train_df[features].std(axis=0),color="blue",kde=True,bins=120, label='train')sns.distplot(test_df[features].std(axis=0),color="green", kde=True,bins=120, label='test')plt.legend(); plt.show()t0 = train_df.loc[train_df['target'] == 0]t1 = train_df.loc[train_df['target'] == 1]plt.figure(figsize=(16,6))plt.title("Distribution of mean values per row in the train set")sns.distplot(t0[features].mean(axis=1),color="red", kde=True,bins=120, label='target = 0')sns.distplot(t1[features].mean(axis=1),color="blue", kde=True,bins=120, label='target = 1')plt.legend(); plt.show()plt.figure(figsize=(16,6))plt.title("Distribution of mean values per column in the train set")sns.distplot(t0[features].mean(axis=0),color="green", kde=True,bins=120, label='target = 0')sns.distplot(t1[features].mean(axis=0),color="darkblue", kde=True,bins=120, label='target = 1')plt.legend(); plt.show() 检查duplicate values123456789%%timefeatures = train_df.columns.values[2:202]unique_max_train = []unique_max_test = []for feature in features: values = train_df[feature].value_counts() unique_max_train.append([feature, values.max(), values.idxmax()]) values = test_df[feature].value_counts() unique_max_test.append([feature, values.max(), values.idxmax()]) PCAhttps://zhuanlan.zhihu.com/p/28909807 主成分分析是统计方法里的一种降维方法，它的主要思想是将原有 个特征通过正交变换将一组可能存在相关性的特征缩减到 特征( )。举例来说，在网站用户行为数据收集过程中，会话数(Visits)，浏览页数(PV)，网站总停留时间(Time Spend Total)，访问人数(Unique Visitor)，以上这几个指标，无论是从以往的数据统计还是业务经验来看，都存在一定正相关关系，如果将这些特征喂给模型，很容易造成过拟合。 通过转化，从而剔除噪声，而且可以看到转化后的值然后把一些无关的列再剔除 PCA 使用要点 使用主成分分析，往往会丢失掉“少部分信息”（注意：这“少部分信息”仅仅指方差较小的数据，并非信息含量真的少的数据！） 因为1的特性，所以在机器学些中，不推荐使用 PCA 去优化特征达到避免过拟合的目的。 既然PCA不能避免过拟合，那为何还要使用，根据周志华老师的西瓜书中的描述： 在舍弃特征值较小的特征之后，能够使样本采集密度增 当数据受到噪声影响时，最小的特征值对对应的特征向量往往与噪声有关将他们舍弃能够在一定程度上起到去噪效果 在维度过多的情况下，变换后的坐标系代表的意义不明，不易于解释。 12345678910111213141516171819202122# https://www.kaggle.com/roydatascience/eda-pca-lgbm-santander-transactions/notebookfrom sklearn.decomposition import KernelPCAlin_pca = KernelPCA(n_components = 2, kernel="linear", fit_inverse_transform=True)rbf_pca = KernelPCA(n_components = 2, kernel="rbf", gamma=0.0433, fit_inverse_transform=True)sig_pca = KernelPCA(n_components = 2, kernel="sigmoid", gamma=0.001, coef0=1, fit_inverse_transform=True)plt.figure(figsize=(11, 4))for subplot, pca, title in ((131, lin_pca, "Linear kernel"), (132, rbf_pca, "RBF kernel, $\gamma=0.04$"), (133, sig_pca, "Sigmoid kernel, $\gamma=10^&#123;-3&#125;, r=1$")): PCA_train_x = PCA(2).fit_transform(train_scaled) plt.subplot(subplot) plt.title(title, fontsize=14) plt.scatter(PCA_train_x[:, 0], PCA_train_x[:, 1], c=target, cmap="nipy_spectral_r") plt.xlabel("$z_1$", fontsize=18) if subplot == 131: plt.ylabel("$z_2$", fontsize=18, rotation=0) plt.grid(True)plt.show()]]></content>
+      <categories>
+        <category>数据竞赛</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>预处理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[numpy]]></title>
+    <url>%2F2019%2F04%2F08%2Fnumpy%2F</url>
+    <content type="text"><![CDATA[numpy 操作小技巧 增加concat/vstack/hstack 1https://blog.csdn.net/xiaodongxiexie/article/details/71774466]]></content>
+      <categories>
+        <category>数据竞赛</category>
+      </categories>
+      <tags>
+        <tag>Numpy</tag>
+        <tag>机器学习</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python代码]]></title>
+    <url>%2F2019%2F04%2F08%2Fpython%E4%BB%A3%E7%A0%81%2F</url>
+    <content type="text"><![CDATA[python 代码小技巧 [TOC] 通用测试时间12关注walltime%%time 遍历列表12for index, item in enumerate(list1): print index, item 通过字典保存了所有中间过程，不仅命名容易，而且便于后续操作12d=&#123;d_name:get_dvalue(d_name) for d_name in d_list&#125;best_dvalue_dname=min(d.items(),key=lambda x:x[1]) 文件1234#这样会比单纯用readlines()快count = 0for index, line in enumerate(open(filepath,'r'))： count += 1 数据结构字典12from collections import defaultdict 通过这个声明dict&#123;里面的格式&#125;如 defaultdict(list) 列表生成式121. [i for i in range(k) if condition]：此时if起条件判断作用，满足条件的，将被返回成为最终生成的列表的一员。2. [i if condition else exp for exp]：此时if...else被用来赋值，满足条件的i以及else被用来生成最终的列表 自带算法库数组中查找插入的位置123返回排序插入的位置，并不是真的插入排序数组中from bisect import bisect_left, bisect_rightend = bisect_left(keys, 0)]]></content>
+      <categories>
+        <category>数据竞赛</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[比赛通用代码]]></title>
+    <url>%2F2019%2F04%2F08%2F%E6%AF%94%E8%B5%9B%E9%80%9A%E7%94%A8%E4%BB%A3%E7%A0%81%2F</url>
+    <content type="text"><![CDATA[比赛通用代码 [TOC] jupyter 载入代码包123456789101112131415161718192021222324252627# Load librariesimport numpy as npimport pandas as pdimport randomimport gcfrom pandas import read_csvimport plotly.offline as pyimport plotly.graph_objs as goimport seaborn as sns%matplotlib inlineimport matplotlib.pyplot as pltimport warningswarnings.filterwarnings('ignore')pd.options.display.max_columns = 100gc.enable()'''Displays markdown formatted output like bold, italic bold etc.'''from IPython.display import Markdowndef bold(string): display(Markdown(string))'''Ignores deprecation warning.'''def ignore_warnings(): import warnings warnings.filterwarnings('ignore', category = DeprecationWarning) bold('**Merged data:**')display(merged.head()) 自动压缩变量空间12345678910111213141516171819202122232425262728293031323334353637383940def reduce_mem_usage(df): """ iterate through all the columns of a dataframe and modify the data type to reduce memory usage. """ #start_mem = df.memory_usage().sum() / 1024**2 #print('Memory usage of dataframe is &#123;:.2f&#125; MB'.format(start_mem)) for col in df.columns: col_type = df[col].dtype if col_type != object: c_min = df[col].min() c_max = df[col].max() if str(col_type)[:3] == 'int': if c_min &gt; np.iinfo(np.int8).min and c_max &lt; np.iinfo(np.int8).max: df[col] = df[col].astype(np.int8) elif c_min &gt; np.iinfo(np.int16).min and c_max &lt; np.iinfo(np.int16).max: df[col] = df[col].astype(np.int16) elif c_min &gt; np.iinfo(np.int32).min and c_max &lt; np.iinfo(np.int32).max: df[col] = df[col].astype(np.int32) elif c_min &gt; np.iinfo(np.int64).min and c_max &lt; np.iinfo(np.int64).max: df[col] = df[col].astype(np.int64) else: if c_min &gt; np.finfo(np.float16).min and c_max &lt; np.finfo(np.float16).max: df[col] = df[col].astype(np.float16) elif c_min &gt; np.finfo(np.float32).min and c_max &lt; np.finfo(np.float32).max: df[col] = df[col].astype(np.float32) else: df[col] = df[col].astype(np.float64) #end_mem = df.memory_usage().sum() / 1024**2 #print('Memory usage after optimization is: &#123;:.2f&#125; MB'.format(end_mem)) #print('Decreased by &#123;:.1f&#125;%'.format(100 * (start_mem - end_mem) / start_mem)) return dfdef reload(): gc.collect() df = pd.read_csv('../input/train_V2.csv') invalid_match_ids = df[df['winPlacePerc'].isna()]['matchId'].values df = df[-df['matchId'].isin(invalid_match_ids)] df=reduce_mem_usage(df) return df]]></content>
+      <categories>
+        <category>数据竞赛</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[pandas]]></title>
+    <url>%2F2019%2F04%2F08%2Fpandas%2F</url>
+    <content type="text"><![CDATA[pandas 操作小技巧 通用操作pandas操作出现进度条： 用作迭代器 用于Pandas的操作12345import pandas as pdfrom tqdm import tqdmtqdm.pandas()sentences = train["question_text"].progress_apply(lambda x: x.split()).valuesfor sentence in tqdm(sentences, disable = (not verbose)): 增加merge/concat/joinhttps://www.e-learn.cn/content/qita/814185 改变直接replace12'''Put Dona, Jonkheer, Countess, Sir, Lady, Don in bucket Aristocrat.'''merged.Title.replace(to_replace = ['Dona', 'Jonkheer', 'Countess', 'Sir', 'Lady', 'Don'], value = 'Aristocrat', inplace = True) map映射 1234#map映射 它就会自动把类别型转为连续型#如果要Inverse就直接key-value逆转size_mapping=&#123;'XL':3,'L':2,'M':1&#125;df['size']=df['size'].map(size_mapping) 单列分箱12345678910'''Create bin categories for Age.'''label_names = ['infant','child','teenager','young_adult','adult','aged']'''Create range for each bin categories of Age.'''cut_points = [0,5,12,18,35,60,81]'''Create and view categorized Age with original Age.'''merged['Age_binned'] = pd.cut(merged.Age, cut_points, labels = label_names)display(merged[['Age', 'Age_binned']].head(2)​ 123456789101112## 删除### 去重```pythontrain.drop_duplicates(subset = ['1_total_fee','2_total_fee','3_total_fee', 'month_traffic','pay_times','last_month_traffic','service2_caller_time','age'],inplace=True)]]></content>
+      <categories>
+        <category>数据竞赛</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>python</tag>
+        <tag>pandas</tag>
+      </tags>
   </entry>
 </search>

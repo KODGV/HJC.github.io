@@ -493,6 +493,7 @@
 </ul>
 <p>​    每种方法都有其优缺点，通常取决于您的数据和需求。如果一个变量有很多类别，那么一个[<a href="http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html" target="_blank" rel="noopener">One-hot encoding</a>:方案将产生许多列，这可能导致内存问题。根据我的经验，依赖LightGBM/CatBoost是最好的分箱方法。<a href="http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html" target="_blank" rel="noopener">Label encoding</a>是没有用的，最好不要使用它。然而，如果你的分类变量恰好是有序的，那么你可以而且应该用递增的数字来表示它(例如，“cold”变成0，“mild”变成1，“hot”变成2)。word2vec和其他类似的方法很酷也很好，但是它们需要进行一些微调，而且并不总是奏效。</p>
 <h2 id="target-encoding"><a href="#target-encoding" class="headerlink" title="target encoding"></a>target encoding</h2><p>​    target encoding是很容易理解的一种思想，假设你有分类变量X和变量Y，然后对于X中每一个distinct的元素计算其对应Y值的平局之，然后用这个平均值替换 $ x_i $ .下面这个例子显而易见：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -554,6 +555,8 @@
 </tr>
 </tbody>
 </table>
+</div>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -615,6 +618,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>​    Target encoding的好处在于它提取了那些可以解释Y值，比如这里得aa拥有了一个Y值的平均值0.8，这会很好的帮助下游机器学习分类算法。</p>
 <p>​    目标编码的问题有一个名称:过拟合。事实上，当平均值的数值很低时，依赖平均值并不总是一个好主意。您必须记住，您正在训练的数据集是一个更大的数据集的样本。这意味着，当您将训练集中发现的任何规律应用到另一个数据集(即测试集)时，可能都不成立。比如有可能训练集内它对应的Y值都是0，但是在测试集中它对应的Y值1比较多。</p>
 <p>​    得出结论，永远不要用基础的target encoding,要用也是用以下的进阶encoding。</p>
@@ -630,8 +634,9 @@
 </ul>
 <p>这可以用于训练数据。为了防止过拟合，目标均值是根据叠外数据计算的</p>
 <h3 id="additive-smoothing"><a href="#additive-smoothing" class="headerlink" title="additive smoothing"></a>additive smoothing</h3><p> 使用<a href="https://www.wikiwand.com/en/Additive_smoothing" target="_blank" rel="noopener">additive smoothing</a>，因为数据集中存在数据的count较小，所以它的target值容易受到过拟合的影响。<br>它使用了全局的平均值来<strong>smooth</strong>较少数据带来过拟合的影响</p>
-<p>数学上它等价于:<br>$$<br>u=\frac{n\times \hat x+m\times w}{n+m}<br>$$</p>
-<p>where</p>
+<p>数学上它等价于:</p>
+<script type="math/tex; mode=display">
+u=\frac{n\times \hat x+m\times w}{n+m}</script><p>where</p>
 <ul>
 <li>μ is the mean we’re trying to compute (the one that’s going to replace our categorical values)</li>
 <li>n is the number of values you have</li>
@@ -769,7 +774,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -791,7 +796,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -807,7 +812,7 @@
      <span class="site-state-item-name">访客量</span>
 </div>
 <div class="site-state-item site-state-posts">
-      <span class="site-state-item-count">5.3k</span>
+      <span class="site-state-item-count">5.9k</span>
       <span class="site-state-item-name">总字数</span>
 </div>
           </nav>

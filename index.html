@@ -336,6 +336,219 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://kodgv.xyz/2019/04/10/比赛模型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KODGV">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黑屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/10/比赛模型/" itemprop="url">比赛模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T10:20:03+08:00">
+                2019-04-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-10T11:38:46+08:00">
+                2019-04-10
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据竞赛/" itemprop="url" rel="index">
+                    <span itemprop="name">数据竞赛</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/04/10/比赛模型/" class="leancloud_visitors" data-flag-title="比赛模型">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  546字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>[TOC]</p>
+<h2 id="载入模型前操作"><a href="#载入模型前操作" class="headerlink" title="载入模型前操作"></a>载入模型前操作</h2><h3 id="归一化"><a href="#归一化" class="headerlink" title="归一化"></a>归一化</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> MinMaxScaler,StandardScaler</span><br><span class="line">sc = StandardScaler()</span><br><span class="line">train_features = sc.fit_transform(train_features)</span><br><span class="line">test_features = sc.transform(test_features)</span><br></pre></td></tr></table></figure>
+<h3 id="切分训练集和验证集"><a href="#切分训练集和验证集" class="headerlink" title="切分训练集和验证集"></a>切分训练集和验证集</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># train_split</span></span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="number">0.33</span>, random_state=<span class="number">42</span>)</span><br><span class="line"><span class="comment"># K-fold</span></span><br><span class="line"><span class="comment"># scikit-learn k-fold cross-validation</span></span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> KFold</span><br><span class="line"><span class="comment"># data sample</span></span><br><span class="line"><span class="comment"># prepare cross validation</span></span><br><span class="line">kfold = KFold(n_splits=<span class="number">3</span>, shuffle = <span class="literal">True</span>, random_state= <span class="number">1</span>)</span><br><span class="line"><span class="comment"># enumerate splits</span></span><br><span class="line"><span class="keyword">for</span> train, test <span class="keyword">in</span> kfold.split(data):</span><br><span class="line">    print(<span class="string">'train: %s, test: %s'</span> % (data[train], data[test]))</span><br><span class="line">    </span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> StratifiedKFold</span><br><span class="line"><span class="comment"># StratifiedKFold</span></span><br><span class="line">folds = StratifiedKFold(n_splits=num_folds, shuffle=<span class="literal">False</span>, random_state=<span class="number">2319</span>)</span><br><span class="line"><span class="keyword">for</span> fold_, (trn_idx, val_idx) <span class="keyword">in</span> enumerate(folds.split(train.values, target.values)):</span><br><span class="line">    X_train, y_train = train.iloc[trn_idx][features], target.iloc[trn_idx]</span><br><span class="line">   	X_valid, y_valid = train.iloc[val_idx][features], target.iloc[val_idx]</span><br></pre></td></tr></table></figure>
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><h2 id><a href="#" class="headerlink" title=" "></a> </h2><h2 id="调整参数"><a href="#调整参数" class="headerlink" title="调整参数"></a>调整参数</h2><h3 id="贝叶斯优化"><a href="#贝叶斯优化" class="headerlink" title="贝叶斯优化"></a>贝叶斯优化</h3><p>来源:<a href="https://www.cnblogs.com/yangruiGB2312/p/9374377.html" target="_blank" rel="noopener">https://www.cnblogs.com/yangruiGB2312/p/9374377.html</a></p>
+<p>可以说是目前最好的调参的方法</p>
+<ul>
+<li><p>贝叶斯调参采用高斯过程，<strong>考虑之前的参数信息</strong>，不断地更新先验；网格搜索未考虑之前的参数信息</p>
+</li>
+<li><p>贝叶斯调参<strong>迭代次数少，速度快</strong>；网格搜索速度慢,参数多时易导致维度爆炸</p>
+</li>
+<li><p>贝叶斯调参针对非凸问题依然<strong>稳健</strong>；网格搜索针对非凸问题易得到局部优最</p>
+</li>
+</ul>
+<p>​    公式推导就不在这里展开，主要阐述主要思想：给定优化的目标函数(广义的函数，只需指定输入和输出即可，无需知道内部结构以及数学性质)，通过不断地添加样本点来更新目标函数的后验分布(高斯过程<strong>,直到后验分布基本贴合于真实分布。简单的说，就是</strong>考虑了上一次参数的信息，从而更好的调整当前的参数。</p>
+<p>​    假设这个寻找最优化参数的过程是一个高斯过程。高斯过程有个特点，就是当随机遍历一定的数据点并拿到结果之后，可以大致绘制出整个数据的分布曲线，当然这是也会有一定误差。 </p>
+<p><img src="https://img-blog.csdn.net/20180821135039882?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dzaGVuZ29k/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt></p>
+<p>python代码</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> bayes_opt import BayesianOptimization</span><br><span class="line"><span class="function">def <span class="title">rf_cv</span>(<span class="params">n_estimators, min_samples_split, max_features, max_depth</span>):</span></span><br><span class="line"><span class="function">    val</span> = cross_val_score(</span><br><span class="line">        RandomForestClassifier(n_estimators=<span class="keyword">int</span>(n_estimators),</span><br><span class="line">            min_samples_split=<span class="keyword">int</span>(min_samples_split),</span><br><span class="line">            max_features=min(max_features, <span class="number">0.999</span>), <span class="meta"># float</span></span><br><span class="line">            max_depth=<span class="keyword">int</span>(max_depth),</span><br><span class="line">            random_state=<span class="number">2</span></span><br><span class="line">        ),</span><br><span class="line">        x, y, scoring=<span class="string">'roc_auc'</span>, cv=<span class="number">5</span></span><br><span class="line">    ).mean()</span><br><span class="line">    <span class="keyword">return</span> val</span><br><span class="line"><span class="meta"># 注意名字要对应</span></span><br><span class="line">rf_bo = BayesianOptimization(</span><br><span class="line">        rf_cv,</span><br><span class="line">        &#123;<span class="string">'n_estimators'</span>: (<span class="number">10</span>, <span class="number">250</span>),</span><br><span class="line">        <span class="string">'min_samples_split'</span>: (<span class="number">2</span>, <span class="number">25</span>),</span><br><span class="line">        <span class="string">'max_features'</span>: (<span class="number">0.1</span>, <span class="number">0.999</span>),</span><br><span class="line">        <span class="string">'max_depth'</span>: (<span class="number">5</span>, <span class="number">15</span>)&#125;</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://kodgv.xyz/2019/04/09/representation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1972,7 +2185,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1994,7 +2207,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2010,7 +2223,7 @@
      <span class="site-state-item-name">访客量</span>
 </div>
 <div class="site-state-item site-state-posts">
-      <span class="site-state-item-count">5.3k</span>
+      <span class="site-state-item-count">5.9k</span>
       <span class="site-state-item-name">总字数</span>
 </div>
           </nav>

@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[测试集和训练集分布]]></title>
+    <url>%2F2019%2F04%2F13%2F%E6%B5%8B%E8%AF%95%E9%9B%86%E5%92%8C%E8%AE%AD%E7%BB%83%E9%9B%86%E5%88%86%E5%B8%83%2F</url>
+    <content type="text"><![CDATA[Train &amp; Test分布主要是为了看数据的分布情况。 下面的方法是最近kaggle上GM搞的一种极其简单的探索训练集&amp;测试集分布的方案,将一个分布的问题变成一个二分类问题,该方法简单有效，如果AUC低于0.6,则我们可以认为训练集和测试集是分布平衡的,反之我们则可以认为训练集和测试集是分布不一致的,这个时候就需要注意AB榜是否会出现翻车的情况等 [TOC] 来源：https://www.kaggle.com/justfor/adversarial-validation-plus-ks-test Adversarial Validation下面的方法是最近kaggle上GM搞的一种极其简单的探索训练集&amp;测试集分布的方案,将一个分布的问题变成一个二分类问题,该方法简单有效，如果AUC低于0.6,则我们可以认为训练集和测试集是分布平衡的,反之我们则可以认为训练集和测试集是分布不一致的,这个时候就需要注意AB榜是否会出现翻车的情况等 核心点在于将y1 = np.array([0] x train.shape[0])y2 = np.array([1] x test.shape[0]) 1234567891011121314151617181920212223242526#Create label array and complete datasety1 = np.array([0]*train.shape[0])y2 = np.array([1]*test.shape[0])y = np.concatenate((y1, y2))X_data = pd.concat([train, test])X_data.reset_index(drop=True, inplace=True)#Initialize splits&amp;LGBMskf = StratifiedKFold(n_splits=5, shuffle=True, random_state=13)lgb_model = lgb.LGBMClassifier(max_depth=-1, n_estimators=500, learning_rate=0.01, objective='binary', n_jobs=-1) counter = 1#Train 5-fold adversarial validation classifierfor train_index, test_index in skf.split(X_data, y): print('\nFold &#123;&#125;'.format(counter)) X_fit, X_val = X_data.loc[train_index], X_data.loc[test_index] y_fit, y_val = y[train_index], y[test_index] lgb_model.fit(X_fit, y_fit, eval_metric='auc', eval_set=[(X_val, y_val)], verbose=100, early_stopping_rounds=10) counter+=1 Kolmogorov-Smirnov Test单独看每个变量是否能过通过KS检验，不仅有图，而且有一种量化的手段 123456789101112131415161718192021222324252627#Load more packagesfrom scipy.stats import ks_2sampimport matplotlib.pyplot as pltimport seaborn as snssns.set_style('whitegrid')import warningswarnings.simplefilter(action='ignore', category=FutureWarning)warnings.filterwarnings('ignore')#Perform KS-Test for each feature from train/test. Draw its distribution. Count features based on statistics.#Plots are hidden. If you'd like to look at them - press "Output" button.hypothesisnotrejected = []hypothesisrejected = []for col in train.columns: statistic, pvalue = ks_2samp(train[col], test[col]) if pvalue&gt;=statistic: hypothesisnotrejected.append(col) if pvalue&lt;statistic: hypothesisrejected.append(col) plt.figure(figsize=(8,4)) plt.title("Kolmogorov-Smirnov test for train/test\n" "feature: &#123;&#125;, statistics: &#123;:.5f&#125;, pvalue: &#123;:5f&#125;".format(col, statistic, pvalue)) sns.kdeplot(train[col], color='blue', shade=True, label='Train') sns.kdeplot(test[col], color='green', shade=True, label='Test') plt.show()]]></content>
+      <categories>
+        <category>竞赛经验</category>
+      </categories>
+      <tags>
+        <tag>特征工程</tag>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[比赛规范经验]]></title>
     <url>%2F2019%2F04%2F12%2F%E6%AF%94%E8%B5%9B%E8%A7%84%E8%8C%83%E7%BB%8F%E9%AA%8C%2F</url>
-    <content type="text"><![CDATA[比赛中的代码规范,代码不规范，亲人两行泪 先杂七杂八写，有一定量了再整理 思路要记在云笔记里，纸上会丢，而且换环境忘记带 临近比赛前一个月注意多保存看过的kernel，因为它们做出来之后就会删除。也就是说快结束的时候，那些都不是重要的magic]]></content>
+    <content type="text"><![CDATA[比赛中的代码规范,代码不规范，亲人两行泪 先杂七杂八写，有一定量了再整理 思路要记在云笔记里，纸上会丢，而且换环境忘记带 临近比赛前一个月注意多保存看过的kernel，因为它们做出来之后就会删除。也就是说快结束的时候，那些都不是重要的magic 要保持一个纯洁统一模型的代码的单独文件，才方便接入]]></content>
       <categories>
-        <category>数据竞赛</category>
+        <category>竞赛经验</category>
       </categories>
       <tags>
         <tag>代码规范</tag>
@@ -16,11 +28,11 @@
     <url>%2F2019%2F04%2F11%2F%E7%89%B9%E5%BE%81%E6%9E%84%E9%80%A0%2F</url>
     <content type="text"><![CDATA[[TOC] 函数统一返回新的df，同时删除原有df 特征频数1234567# 构造特征时测试集要和训练集一样def encode_FE(df,col,test)： cv = df[col].value_counts() nm = col+'_FE' df[nm] = df[col].map(cv) test[nm] = test[col].map(cv) return df,test data augment123456789101112131415161718192021222324252627def augment(x,y,t=2): xs,xn = [],[] for i in range(t): mask = y&gt;0 x1 = x[mask].copy() ids = np.arange(x1.shape[0]) for c in range(x1.shape[1]): np.random.shuffle(ids) x1[:,c] = x1[ids][:,c] xs.append(x1) for i in range(t//2): mask = y==0 x1 = x[mask].copy() ids = np.arange(x1.shape[0]) for c in range(x1.shape[1]): np.random.shuffle(ids) x1[:,c] = x1[ids][:,c] xn.append(x1) xs = np.vstack(xs) xn = np.vstack(xn) ys = np.ones(xs.shape[0]) yn = np.zeros(xn.shape[0]) x = np.vstack([x,xs,xn]) y = np.concatenate([y,ys,yn]) return x,y]]></content>
       <categories>
-        <category>竞赛经验</category>
+        <category>数据竞赛</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>特征工程</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -31,8 +43,8 @@
         <category>竞赛经验</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>特征工程</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -85,13 +97,13 @@
   <entry>
     <title><![CDATA[比赛EDA]]></title>
     <url>%2F2019%2F04%2F08%2F%E6%AF%94%E8%B5%9BEDA%2F</url>
-    <content type="text"><![CDATA[比赛常见的EDA总结 [TOC] 检查缺失值1234567891011# https://www.kaggle.com/gpreda/santander-eda-and-predictiondef missing_data(data): total = data.isnull().sum() percent = (data.isnull().sum()/data.isnull().count()*100) tt = pd.concat([total, percent], axis=1, keys=['Total', 'Percent']) types = [] for col in data.columns: dtype = str(data[col].dtype) types.append(dtype) tt['Types'] = types return(np.transpose(tt)) 观察分布值观察训练集的01分布(可以拓展到任意分布对比图)12345678910111213141516171819202122# https://www.kaggle.com/gpreda/santander-eda-and-predictiondef plot_feature_distribution(df1, df2, label1, label2, features): i = 0 sns.set_style('whitegrid') plt.figure() fig, ax = plt.subplots(10,10,figsize=(18,22)) for feature in features: i += 1 plt.subplot(10,10,i) sns.distplot(df1[feature], hist=False,label=label1) sns.distplot(df2[feature], hist=False,label=label2) plt.xlabel(feature, fontsize=9) locs, labels = plt.xticks() plt.tick_params(axis='x', which='major', labelsize=6, pad=-6) plt.tick_params(axis='y', which='major', labelsize=6) plt.show(); t0 = train_df.loc[train_df['target'] == 0]t1 = train_df.loc[train_df['target'] == 1]features = train_df.columns.values[2:102]plot_feature_distribution(t0, t1, '0', '1', features) 结论：分布图怎么看，就是看如果01分布完全一模一样那么可能说明这个特征是冗余的无关特征，如果01分布不同的情况下，也做不了太多东西，只能结合特征重要度反证这些特征是有用的。 train_test的分布同理可以选择train和test的行和列的mean/std/min值 1234567891011121314151617181920212223242526272829https://www.kaggle.com/gpreda/santander-eda-and-predictionplt.figure(figsize=(16,6))plt.title("Distribution of mean values per column in the train and test set")sns.distplot(train_df[features].mean(axis=0),color="magenta",kde=True,bins=120, label='train')sns.distplot(test_df[features].mean(axis=0),color="darkblue", kde=True,bins=120, label='test')plt.legend()plt.show()plt.figure(figsize=(16,6))plt.title("Distribution of std values per row in the train and test set")sns.distplot(train_df[features].std(axis=1),color="black", kde=True,bins=120, label='train')sns.distplot(test_df[features].std(axis=1),color="red", kde=True,bins=120, label='test')plt.legend();plt.show()plt.figure(figsize=(16,6))plt.title("Distribution of std values per column in the train and test set")sns.distplot(train_df[features].std(axis=0),color="blue",kde=True,bins=120, label='train')sns.distplot(test_df[features].std(axis=0),color="green", kde=True,bins=120, label='test')plt.legend(); plt.show()t0 = train_df.loc[train_df['target'] == 0]t1 = train_df.loc[train_df['target'] == 1]plt.figure(figsize=(16,6))plt.title("Distribution of mean values per row in the train set")sns.distplot(t0[features].mean(axis=1),color="red", kde=True,bins=120, label='target = 0')sns.distplot(t1[features].mean(axis=1),color="blue", kde=True,bins=120, label='target = 1')plt.legend(); plt.show()plt.figure(figsize=(16,6))plt.title("Distribution of mean values per column in the train set")sns.distplot(t0[features].mean(axis=0),color="green", kde=True,bins=120, label='target = 0')sns.distplot(t1[features].mean(axis=0),color="darkblue", kde=True,bins=120, label='target = 1')plt.legend(); plt.show() 检查duplicate values123456789%%timefeatures = train_df.columns.values[2:202]unique_max_train = []unique_max_test = []for feature in features: values = train_df[feature].value_counts() unique_max_train.append([feature, values.max(), values.idxmax()]) values = test_df[feature].value_counts() unique_max_test.append([feature, values.max(), values.idxmax()]) PCAhttps://zhuanlan.zhihu.com/p/28909807 主成分分析是统计方法里的一种降维方法，它的主要思想是将原有 个特征通过正交变换将一组可能存在相关性的特征缩减到 特征( )。举例来说，在网站用户行为数据收集过程中，会话数(Visits)，浏览页数(PV)，网站总停留时间(Time Spend Total)，访问人数(Unique Visitor)，以上这几个指标，无论是从以往的数据统计还是业务经验来看，都存在一定正相关关系，如果将这些特征喂给模型，很容易造成过拟合。 通过转化，从而剔除噪声，而且可以看到转化后的值然后把一些无关的列再剔除 PCA 使用要点 使用主成分分析，往往会丢失掉“少部分信息”（注意：这“少部分信息”仅仅指方差较小的数据，并非信息含量真的少的数据！） 因为1的特性，所以在机器学些中，不推荐使用 PCA 去优化特征达到避免过拟合的目的。 既然PCA不能避免过拟合，那为何还要使用，根据周志华老师的西瓜书中的描述： 在舍弃特征值较小的特征之后，能够使样本采集密度增 当数据受到噪声影响时，最小的特征值对对应的特征向量往往与噪声有关将他们舍弃能够在一定程度上起到去噪效果 在维度过多的情况下，变换后的坐标系代表的意义不明，不易于解释。 123456789101112131415161718# https://www.kaggle.com/roydatascience/eda-pca-lgbm-santander-transactions/notebookfrom sklearn.decomposition import KernelPCAlin_pca = KernelPCA(n_components = 2, kernel="linear", fit_inverse_transform=True)rbf_pca = KernelPCA(n_components = 2, kernel="rbf", gamma=0.0433, fit_inverse_transform=True)sig_pca = KernelPCA(n_components = 2, kernel="sigmoid", gamma=0.001, coef0=1, fit_inverse_transform=True)plt.figure(figsize=(11, 4))for subplot, pca, title in ((131, lin_pca, "Linear kernel"), (132, rbf_pca, "RBF kernel, $\gamma=0.04$"), (133, sig_pca, "Sigmoid kernel, $\gamma=10^&#123;-3&#125;, r=1$")): PCA_train_x = PCA(2).fit_transform(train_scaled) plt.subplot(subplot) plt.title(title, fontsize=14) plt.scatter(PCA_train_x[:, 0], PCA_train_x[:, 1], c=target, cmap="nipy_spectral_r") plt.xlabel("$z_1$", fontsize=18) if subplot == 131: plt.ylabel("$z_2$", fontsize=18, rotation=0) plt.grid(True)plt.show() 热度图查看prediction123456789#https://www.kaggle.com/cdeotte/200-magical-models-santander-0-920plt.subplot(1,2,1)sns.heatmap(x, cmap='RdBu_r', center=0.0) plt.title('VAR_'+str(j)+' Predictions without Magic',fontsize=16)plt.xticks(np.linspace(0,49,5),np.round(np.linspace(mn,mx,5),1))plt.xlabel('Var_'+str(j))plt.yticks([])plt.ylabel('')plt.show() 通过热度图可以看出模型是否明显利用了两个特征。虽然可能特征重要度也会说明，但是这样的热度图明显会更具说服力，比如说var_0，模型可以得出竖线15，横线4之类的分界线。]]></content>
+    <content type="text"><![CDATA[比赛常见的EDA总结 [TOC] 检查缺失值1234567891011# https://www.kaggle.com/gpreda/santander-eda-and-predictiondef missing_data(data): total = data.isnull().sum() percent = (data.isnull().sum()/data.isnull().count()*100) tt = pd.concat([total, percent], axis=1, keys=['Total', 'Percent']) types = [] for col in data.columns: dtype = str(data[col].dtype) types.append(dtype) tt['Types'] = types return(np.transpose(tt)) 观察分布值观察训练集的01分布(可以拓展到任意分布对比图)12345678910111213141516171819202122# https://www.kaggle.com/gpreda/santander-eda-and-predictiondef plot_feature_distribution(df1, df2, label1, label2, features): i = 0 sns.set_style('whitegrid') plt.figure() fig, ax = plt.subplots(10,10,figsize=(18,22)) for feature in features: i += 1 plt.subplot(10,10,i) sns.distplot(df1[feature], hist=False,label=label1) sns.distplot(df2[feature], hist=False,label=label2) plt.xlabel(feature, fontsize=9) locs, labels = plt.xticks() plt.tick_params(axis='x', which='major', labelsize=6, pad=-6) plt.tick_params(axis='y', which='major', labelsize=6) plt.show(); t0 = train_df.loc[train_df['target'] == 0]t1 = train_df.loc[train_df['target'] == 1]features = train_df.columns.values[2:102]plot_feature_distribution(t0, t1, '0', '1', features) 结论：分布图怎么看，就是看如果01分布完全一模一样那么可能说明这个特征是冗余的无关特征，如果01分布不同的情况下，也做不了太多东西，只能结合特征重要度反证这些特征是有用的。 train_test的分布同理可以选择train和test的行和列的mean/std/min值 1234567891011121314151617181920212223242526272829https://www.kaggle.com/gpreda/santander-eda-and-predictionplt.figure(figsize=(16,6))plt.title("Distribution of mean values per column in the train and test set")sns.distplot(train_df[features].mean(axis=0),color="magenta",kde=True,bins=120, label='train')sns.distplot(test_df[features].mean(axis=0),color="darkblue", kde=True,bins=120, label='test')plt.legend()plt.show()plt.figure(figsize=(16,6))plt.title("Distribution of std values per row in the train and test set")sns.distplot(train_df[features].std(axis=1),color="black", kde=True,bins=120, label='train')sns.distplot(test_df[features].std(axis=1),color="red", kde=True,bins=120, label='test')plt.legend();plt.show()plt.figure(figsize=(16,6))plt.title("Distribution of std values per column in the train and test set")sns.distplot(train_df[features].std(axis=0),color="blue",kde=True,bins=120, label='train')sns.distplot(test_df[features].std(axis=0),color="green", kde=True,bins=120, label='test')plt.legend(); plt.show()t0 = train_df.loc[train_df['target'] == 0]t1 = train_df.loc[train_df['target'] == 1]plt.figure(figsize=(16,6))plt.title("Distribution of mean values per row in the train set")sns.distplot(t0[features].mean(axis=1),color="red", kde=True,bins=120, label='target = 0')sns.distplot(t1[features].mean(axis=1),color="blue", kde=True,bins=120, label='target = 1')plt.legend(); plt.show()plt.figure(figsize=(16,6))plt.title("Distribution of mean values per column in the train set")sns.distplot(t0[features].mean(axis=0),color="green", kde=True,bins=120, label='target = 0')sns.distplot(t1[features].mean(axis=0),color="darkblue", kde=True,bins=120, label='target = 1')plt.legend(); plt.show() 检查duplicate values12345678910111213141516%%timefeatures = train_df.columns.values[2:202]unique_max_train = []unique_max_test = []for feature in features: values = train_df[feature].value_counts() unique_max_train.append([feature, values.max(), values.idxmax()]) values = test_df[feature].value_counts() unique_max_test.append([feature, values.max(), values.idxmax()])# === plotdf = df.sort_values(by='n_train_unique').reset_index(drop=True)df[['n_train_unique', 'n_test_unique', 'n_overlap']].plot(kind='barh' ,figsize=(22, 100), fontsize=20, width=0.8)plt.yticks(df.index, df['feature'].values)plt.xlabel('n_unique', fontsize=20)plt.ylabel('feature', fontsize=20)plt.legend(loc='center right', fontsize=20) PCAhttps://zhuanlan.zhihu.com/p/28909807 主成分分析是统计方法里的一种降维方法，它的主要思想是将原有 个特征通过正交变换将一组可能存在相关性的特征缩减到 特征( )。举例来说，在网站用户行为数据收集过程中，会话数(Visits)，浏览页数(PV)，网站总停留时间(Time Spend Total)，访问人数(Unique Visitor)，以上这几个指标，无论是从以往的数据统计还是业务经验来看，都存在一定正相关关系，如果将这些特征喂给模型，很容易造成过拟合。 通过转化，从而剔除噪声，而且可以看到转化后的值然后把一些无关的列再剔除 PCA 使用要点 使用主成分分析，往往会丢失掉“少部分信息”（注意：这“少部分信息”仅仅指方差较小的数据，并非信息含量真的少的数据！） 因为1的特性，所以在机器学些中，不推荐使用 PCA 去优化特征达到避免过拟合的目的。 既然PCA不能避免过拟合，那为何还要使用，根据周志华老师的西瓜书中的描述： 在舍弃特征值较小的特征之后，能够使样本采集密度增 当数据受到噪声影响时，最小的特征值对对应的特征向量往往与噪声有关将他们舍弃能够在一定程度上起到去噪效果 在维度过多的情况下，变换后的坐标系代表的意义不明，不易于解释。 123456789101112131415161718# https://www.kaggle.com/roydatascience/eda-pca-lgbm-santander-transactions/notebookfrom sklearn.decomposition import KernelPCAlin_pca = KernelPCA(n_components = 2, kernel="linear", fit_inverse_transform=True)rbf_pca = KernelPCA(n_components = 2, kernel="rbf", gamma=0.0433, fit_inverse_transform=True)sig_pca = KernelPCA(n_components = 2, kernel="sigmoid", gamma=0.001, coef0=1, fit_inverse_transform=True)plt.figure(figsize=(11, 4))for subplot, pca, title in ((131, lin_pca, "Linear kernel"), (132, rbf_pca, "RBF kernel, $\gamma=0.04$"), (133, sig_pca, "Sigmoid kernel, $\gamma=10^&#123;-3&#125;, r=1$")): PCA_train_x = PCA(2).fit_transform(train_scaled) plt.subplot(subplot) plt.title(title, fontsize=14) plt.scatter(PCA_train_x[:, 0], PCA_train_x[:, 1], c=target, cmap="nipy_spectral_r") plt.xlabel("$z_1$", fontsize=18) if subplot == 131: plt.ylabel("$z_2$", fontsize=18, rotation=0) plt.grid(True)plt.show() 热度图查看prediction123456789#https://www.kaggle.com/cdeotte/200-magical-models-santander-0-920plt.subplot(1,2,1)sns.heatmap(x, cmap='RdBu_r', center=0.0) plt.title('VAR_'+str(j)+' Predictions without Magic',fontsize=16)plt.xticks(np.linspace(0,49,5),np.round(np.linspace(mn,mx,5),1))plt.xlabel('Var_'+str(j))plt.yticks([])plt.ylabel('')plt.show() 通过热度图可以看出模型是否明显利用了两个特征。虽然可能特征重要度也会说明，但是这样的热度图明显会更具说服力，比如说var_0，模型可以得出竖线15，横线4之类的分界线。]]></content>
       <categories>
         <category>数据竞赛</category>
       </categories>
       <tags>
-        <tag>预处理</tag>
         <tag>特征工程</tag>
+        <tag>预处理</tag>
       </tags>
   </entry>
   <entry>
@@ -102,9 +114,9 @@
         <category>数据竞赛</category>
       </categories>
       <tags>
-        <tag>Numpy</tag>
         <tag>机器学习</tag>
         <tag>python</tag>
+        <tag>Numpy</tag>
       </tags>
   </entry>
   <entry>
@@ -140,8 +152,8 @@
       </categories>
       <tags>
         <tag>机器学习</tag>
-        <tag>python</tag>
         <tag>pandas</tag>
+        <tag>python</tag>
       </tags>
   </entry>
 </search>

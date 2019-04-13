@@ -107,7 +107,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="特征工程,机器学习,">
 
 
 
@@ -120,17 +120,18 @@
 
 
 
-<meta name="description" content="生活会给你一切，请相信它。">
-<meta name="keywords" content="数据竞赛，深度学习">
-<meta property="og:type" content="website">
-<meta property="og:title" content="小黑屋">
-<meta property="og:url" content="http://kodgv.xyz/tags/python/index.html">
+<meta name="description" content="Train &amp;amp; Test分布主要是为了看数据的分布情况。 下面的方法是最近kaggle上GM搞的一种极其简单的探索训练集&amp;amp;测试集分布的方案,将一个分布的问题变成一个二分类问题,该方法简单有效，如果AUC低于0.6,则我们可以认为训练集和测试集是分布平衡的,反之我们则可以认为训练集和测试集是分布不一致的,这个时候就需要注意AB榜是否会出现翻车的情况等">
+<meta name="keywords" content="特征工程,机器学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="测试集和训练集分布">
+<meta property="og:url" content="http://kodgv.xyz/2019/04/13/测试集和训练集分布/index.html">
 <meta property="og:site_name" content="小黑屋">
-<meta property="og:description" content="生活会给你一切，请相信它。">
+<meta property="og:description" content="Train &amp;amp; Test分布主要是为了看数据的分布情况。 下面的方法是最近kaggle上GM搞的一种极其简单的探索训练集&amp;amp;测试集分布的方案,将一个分布的问题变成一个二分类问题,该方法简单有效，如果AUC低于0.6,则我们可以认为训练集和测试集是分布平衡的,反之我们则可以认为训练集和测试集是分布不一致的,这个时候就需要注意AB榜是否会出现翻车的情况等">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-13T11:49:03.029Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="小黑屋">
-<meta name="twitter:description" content="生活会给你一切，请相信它。">
+<meta name="twitter:title" content="测试集和训练集分布">
+<meta name="twitter:description" content="Train &amp;amp; Test分布主要是为了看数据的分布情况。 下面的方法是最近kaggle上GM搞的一种极其简单的探索训练集&amp;amp;测试集分布的方案,将一个分布的问题变成一个二分类问题,该方法简单有效，如果AUC低于0.6,则我们可以认为训练集和测试集是分布平衡的,反之我们则可以认为训练集和测试集是分布不一致的,这个时候就需要注意AB榜是否会出现翻车的情况等">
 
 
 
@@ -160,13 +161,13 @@
 
 
 
-  <link rel="canonical" href="http://kodgv.xyz/tags/python/">
+  <link rel="canonical" href="http://kodgv.xyz/2019/04/13/测试集和训练集分布/">
 
 
 
 
 
-  <title>标签: python | 小黑屋</title>
+  <title>测试集和训练集分布 | 小黑屋</title>
   
 
 
@@ -185,7 +186,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -321,130 +322,234 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block tag">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>python<small>标签</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://kodgv.xyz/2019/04/13/测试集和训练集分布/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KODGV">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黑屋">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/04/08/numpy/" itemprop="url">
-              
-                <span itemprop="name">numpy</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">测试集和训练集分布</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-08T16:31:21+08:00" content="2019-04-08">
-          04-08
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-13T19:40:23+08:00">
+                2019-04-13
+              </time>
+            
 
-    </header>
-  </article>
+            
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-13T19:49:03+08:00">
+                2019-04-13
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/竞赛经验/" itemprop="url" rel="index">
+                    <span itemprop="name">竞赛经验</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/04/13/测试集和训练集分布/" class="leancloud_visitors" data-flag-title="测试集和训练集分布">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  590字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/04/08/python代码/" itemprop="url">
-              
-                <span itemprop="name">python代码</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-08T16:12:31+08:00" content="2019-04-08">
-          04-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/04/08/比赛通用代码/" itemprop="url">
-              
-                <span itemprop="name">比赛通用代码</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-08T15:58:10+08:00" content="2019-04-08">
-          04-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/04/08/pandas/" itemprop="url">
-              
-                <span itemprop="name">pandas</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-08T15:43:28+08:00" content="2019-04-08">
-          04-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <p>Train &amp; Test分布主要是为了看数据的分布情况。</p>
+<p>下面的方法是最近kaggle上GM搞的一种极其简单的探索训练集&amp;测试集分布的方案,将一个分布的问题变成一个二分类问题,该方法简单有效，如果AUC低于0.6,则我们可以认为训练集和测试集是分布平衡的,反之我们则可以认为训练集和测试集是分布不一致的,这个时候就需要注意AB榜是否会出现翻车的情况等</p>
+<a id="more"></a>
+<p>[TOC]</p>
+<p>来源：<a href="https://www.kaggle.com/justfor/adversarial-validation-plus-ks-test" target="_blank" rel="noopener">https://www.kaggle.com/justfor/adversarial-validation-plus-ks-test</a></p>
+<h2 id="Adversarial-Validation"><a href="#Adversarial-Validation" class="headerlink" title="Adversarial Validation"></a>Adversarial Validation</h2><p>下面的方法是最近kaggle上GM搞的一种极其简单的探索训练集&amp;测试集分布的方案,将一个分布的问题变成一个二分类问题,该方法简单有效，如果AUC低于0.6,则我们可以认为训练集和测试集是分布平衡的,反之我们则可以认为训练集和测试集是分布不一致的,这个时候就需要注意AB榜是否会出现翻车的情况等</p>
+<p>核心点在于将<strong>y1 = np.array([0] x train.shape[0])y2 = np.array([1] x test.shape[0])</strong></p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Create label array and complete dataset</span></span><br><span class="line"><span class="attr">y1</span> = np.array([<span class="number">0</span>]*train.shape[<span class="number">0</span>])</span><br><span class="line"><span class="attr">y2</span> = np.array([<span class="number">1</span>]*test.shape[<span class="number">0</span>])</span><br><span class="line"><span class="attr">y</span> = np.concatenate((y1, y2))</span><br><span class="line"><span class="attr">X_data</span> = pd.concat([train, test])</span><br><span class="line">X_data.reset_index(<span class="attr">drop=True,</span> <span class="attr">inplace=True)</span></span><br><span class="line"><span class="comment">#Initialize splits&amp;LGBM</span></span><br><span class="line"><span class="attr">skf</span> = StratifiedKFold(<span class="attr">n_splits=5,</span> <span class="attr">shuffle=True,</span> <span class="attr">random_state=13)</span></span><br><span class="line"></span><br><span class="line"><span class="attr">lgb_model</span> = lgb.LGBMClassifier(<span class="attr">max_depth=-1,</span></span><br><span class="line">                                   <span class="attr">n_estimators=500,</span></span><br><span class="line">                                   <span class="attr">learning_rate=0.01,</span></span><br><span class="line">                                   <span class="attr">objective='binary',</span> </span><br><span class="line">                                   <span class="attr">n_jobs=-1)</span></span><br><span class="line">                                   </span><br><span class="line"><span class="attr">counter</span> = <span class="number">1</span></span><br><span class="line"><span class="comment">#Train 5-fold adversarial validation classifier</span></span><br><span class="line">for train_index, test_index <span class="keyword">in</span> skf.split(X_data, y):</span><br><span class="line">    print('\nFold &#123;&#125;'.format(counter))</span><br><span class="line">    X_fit, <span class="attr">X_val</span> = X_data.loc[train_index], X_data.loc[test_index]</span><br><span class="line">    y_fit, <span class="attr">y_val</span> = y[train_index], y[test_index]</span><br><span class="line">    </span><br><span class="line">    lgb_model.fit(X_fit, y_fit, <span class="attr">eval_metric='auc',</span> </span><br><span class="line">              <span class="attr">eval_set=[(X_val,</span> y_val)], </span><br><span class="line">              <span class="attr">verbose=100,</span> <span class="attr">early_stopping_rounds=10)</span></span><br><span class="line">    counter+=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h2 id="Kolmogorov-Smirnov-Test"><a href="#Kolmogorov-Smirnov-Test" class="headerlink" title="Kolmogorov-Smirnov Test"></a>Kolmogorov-Smirnov Test</h2><p>单独看每个变量是否能过通过KS检验，不仅有图，而且有一种量化的手段</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#Load more packages</span><br><span class="line">from scipy.stats import ks_2samp</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">import seaborn as sns</span><br><span class="line">sns.set_style('whitegrid')</span><br><span class="line">import <span class="built_in">warnings</span></span><br><span class="line"><span class="built_in">warnings</span>.simplefilter(action='ignore', category=FutureWarning)</span><br><span class="line"><span class="built_in">warnings</span>.filterwarnings('ignore')</span><br><span class="line">#Perform KS-Test <span class="keyword">for</span> each <span class="built_in">feature</span> from train/test. Draw its distribution. Count <span class="built_in">features</span> based on statistics.</span><br><span class="line">#Plots are hidden. If you'd like to look <span class="built_in">at</span> them - press <span class="string">"Output"</span> button.</span><br><span class="line">hypothesisnotrejected = []</span><br><span class="line">hypothesisrejected = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">col</span> <span class="keyword">in</span> train.<span class="built_in">columns</span>:</span><br><span class="line">    statistic, pvalue = ks_2samp(train[<span class="built_in">col</span>], test[<span class="built_in">col</span>])</span><br><span class="line">    <span class="keyword">if</span> pvalue&gt;=statistic:</span><br><span class="line">        hypothesisnotrejected.<span class="built_in">append</span>(<span class="built_in">col</span>)</span><br><span class="line">    <span class="keyword">if</span> pvalue&lt;statistic:</span><br><span class="line">        hypothesisrejected.<span class="built_in">append</span>(<span class="built_in">col</span>)</span><br><span class="line">        </span><br><span class="line">    plt.figure(figsize=(<span class="number">8</span>,<span class="number">4</span>))</span><br><span class="line">    plt.<span class="built_in">title</span>(<span class="string">"Kolmogorov-Smirnov test for train/test\n"</span></span><br><span class="line">              <span class="string">"feature: &#123;&#125;, statistics: &#123;:.5f&#125;, pvalue: &#123;:5f&#125;"</span>.format(<span class="built_in">col</span>, statistic, pvalue))</span><br><span class="line">    sns.kdeplot(train[<span class="built_in">col</span>], <span class="built_in">color</span>='blue', shade=True, <span class="built_in">label</span>='Train')</span><br><span class="line">    sns.kdeplot(test[<span class="built_in">col</span>], <span class="built_in">color</span>='green', shade=True, <span class="built_in">label</span>='Test')</span><br><span class="line"></span><br><span class="line">    plt.<span class="built_in">show</span>()</span><br></pre></td></tr></table></figure>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/特征工程/" rel="tag"><i class="fa fa-tag"></i> 特征工程</a>
+          
+            <a href="/tags/机器学习/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/12/比赛规范经验/" rel="next" title="比赛规范经验">
+                <i class="fa fa-chevron-left"></i> 比赛规范经验
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -452,6 +557,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MzU5OS8yMDEzOA=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -472,8 +586,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -577,6 +700,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Adversarial-Validation"><span class="nav-number">1.</span> <span class="nav-text">Adversarial Validation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kolmogorov-Smirnov-Test"><span class="nav-number">2.</span> <span class="nav-text">Kolmogorov-Smirnov Test</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -733,6 +872,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -761,6 +904,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 

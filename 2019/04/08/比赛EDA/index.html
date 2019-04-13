@@ -107,7 +107,7 @@
 
 
 
-  <meta name="keywords" content="预处理,特征工程,">
+  <meta name="keywords" content="特征工程,预处理,">
 
 
 
@@ -121,7 +121,7 @@
 
 
 <meta name="description" content="比赛常见的EDA总结">
-<meta name="keywords" content="预处理,特征工程">
+<meta name="keywords" content="特征工程,预处理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="比赛EDA">
 <meta property="og:url" content="http://kodgv.xyz/2019/04/08/比赛EDA/index.html">
@@ -133,7 +133,7 @@
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=k">
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=k%5Cleq+n">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190412150953124.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM0NjYxMjMw,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2019-04-12T07:10:02.718Z">
+<meta property="og:updated_time" content="2019-04-13T11:44:23.671Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="比赛EDA">
 <meta name="twitter:description" content="比赛常见的EDA总结">
@@ -387,8 +387,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-04-12T15:10:02+08:00">
-                2019-04-12
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-13T19:44:23+08:00">
+                2019-04-13
               </time>
             
           </span>
@@ -494,7 +494,7 @@
 <p>结论：分布图怎么看，就是看如果01分布完全一模一样那么可能说明这个特征是冗余的无关特征，如果01分布不同的情况下，也做不了太多东西，只能结合特征重要度反证这些特征是有用的。</p>
 <h3 id="train-test的分布"><a href="#train-test的分布" class="headerlink" title="train_test的分布"></a>train_test的分布</h3><p>同理可以选择train和test的行和列的mean/std/min值</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">https://www.kaggle.com/gpreda/santander-eda-<span class="keyword">and</span>-prediction</span><br><span class="line">plt.figure(figsize=(<span class="number">16</span>,<span class="number">6</span>))</span><br><span class="line">plt.title(<span class="string">"Distribution of mean values per column in the train and test set"</span>)</span><br><span class="line">sns.distplot(train_df[features].mean(axis=<span class="number">0</span>),color=<span class="string">"magenta"</span>,kde=<span class="literal">True</span>,bins=<span class="number">120</span>, label=<span class="string">'train'</span>)</span><br><span class="line">sns.distplot(test_df[features].mean(axis=<span class="number">0</span>),color=<span class="string">"darkblue"</span>, kde=<span class="literal">True</span>,bins=<span class="number">120</span>, label=<span class="string">'test'</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br><span class="line">plt.figure(figsize=(<span class="number">16</span>,<span class="number">6</span>))</span><br><span class="line">plt.title(<span class="string">"Distribution of std values per row in the train and test set"</span>)</span><br><span class="line">sns.distplot(train_df[features].std(axis=<span class="number">1</span>),color=<span class="string">"black"</span>, kde=<span class="literal">True</span>,bins=<span class="number">120</span>, label=<span class="string">'train'</span>)</span><br><span class="line">sns.distplot(test_df[features].std(axis=<span class="number">1</span>),color=<span class="string">"red"</span>, kde=<span class="literal">True</span>,bins=<span class="number">120</span>, label=<span class="string">'test'</span>)</span><br><span class="line">plt.legend();plt.show()</span><br><span class="line">plt.figure(figsize=(<span class="number">16</span>,<span class="number">6</span>))</span><br><span class="line">plt.title(<span class="string">"Distribution of std values per column in the train and test set"</span>)</span><br><span class="line">sns.distplot(train_df[features].std(axis=<span class="number">0</span>),color=<span class="string">"blue"</span>,kde=<span class="literal">True</span>,bins=<span class="number">120</span>, label=<span class="string">'train'</span>)</span><br><span class="line">sns.distplot(test_df[features].std(axis=<span class="number">0</span>),color=<span class="string">"green"</span>, kde=<span class="literal">True</span>,bins=<span class="number">120</span>, label=<span class="string">'test'</span>)</span><br><span class="line">plt.legend(); plt.show()</span><br><span class="line">t0 = train_df.loc[train_df[<span class="string">'target'</span>] == <span class="number">0</span>]</span><br><span class="line">t1 = train_df.loc[train_df[<span class="string">'target'</span>] == <span class="number">1</span>]</span><br><span class="line">plt.figure(figsize=(<span class="number">16</span>,<span class="number">6</span>))</span><br><span class="line">plt.title(<span class="string">"Distribution of mean values per row in the train set"</span>)</span><br><span class="line">sns.distplot(t0[features].mean(axis=<span class="number">1</span>),color=<span class="string">"red"</span>, kde=<span class="literal">True</span>,bins=<span class="number">120</span>, label=<span class="string">'target = 0'</span>)</span><br><span class="line">sns.distplot(t1[features].mean(axis=<span class="number">1</span>),color=<span class="string">"blue"</span>, kde=<span class="literal">True</span>,bins=<span class="number">120</span>, label=<span class="string">'target = 1'</span>)</span><br><span class="line">plt.legend(); plt.show()</span><br><span class="line">plt.figure(figsize=(<span class="number">16</span>,<span class="number">6</span>))</span><br><span class="line">plt.title(<span class="string">"Distribution of mean values per column in the train set"</span>)</span><br><span class="line">sns.distplot(t0[features].mean(axis=<span class="number">0</span>),color=<span class="string">"green"</span>, kde=<span class="literal">True</span>,bins=<span class="number">120</span>, label=<span class="string">'target = 0'</span>)</span><br><span class="line">sns.distplot(t1[features].mean(axis=<span class="number">0</span>),color=<span class="string">"darkblue"</span>, kde=<span class="literal">True</span>,bins=<span class="number">120</span>, label=<span class="string">'target = 1'</span>)</span><br><span class="line">plt.legend(); plt.show()</span><br></pre></td></tr></table></figure>
-<h2 id="检查duplicate-values"><a href="#检查duplicate-values" class="headerlink" title="检查duplicate values"></a>检查duplicate values</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">%%time</span><br><span class="line">features = train_df.columns.values[<span class="number">2</span>:<span class="number">202</span>]</span><br><span class="line">unique_max_train = []</span><br><span class="line">unique_max_test = []</span><br><span class="line"><span class="keyword">for</span> feature <span class="keyword">in</span> features:</span><br><span class="line">    values = train_df[feature].value_counts()</span><br><span class="line">    unique_max_train.append([feature, values.max(), values.idxmax()])</span><br><span class="line">    values = test_df[feature].value_counts()</span><br><span class="line">    unique_max_test.append([feature, values.max(), values.idxmax()])</span><br></pre></td></tr></table></figure>
+<h2 id="检查duplicate-values"><a href="#检查duplicate-values" class="headerlink" title="检查duplicate values"></a>检查duplicate values</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">%%time</span><br><span class="line">features = train_df.columns.values[<span class="number">2</span>:<span class="number">202</span>]</span><br><span class="line">unique_max_train = []</span><br><span class="line">unique_max_test = []</span><br><span class="line"><span class="keyword">for</span> feature <span class="keyword">in</span> features:</span><br><span class="line">    values = train_df[feature].value_counts()</span><br><span class="line">    unique_max_train.append([feature, values.max(), values.idxmax()])</span><br><span class="line">    values = test_df[feature].value_counts()</span><br><span class="line">    unique_max_test.append([feature, values.max(), values.idxmax()])</span><br><span class="line"><span class="comment"># === plot</span></span><br><span class="line">df = df.sort_values(by=<span class="string">'n_train_unique'</span>).reset_index(drop=<span class="literal">True</span>)</span><br><span class="line">df[[<span class="string">'n_train_unique'</span>, <span class="string">'n_test_unique'</span>, <span class="string">'n_overlap'</span>]].plot(kind=<span class="string">'barh'</span> ,figsize=(<span class="number">22</span>, <span class="number">100</span>), fontsize=<span class="number">20</span>, width=<span class="number">0.8</span>)</span><br><span class="line">plt.yticks(df.index, df[<span class="string">'feature'</span>].values)</span><br><span class="line">plt.xlabel(<span class="string">'n_unique'</span>, fontsize=<span class="number">20</span>)</span><br><span class="line">plt.ylabel(<span class="string">'feature'</span>, fontsize=<span class="number">20</span>)</span><br><span class="line">plt.legend(loc=<span class="string">'center right'</span>, fontsize=<span class="number">20</span>)</span><br></pre></td></tr></table></figure>
 <h2 id="PCA"><a href="#PCA" class="headerlink" title="PCA"></a>PCA</h2><p><a href="https://zhuanlan.zhihu.com/p/28909807" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/28909807</a></p>
 <p>主成分分析是统计方法里的一种降维方法，它的主要思想是将原有 <img src="https://www.zhihu.com/equation?tex=n" alt="n"> 个特征通过正交变换将一组可能存在相关性的特征缩减到 <img src="https://www.zhihu.com/equation?tex=k" alt="k"> 特征( <img src="https://www.zhihu.com/equation?tex=k%5Cleq+n" alt="k\leq n"> )。举例来说，在网站用户行为数据收集过程中，会话数(Visits)，浏览页数(PV)，网站总停留时间(Time Spend Total)，访问人数(Unique Visitor)，以上这几个指标，无论是从以往的数据统计还是业务经验来看，都存在一定正相关关系，如果将这些特征喂给模型，很容易造成过拟合。</p>
 <p>通过转化，从而剔除噪声，而且可以看到转化后的值然后把一些无关的列再剔除</p>
@@ -535,9 +535,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/预处理/" rel="tag"><i class="fa fa-tag"></i> 预处理</a>
-          
             <a href="/tags/特征工程/" rel="tag"><i class="fa fa-tag"></i> 特征工程</a>
+          
+            <a href="/tags/预处理/" rel="tag"><i class="fa fa-tag"></i> 预处理</a>
           
         </div>
       
@@ -646,7 +646,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -684,7 +684,7 @@
      <span class="site-state-item-name">访客量</span>
 </div>
 <div class="site-state-item site-state-posts">
-      <span class="site-state-item-count">10.1k</span>
+      <span class="site-state-item-count">10.8k</span>
       <span class="site-state-item-name">总字数</span>
 </div>
           </nav>

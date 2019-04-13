@@ -128,7 +128,7 @@
 <meta property="og:site_name" content="小黑屋">
 <meta property="og:description" content="python 代码小技巧">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-09T09:39:10.715Z">
+<meta property="og:updated_time" content="2019-04-13T11:43:57.101Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python代码">
 <meta name="twitter:description" content="python 代码小技巧">
@@ -381,8 +381,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-04-09T17:39:10+08:00">
-                2019-04-09
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-13T19:43:57+08:00">
+                2019-04-13
               </time>
             
           </span>
@@ -487,7 +487,7 @@
 <h3 id="并行遍历"><a href="#并行遍历" class="headerlink" title="并行遍历"></a>并行遍历</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (x,y) <span class="keyword">in</span> zip(a,b):</span><br><span class="line">   <span class="keyword">print</span> x,y</span><br></pre></td></tr></table></figure>
 <h3 id="通过字典保存了所有中间过程，不仅命名容易，而且便于后续操作"><a href="#通过字典保存了所有中间过程，不仅命名容易，而且便于后续操作" class="headerlink" title="通过字典保存了所有中间过程，不仅命名容易，而且便于后续操作"></a>通过字典保存了所有中间过程，不仅命名容易，而且便于后续操作</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">d=&#123;d_name:get_dvalue(d_name) <span class="keyword">for</span> d_name <span class="keyword">in</span> d_list&#125;</span><br><span class="line">best_dvalue_dname=min(d.items(),key=<span class="keyword">lambda</span> x:x[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
 <h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#这样会比单纯用readlines()快</span></span><br><span class="line">count = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> index, line <span class="keyword">in</span> enumerate(open(filepath,<span class="string">'r'</span>))： </span><br><span class="line">    count += <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h3><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections import defaultdict 通过这个声明dict&#123;里面的格式&#125;</span><br><span class="line">如 defaultdict(<span class="built_in">list</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict 通过这个声明dict&#123;里面的格式&#125;</span><br><span class="line">如 defaultdict(list)</span><br></pre></td></tr></table></figure>
 <h3 id="列表生成式"><a href="#列表生成式" class="headerlink" title="列表生成式"></a>列表生成式</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. [<span class="selector-tag">i</span> <span class="keyword">for</span> <span class="selector-tag">i</span> <span class="keyword">in</span> range(k) <span class="keyword">if</span> condition]：此时<span class="keyword">if</span>起条件判断作用，满足条件的，将被返回成为最终生成的列表的一员。</span><br><span class="line"><span class="number">2</span>. [<span class="selector-tag">i</span> <span class="keyword">if</span> condition <span class="keyword">else</span> exp <span class="keyword">for</span> exp]：此时<span class="keyword">if</span>...<span class="keyword">else</span>被用来赋值，满足条件的i以及<span class="keyword">else</span>被用来生成最终的列表</span><br></pre></td></tr></table></figure>
 <h2 id="自带算法库"><a href="#自带算法库" class="headerlink" title="自带算法库"></a>自带算法库</h2><h3 id="数组中查找插入的位置"><a href="#数组中查找插入的位置" class="headerlink" title="数组中查找插入的位置"></a>数组中查找插入的位置</h3><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">返回排序插入的位置，并不是真的插入排序数组中</span><br><span class="line"><span class="symbol">from</span> <span class="keyword">bisect </span><span class="meta">import</span> <span class="keyword">bisect_left, </span><span class="keyword">bisect_right</span></span><br><span class="line"><span class="keyword">end </span>= <span class="keyword">bisect_left(keys, </span><span class="number">0</span>)</span><br></pre></td></tr></table></figure>
 
@@ -618,7 +618,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -656,7 +656,7 @@
      <span class="site-state-item-name">访客量</span>
 </div>
 <div class="site-state-item site-state-posts">
-      <span class="site-state-item-count">10.1k</span>
+      <span class="site-state-item-count">10.8k</span>
       <span class="site-state-item-name">总字数</span>
 </div>
           </nav>

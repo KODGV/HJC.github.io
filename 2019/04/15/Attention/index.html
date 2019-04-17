@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|18:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Attention,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小黑屋" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="[TOC]Attention本质就是一系列注意力分配系数，也就是一系列权重参数罢了。">
+<meta name="keywords" content="Attention">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Attention">
+<meta property="og:url" content="http://kodgv.xyz/2019/04/15/Attention/index.html">
+<meta property="og:site_name" content="小黑屋">
+<meta property="og:description" content="[TOC]Attention本质就是一系列注意力分配系数，也就是一系列权重参数罢了。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806135448102-667913176.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806141247005-858346593.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806141320980-818442456.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806141350194-1066590310.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806141638641-1078830067.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806142115912-1682939089.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806142159178-1634092293.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806142302309-2112006022.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806142333000-1492896283.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806142412460-1178080370.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806142520665-1351011214.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806142634471-1534518198.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806164619665-1207996587.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806143753246-1275015223.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806143957137-1497662277.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806165033943-1072442256.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806165351485-870137528.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806191525966-820975705.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806191654338-264846698.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806195333945-948374778.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806195421837-251685236.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806200854591-1266493040.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806200949175-1322518214.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/72f889a2-df04-4a85-9c2c-1591c5375537/1528709501819.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/33073f25-48d8-4b17-a179-49191bdb5357/1528709501703.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/fe4ede76-44de-4055-93e6-3ce99541db21/1528709502108.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/7a76e6b0-4f08-4f55-8b01-839552bd0de1/1528709501860.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/a498b30a-f97c-483d-b121-1499bcabe34f/1528709501897.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/89174d88-3afc-4554-ba26-b48065473355/1528709502635.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/55f3f8bd-91c7-4d65-917d-292e51d2962f/1528709502715.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/b57ff198-4b7c-4e6d-a534-4ca57b825d3b/1528709502754.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/afec742f-d647-43c6-b4dc-9618ac878628/1528709502797.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/97d7901e-3b6d-4fbc-879a-d81293368368/1528709503022.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/0f5a2605-cea7-4530-8415-e9d3dfb1d3b5/1528709503215.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/8b676888-0fab-4a40-9706-d829823fce0c/1528709503296.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/1adc9914-c26a-47d7-a3e7-3889f9090160/1528709503251.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/5d82f812-b08a-48fd-bdb9-575fe66c15ce/1528709503333.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/5c7be181-dfdc-4458-b477-765b1613b234/1528709503396.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/419b690d-2d19-4506-8f2e-67edf525fa7c/1528709503873.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/caa7b6b6-ce70-4e19-aa1b-8a77a7914c09/1528709503914.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/7de8d1a3-3be6-4a66-801e-25cb0bee7b00/1528709504003.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/ae0fcc90-f8ef-40d8-be2a-8f9721dae24d/1528709501949.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/90abe04d-a4ea-4f7b-9d6b-d5832ad531f1/1528709502672.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/3193dce5-51b7-4ae2-893d-0696635c9ec9/1528709504051.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/e3a3408b-7e64-4752-b8f9-a71563bb06c6/1528709504652.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/55e64daf-5e26-474f-bdea-b99669de205c/1528709504213.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/4df6785f-b67e-4a41-9234-401d03c07b59/1528709504569.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/129e5871-39db-4005-8062-ca744a216335/1528709504768.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/7acdb6ad-0741-4531-a96a-a9e128afda32/1528709505007.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/078f1af3-0c67-4b13-9359-14f1b48aea4d/1528709505051.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/1a9b3f6f-cd94-4ba5-94d9-96e096dd0802/1528709505151.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/cab720ef-628c-4af9-b827-f2839ba387a5/1528709505228.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/ebea9e73-7f59-42a1-975b-9cd9f44ee7ba/1528709505312.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/31b5d177-4123-47f7-b75a-766690049b6f/1528709505690.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/5b89594b-f47c-4870-be8a-f3406b38088b/1528709505811.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/1f8e7063-9c3f-4c96-a528-a841c6117825/1528709505852.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/1b37607a-9316-442c-9226-49595d34ff02/1528709505264.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/4fe24e96-b61e-4bb4-9cb6-88760dc0f228/1528709505970.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/ec31a794-00f9-4dba-b9d8-89295f1aa1d0/1528709506099.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/703a445f-62ed-43dd-a313-256883bac239/1528709506142.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/d993ae54-145e-4e12-93dd-1f3c94d156f9/1528709506751.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/da5cb6b1-aa95-48b4-a728-01bde8de45b4/1528709506930.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/43ca78f9-024c-4a20-aa8c-681a42b6a734/1528709507321.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/2a179490-64ac-4b22-b42d-1c3de5e08b5c/1528709507410.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/9f26e09b-d1f7-4e77-b1e8-2e8e5642ae9c/1528709507675.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/57b33413-699a-4c04-ae99-0bddaf11ea32/1528709507900.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/cbffe9ff-5149-4959-ac8b-f6c4714ff9c9/1528709509122.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/17ebfb62-21b6-4df4-99ea-08d3bf275d36/1528709509168.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/529a6cbf-f2fe-4d8c-a90d-f8a0567f6bf8/1528709508901.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/b39171e2-f71c-4ea9-a9de-0d6c8d983550/1528709508952.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/13be2088-2463-474a-855b-b2193a08ce44/1528709509073.png">
+<meta property="og:updated_time" content="2019-04-16T14:45:16.960Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Attention">
+<meta name="twitter:description" content="[TOC]Attention本质就是一系列注意力分配系数，也就是一系列权重参数罢了。">
+<meta name="twitter:image" content="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806135448102-667913176.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://kodgv.xyz/2019/04/15/Attention/">
+
+
+
+
+
+  <title>Attention | 小黑屋</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小黑屋</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://kodgv.xyz/2019/04/15/Attention/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KODGV">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黑屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Attention</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-15T16:07:35+08:00">
+                2019-04-15
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-16T22:45:16+08:00">
+                2019-04-16
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/nn学习/" itemprop="url" rel="index">
+                    <span itemprop="name">nn学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/04/15/Attention/" class="leancloud_visitors" data-flag-title="Attention">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  8.3k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  30分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>[TOC]<br>Attention本质就是一系列注意力分配系数，也就是一系列权重参数罢了。<br><a id="more"></a></p>
+<p>来源：<a href="https://www.cnblogs.com/guoyaohua/p/9429924.html" target="_blank" rel="noopener">https://www.cnblogs.com/guoyaohua/p/9429924.html</a></p>
+<h1 id="1-什么是Attention机制？"><a href="#1-什么是Attention机制？" class="headerlink" title="1. 什么是Attention机制？"></a>1. 什么是Attention机制？</h1><p>　　最近两年，注意力模型（Attention Model）被广泛使用在自然语言处理、图像识别及语音识别等各种不同类型的深度学习任务中，是深度学习技术中最值得关注与深入了解的核心技术之一。</p>
+<p>　　当我们人在看一样东西的时候，我们当前时刻关注的一定是我们当前正在看的这样东西的某一地方，换句话说，当我们目光移到别处时，注意力随着目光的移动也在转移，这意味着，当人们注意到某个目标或某个场景时，该目标内部以及该场景内每一处空间位置上的注意力分布是不一样的。————-（思考：对于图片，会有些特别显眼的场景会率先吸引住注意力，那是因为脑袋中对这类东西很敏感。对于文本，我们大都是带目的性的去读，顺序查找，顺序读，但是在理解的过程中，我们是根据我们自带的目的去理解，去关注的。 注意力模型应该与具体的目的(或者任务)相结合。）</p>
+<p>　　从Attention的作用角度出发，我们就可以从两个角度来分类Attention种类：<strong>Spatial Attention 空间注意力</strong>和<strong>Temporal Attention 时间注意力</strong>。更具实际的应用，也可以将Attention分为<strong>Soft Attention</strong>和<strong>Hard Attention</strong>。<strong>Soft Attention是所有的数据都会注意，都会计算出相应的注意力权值，不会设置筛选条件。Hard Attention会在生成注意力权重后筛选掉一部分不符合条件的注意力，让它的注意力权值为0，即可以理解为不再注意这些不符合条件的部分。</strong></p>
+<h1 id="2-先了解编码-解码框架：Encoder-Decoder框架"><a href="#2-先了解编码-解码框架：Encoder-Decoder框架" class="headerlink" title="2. 先了解编码-解码框架：Encoder-Decoder框架"></a>2. 先了解编码-解码框架：Encoder-Decoder框架</h1><p>　　目前绝大多数文献中出现的AM模型是附着在Encoder-Decoder框架下的，当然，其实AM模型可以看作一种通用的思想，本身并不依赖于Encoder-Decoder模型，这点需要注意。<strong>Encoder-Decoder框架可以看作是一种文本处理领域的研究模式</strong>，应用场景异常广泛，本身就值得细谈。</p>
+<p><img src="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806135448102-667913176.png" alt="img"></p>
+<p>图1 抽象的Encoder-Decoder框架</p>
+<p>　　Encoder-Decoder框架可以这么直观地去理解：可以把它看作适合处理由一个句子（或篇章）生成另外一个句子（或篇章）的通用处理模型。对于句子对<x,y>。 ————（思考：<x,y>对很通用，X是一个问句，Y是答案；X是一个句子，Y是抽取的关系三元组；X是汉语句子，Y是汉语句子的英文翻译。等等），我们的目标是给定输入句子X，期待通过Encoder-Decoder框架来生成目标句子Y。X和Y可以是同一种语言，也可以是两种不同的语言。而X和Y分别由各自的单词序列构成：</x,y></x,y></p>
+<p><img src="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806141247005-858346593.png" alt="img"></p>
+<p>　　Encoder顾名思义就是对输入句子X进行编码，将输入句子通过非线性变换转化为中间语义表示C：</p>
+<p><img src="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806141320980-818442456.png" alt="img"></p>
+<p>　　对于解码器Decoder来说，其任务是根据句子X的中间语义表示C和之前已经生成的历史信息y1,y2….yi-1来生成i时刻要生成的单词yi ：</p>
+<p><img src="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806141350194-1066590310.png" alt="img"></p>
+<p>　　每个yi都依次这么产生，那么看起来就是整个系统根据输入句子X生成了目标句子Y。 ———（思考：其实这里的Encoder-Decoder是一个序列到序列的模型seq2seq，这个模型是对顺序有依赖的。）</p>
+<p>　　Encoder-Decoder是个非常通用的计算框架，至于Encoder和Decoder具体使用什么模型都是由研究者自己定的，常见的比如 CNN / RNN / BiRNN / GRU / LSTM / Deep LSTM 等，这里的变化组合非常多。 ———（思考：人的学习过程包括输入、输出、外界评价。Encoder模型类似于人的输入学习过程，Decoder模型类似于人的输出学习过程，对输出的内容进行评价就类似于损失函数。英语老师给我上了几堂英语课，我在不断的输入Encoder；突然有一个随堂测试，我得做题输出Decoder；最后英语老师改卷子，给我一个分数，不对的地方我得反思调整我对输入数据的加工方式。）———-（再思考：关于英语翻译。课本上的单词和课文是原始数据输入，相当于X；我在大脑里加工这些数据，相当于Encoder模型，我的脑子里有很多加工后的数据，相当于C；现在要让我翻译一个英语句子，这个任务相当于Y，我不能翻课本，所以我只能借助我脑袋里加工的数据C去翻译这个句子，即我得动脑子，相当于Decoder。 学习的过程是什么都要学，要分类整理，要增加线索，并不知道未来的某天能用到什么，所以Encoder-Decoder是一个泛泛学习的框架）</p>
+<h1 id="3-Attention-Model"><a href="#3-Attention-Model" class="headerlink" title="3. Attention Model"></a>3. Attention Model</h1><p>　　以上介绍的Encoder-Decoder模型是没有体现出“注意力模型”的，所以可以把它看作是注意力不集中的分心模型。为什么说它注意力不集中呢？请观察下目标句子Y中每个单词的生成过程如下：</p>
+<p><img src="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806141638641-1078830067.png" alt="img"></p>
+<p>　　其中<strong>f是decoder的非线性变换函数</strong>。从这里可以看出，在生成目标句子的单词时，不论生成哪个单词，是y1,y2也好，还是y3也好，他们使用的句子X的语义编码C都是一样的，没有任何区别。而语义编码C是由句子X的每个单词经过Encoder 编码产生的，这意味着不论是生成哪个单词，y1,y2还是y3，其实<strong>句子X中任意单词对生成某个目标单词yi来说影响力都是相同的，没有任何区别</strong>（其实如果Encoder是RNN的话，理论上越是后输入的单词影响越大，并非等权的，估计这也是为何Google提出Sequence to Sequence模型时发现把输入句子逆序输入做翻译效果会更好的小Trick的原因）。这就是为何说这个模型<strong>没有体现出注意力</strong>的缘由。</p>
+<p>　　引入AM模型，以翻译一个英语句子举例：输入X：Tom chase Jerry。 理想输出：汤姆追逐杰瑞。</p>
+<p>　　应该在翻译“杰瑞”的时候，体现出英文单词对于翻译当前中文单词不同的影响程度，比如给出类似下面一个概率分布值：</p>
+<p>（Tom,0.3）（Chase,0.2）（Jerry,0.5）</p>
+<p>　　每个英文单词的概率代表了翻译当前单词“杰瑞”时，注意力分配模型分配给不同英文单词的注意力大小。这对于正确翻译目标语单词肯定是有帮助的，因为引入了新的信息。同理，目标句子中的每个单词都应该学会其对应的源语句子中单词的注意力分配概率信息。这意味着在生成每个单词Yi的时候，<strong>原先都是相同的中间语义表示C会替换成根据当前生成单词而不断变化的Ci</strong>。<strong>理解AM模型的关键就是这里，即由固定的中间语义表示C换成了根据当前输出单词来调整成加入注**</strong>意力模型的变化的<strong>**Ci</strong>。</p>
+<p><img src="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806142115912-1682939089.png" alt="img"></p>
+<p>图2 引入AM模型的Encoder-Decoder框架</p>
+<p>　　即生成目标句子单词的过程成了下面的形式：</p>
+<p><img src="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806142159178-1634092293.png" alt="img"></p>
+<p>　　而<strong>每个Ci可能对应着不同的源语句子单词的注意力分配概率分布</strong>，比如对于上面的英汉翻译来说，其对应的信息可能如下：</p>
+<p><img src="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806142302309-2112006022.png" alt="img"></p>
+<p>　　其中，<strong>f2函数代表Encoder对输入英文单词的某种变换函数</strong>，比如如果Encoder是用的RNN模型的话，这个f2函数的结果往往是某个时刻输入xi后隐层节点的状态值；<strong>g代表Encoder根据单词的中间表示合成整个句子中间语义表示的变换函数</strong>，一般的做法中，<strong>g函数就是对构成元素加权求和</strong>，也就是常常在论文里看到的下列公式：</p>
+<p><img src="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806142333000-1492896283.png" alt="img"></p>
+<p>　　假设Ci中那个i就是上面的“汤姆”，那么<strong>Tx就是3，代表输入句子的长度</strong>，h1=f(“Tom”)，h2=f(“Chase”),h3=f(“Jerry”)，对应的注意力模型权值分别是0.6,0.2,0.2，<strong>所以g函数就是个加权求和函数</strong>。如果形象表示的话，翻译中文单词“汤姆”的时候，数学公式对应的<strong>中间语义表示Ci的形成过程</strong>类似下图：</p>
+<p><img src="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806142412460-1178080370.png" alt="img"></p>
+<p>图3 Ci的形成过程</p>
+<p>　　这里还有一个问题：生成目标句子某个单词，比如“汤姆”的时候，<strong>你怎么知道AM模型所需要的输入句子单词注意力分配概率分布值呢？</strong>就是说“汤姆”对应的概率分布：</p>
+<h4 id="划重点-注意力权重获取的过程-（Tom-0-3）（Chase-0-2）（Jerry-0-5）是如何得到的呢？"><a href="#划重点-注意力权重获取的过程-（Tom-0-3）（Chase-0-2）（Jerry-0-5）是如何得到的呢？" class="headerlink" title="　　划重点(注意力权重获取的过程)（Tom,0.3）（Chase,0.2）（Jerry,0.5）是如何得到的呢？"></a>　　划重点(注意力权重获取的过程)（Tom,0.3）（Chase,0.2）（Jerry,0.5）是如何得到的呢？</h4><p>　　为了便于说明，我们假设对图1的非AM模型的Encoder-Decoder框架进行细化，Encoder采用RNN模型，Decoder也采用RNN模型，这是比较常见的一种模型配置，则图1的图转换为下图：</p>
+<p><img src="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806142520665-1351011214.png" alt="img"></p>
+<p>图4 RNN作为具体模型的Encoder-Decoder框架</p>
+<p>　　注意力分配概率分布值的通用计算过程：</p>
+<p><img src="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806142634471-1534518198.png" alt="img"></p>
+<p>图5 AM注意力分配概率计算</p>
+<p>　　对于采用RNN的Decoder来说，如果要生成 yi 单词，在时刻 i ，我们是可以知道在生成 Yi 之前的隐层节点i时刻的输出值 Hi 的，而我们的目的是要计算生成 Yi 时的输入句子单词“Tom”、“Chase”、“Jerry”对 Yi 来说的注意力分配概率分布，那么可以用i时刻的<strong>隐层节点状态 Hi 去一一和输入句子中每个单词对应的RNN隐层节点状态 hj 进行对比</strong>，即<strong>通过函数 F(hj,Hi) 来获得目标单词 Yi 和每个输入单词对应的对齐可能性</strong>，这个F函数在不同论文里可能会采取不同的方法，然后<strong>函数F的输出经过Softmax进行归一化就得到了符合概率分布取值区间的注意力分配概率分布数值（这就得到了注意力权重）</strong>。图5显示的是当输出单词为“汤姆”时刻对应的输入句子单词的对齐概率。绝大多数AM模型都是<strong>采取上述的计算框架来计算注意力分配概率分布信息</strong>，<strong>区别只是在F的定义上可能有所不同</strong>。</p>
+<p>　　<strong>上述内容就是论文里面常常提到的Soft Attention Model</strong>（任何数据都会给一个权值，没有筛选条件）的基本思想，你能在文献里面看到的大多数AM模型基本就是这个模型，区别很可能只是把这个模型用来解决不同的应用问题。那么<strong>怎么理解AM模型的物理含义呢？</strong>一般文献里会把AM模型看作是<strong>单词对齐模型</strong>，这是非常有道理的。目标句子生成的每个单词对应输入句子单词的概率分布可以理解为输入句子单词和这个目标生成单词的<strong>对齐概率</strong>，这在机器翻译语境下是非常直观的：<strong>传统的统计机器翻译一般在做的过程中会专门有一个短语对齐的步骤</strong>，<strong>而注意力模型其实起的是相同的作用</strong>。在其他应用里面把AM模型理解成输入句子和目标句子单词之间的对齐概率也是很顺畅的想法。</p>
+<p><img src="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806164619665-1207996587.png" alt="img"></p>
+<p>图6 Google 神经网络机器翻译系统结构图</p>
+<p>　　图6所示即为Google于2016年部署到线上的基于神经网络的机器翻译系统，相对传统模型翻译效果有大幅提升，翻译错误率降低了60%，其架构就是上文所述的加上Attention机制的Encoder-Decoder框架，主要区别无非是其Encoder和Decoder使用了8层叠加的LSTM模型。</p>
+<p>当然，从概念上理解的话，<strong>把AM模型理解成影响力模型也是合理的</strong>，就是说生成目标单词的时候，输入句子每个单词对于生成这个单词有多大的影响程度。这种想法也是比较好理解AM模型物理意义的一种思维方式。</p>
+<p>　　图7是论文“<a href="http://www.aclweb.org/anthology/D15-1044" target="_blank" rel="noopener">A Neural Attention Model for Sentence Summarization</a>”中，Rush用AM模型来做生成式摘要给出的一个AM的一个非常直观的例子。</p>
+<p><img src="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806143753246-1275015223.png" alt="img"></p>
+<p>图7 句子生成式摘要例子</p>
+<p>　　这个例子中，Encoder-Decoder框架的输入句子X是：“russian defense minister ivanov called sunday for the creation of a joint front for combating global terrorism”。对应图中纵坐标的句子。系统生成的摘要句子Y是：“russia calls for joint front against terrorism”，对应图中横坐标的句子。可以看出模型已经把句子主体部分正确地抽出来了。<strong>矩阵中每一列代表生成的目标单词对应输入句子每个单词的AM分配概率</strong>，颜色越深代表分配到的概率越大。这个例子对于直观理解AM是很有帮助作用。</p>
+<p>　　《<a href="http://www.aclweb.org/anthology/D15-1044" target="_blank" rel="noopener">A Neural Attention Model for Sentence Summarization</a>》论文提供的实验数据集链接(开放可用)：<a href="https://duc.nist.gov/data.html" target="_blank" rel="noopener">DUC 2004</a>，感兴趣的朋友可以下载看看。</p>
+<p><img src="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806143957137-1497662277.png" alt="img"></p>
+<p>图8 摘要生成 开放数据集</p>
+<h1 id="4-Attention机制的本质思想"><a href="#4-Attention机制的本质思想" class="headerlink" title="4. Attention机制的本质思想"></a><strong>4. Attention机制的本质思想</strong></h1><p>　　如果把Attention机制从上文讲述例子中的Encoder-Decoder框架中剥离，并进一步做抽象，可以更容易看懂Attention机制的本质思想。</p>
+<p><img src="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806165033943-1072442256.png" alt="img"></p>
+<p>图9 Attention机制的本质思想</p>
+<p>　　我们可以这样来看待Attention机制（参考图9）：将Source中的构成元素想象成是由一系列的<key,value>数据对构成，此时给定Target中的某个元素Query，通过计算Query和各个Key的相似性或者相关性，得到每个Key对应Value的权重系数，然后对Value进行加权求和，即得到了最终的Attention数值。所以本质上Attention机制是对Source中元素的Value值进行加权求和，而Query和Key用来计算对应Value的权重系数。即可以将其本质思想改写为如下公式：</key,value></p>
+<p><img src="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806165351485-870137528.png" alt="img"></p>
+<p>　　其中，Lx=||Source||代表Source的长度，公式含义即如上所述。上文所举的机器翻译的例子里，因为在计算Attention的过程中，Source中的Key和Value合二为一，指向的是同一个东西，也即输入句子中每个单词对应的语义编码，所以可能不容易看出这种能够体现本质思想的结构。</p>
+<p>　　当然，从概念上理解，把Attention仍然理解为从大量信息中有选择地筛选出少量重要信息并聚焦到这些重要信息上，忽略大多不重要的信息，这种思路仍然成立。聚焦的过程体现在权重系数的计算上，权重越大越聚焦于其对应的Value值上，即权重代表了信息的重要性，而Value是其对应的信息。</p>
+<p>　　从图9可以引出另外一种理解，也可以将Attention机制看作一种软寻址（Soft Addressing）:Source可以看作存储器内存储的内容，元素由地址Key和值Value组成，当前有个Key=Query的查询，目的是取出存储器中对应的Value值，即Attention数值。通过Query和存储器内元素Key的地址进行相似性比较来寻址，之所以说是软寻址，指的不像一般寻址只从存储内容里面找出一条内容，而是可能从每个Key地址都会取出内容，取出内容的重要性根据Query和Key的相似性来决定，之后对Value进行加权求和，这样就可以取出最终的Value值，也即Attention值。所以不少研究人员将Attention机制看作软寻址的一种特例，这也是非常有道理的。</p>
+<p>　　至于Attention机制的具体计算过程，如果对目前大多数方法进行抽象的话，可以将其归纳为两个过程：第一个过程是根据Query和Key计算权重系数，第二个过程根据权重系数对Value进行加权求和。而第一个过程又可以细分为两个阶段：第一个阶段根据Query和Key计算两者的相似性或者相关性；第二个阶段对第一阶段的原始分值进行归一化处理；这样，可以将Attention的计算过程抽象为如图10展示的三个阶段。</p>
+<p><img src="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806191525966-820975705.png" alt="img"></p>
+<p>图10 三阶段计算Attention过程</p>
+<p>　　在第一个阶段，可以引入不同的函数和计算机制，根据Query和某个 Keyi ，计算两者的相似性或者相关性，最常见的方法包括：求两者的向量点积、求两者的向量Cosine相似性或者通过再引入额外的神经网络来求值，即如下方式：</p>
+<p><img src="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806191654338-264846698.png" alt="img"></p>
+<p>　　第一阶段产生的分值根据具体产生的方法不同其数值取值范围也不一样，第二阶段引入类似SoftMax的计算方式对第一阶段的得分进行数值转换，一方面可以进行归一化，将原始计算分值整理成所有元素权重之和为1的概率分布；另一方面也可以通过SoftMax的内在机制更加突出重要元素的权重。即一般采用如下公式计算：</p>
+<p>  <img src="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806195333945-948374778.png" alt="img"></p>
+<p>　　第二阶段的计算结果 ai 即为 Valuei 对应的权重系数，然后进行加权求和即可得到Attention数值：</p>
+<p><img src="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806195421837-251685236.png" alt="img"></p>
+<p>　　通过如上三个阶段的计算，即可求出针对Query的Attention数值，目前绝大多数具体的注意力机制计算方法都符合上述的三阶段抽象计算过程。</p>
+<h1 id="5-Self-Attention模型"><a href="#5-Self-Attention模型" class="headerlink" title="5. Self Attention模型"></a><strong>5. Self Attention模型</strong></h1><p>　　通过上述对Attention本质思想的梳理，我们可以更容易理解本节介绍的Self Attention模型。<strong>Self Attention也经常被称为intra Attention（内部Attention）</strong>，最近一年也获得了比较广泛的使用，比如Google最新的机器翻译模型内部大量采用了Self Attention模型(抛弃了传统的RNN)。</p>
+<p>　　在一般任务的Encoder-Decoder框架中，输入Source和输出Target内容是不一样的，比如对于英-中机器翻译来说，Source是英文句子，Target是对应的翻译出的中文句子，Attention机制发生在Target的元素和Source中的所有元素之间。<strong>而Self Attention顾名思义，指的不是Target和Source之间的Attention机制，而是Source内部元素之间或者Target内部元素之间发生的Attention机制，也可以理解为Target=Source这种特殊情况下的注意力计算机制。</strong>其具体计算过程是一样的，只是计算对象发生了变化而已，所以此处不再赘述其计算过程细节。</p>
+<p>　　elf Attention与传统的Attention机制非常的不同：传统的Attention是基于source端和target端的隐变量（hidden state）计算Attention的，得到的结果是源端的每个词与目标端每个词之间的依赖关系。但Self Attention不同，它分别在source端和target端进行，仅与source input或者target input自身相关的Self Attention，捕捉source端或target端自身的词与词之间的依赖关系；然后再把source端的得到的self Attention加入到target端得到的Attention中，捕捉source端和target端词与词之间的依赖关系。因此，self Attention Attention比传统的Attention mechanism效果要好，主要原因之一是，传统的Attention机制忽略了源端或目标端句子中词与词之间的依赖关系，相对比，self Attention可以不仅可以得到源端与目标端词与词之间的依赖关系，同时还可以有效获取源端或目标端自身词与词之间的依赖关系</p>
+<p><img src="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806200854591-1266493040.png" alt="img"></p>
+<p>图11 可视化Self Attention实例</p>
+<p><img src="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806200949175-1322518214.png" alt="img"></p>
+<p>图12 可视化Self Attention实例</p>
+<p>　　从两张图（图11、图12）可以看出，<strong>Self Attention可以捕获同一个句子中单词之间的一些句法特征（比如图11展示的有一定距离的短语结构）或者语义特征（比如图12展示的its的指代对象Law）。</strong></p>
+<p>　　很明显，<strong>引入Self Attention后会更容易捕获句子中长距离的相互依赖的特征</strong>，<strong>因为如果是RNN或者LSTM，需要依次序序列计算，对于远距离的相互依赖的特征，要经过若干时间步步骤的信息累积才能将两者联系起来，而距离越远，有效捕获的可能性越小。</strong></p>
+<p>　　但是Self Attention在计算过程中会直接将句子中任意两个单词的联系通过一个计算步骤直接联系起来，所以<strong>远距离依赖特征之间的距离被极大缩短</strong>，有利于有效地利用这些特征。除此外，<strong>Self Attention对于增加计算的并行性也有直接帮助作用</strong>。这是为何Self Attention逐渐被广泛使用的主要原因。</p>
+<p>​    <strong>但是attention无法记录词序，所以在self-attention中增加了position embedding</strong></p>
+<h1 id="五种attention模型"><a href="#五种attention模型" class="headerlink" title="五种attention模型"></a>五种attention模型</h1><h2 id="hard-attention-amp-soft-attention"><a href="#hard-attention-amp-soft-attention" class="headerlink" title="hard attention&amp;soft attention"></a>hard attention&amp;soft attention</h2><p><img src="https://image.jiqizhixin.com/uploads/editor/72f889a2-df04-4a85-9c2c-1591c5375537/1528709501819.png" alt="img"></p>
+<p>■ 论文 | Show, Attend and Tell: Neural Image Caption Generation with Visual Attention</p>
+<p>■ 链接 | <a href="https://www.paperweekly.site/papers/812" target="_blank" rel="noopener">https://www.paperweekly.site/papers/812</a></p>
+<p>■ 源码 | <a href="https://github.com/kelvinxu/arctic-captions" target="_blank" rel="noopener">https://github.com/kelvinxu/arctic-captions</a></p>
+<p>文章讨论的场景是图像描述生成（Image Caption Generation），对于这种场景，先放一张图，感受一下 attention 的框架。</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/33073f25-48d8-4b17-a179-49191bdb5357/1528709501703.png" alt="img"></p>
+<p>文章提出了两种 attention 模式，即 hard attention 和 soft attention，来感受一下这两种 attention。</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/fe4ede76-44de-4055-93e6-3ce99541db21/1528709502108.png" alt="img"></p>
+<p>可以看到，hard attention 会专注于很小的区域，而 soft attention 的注意力相对发散。模型的 encoder 利用 CNN (VGG net)，提取出图像的 L 个 D 维的向量<img src="https://image.jiqizhixin.com/uploads/editor/7a76e6b0-4f08-4f55-8b01-839552bd0de1/1528709501860.png" alt="img">，每个向量表示图像的一部分信息。</p>
+<p>decoder 是一个 LSTM，每个 timestep t 的输入包含三个部分，即 context vector Zt 、前一个 timestep 的 hidden state<img src="https://image.jiqizhixin.com/uploads/editor/a498b30a-f97c-483d-b121-1499bcabe34f/1528709501897.png" alt="img">、前一个 timestep 的 output<img src="https://image.jiqizhixin.com/uploads/editor/89174d88-3afc-4554-ba26-b48065473355/1528709502635.png" alt="img">。 Zt 由 {ai} 和权重 {αti} 通过加权得到。这里的权重 αti 通过attention模型 <em>f</em>att 来计算得到，而本文中的 <em>f</em>att 是一个多层感知机（multilayer perceptron）。</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/55f3f8bd-91c7-4d65-917d-292e51d2962f/1528709502715.png" alt="img"></p>
+<p>从而可以计算<img src="https://image.jiqizhixin.com/uploads/editor/b57ff198-4b7c-4e6d-a534-4ca57b825d3b/1528709502754.png" alt="img">。接下来文章重点讨论 hard（也叫 stochastic attention）和 soft（也叫 deterministic）两种 attention 模式。</p>
+<p><strong>1. Stochastic “Hard” Attention</strong> </p>
+<p>记 St 为 decoder 第 t 个时刻的 attention 所关注的位置编号， Sti 表示第 t 时刻 attention 是否关注位置 i ， Sti 服从多元伯努利分布（multinoulli distribution）， 对于任意的 t ，Sti,i=1,2,…,L 中有且只有取 1，其余全部为 0，所以 [St1,St2,…,stL] 是 one-hot 形式。这种 attention 每次只 focus 一个位置的做法，就是“hard”称谓的来源。 Zt 也就被视为一个变量，计算如下：</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/afec742f-d647-43c6-b4dc-9618ac878628/1528709502797.png" alt="img"></p>
+<p>问题是 αti 怎么算呢？把 αti 视为隐变量，研究模型的目标函数，进而研究目标函数对参数的梯度。直观理解，模型要根据 a=(a1,…,aL) 来生成序列 y=(y1,…,yC) ，所以目标可以是最大化 log p(y|a) ，但这里没有显式的包含 s ，所以作者利用著名的 Jensen 不等式（Jensen’s inequality）对目标函数做了转化，得到了目标函数的一个 lower bound，如下：</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/97d7901e-3b6d-4fbc-879a-d81293368368/1528709503022.png" alt="img"></p>
+<p>这里的 s ={ s1,…,sC }，是时间轴上的重点 focus 的序列，理论上这种序列共有个。 然后就用 log p(y|a) 代替原始的目标函数，对模型的参数 W 算 gradient。</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/0f5a2605-cea7-4530-8415-e9d3dfb1d3b5/1528709503215.png" alt="img"></p>
+<p>然后利用蒙特卡洛方法对 s 进行抽样，我们做 N 次这样的抽样实验，记每次取到的序列是<img src="https://image.jiqizhixin.com/uploads/editor/8b676888-0fab-4a40-9706-d829823fce0c/1528709503296.png" alt="img">，易知<img src="https://image.jiqizhixin.com/uploads/editor/1adc9914-c26a-47d7-a3e7-3889f9090160/1528709503251.png" alt="img">的概率为<img src="https://image.jiqizhixin.com/uploads/editor/5d82f812-b08a-48fd-bdb9-575fe66c15ce/1528709503333.png" alt="img">，所以上面的求 gradient 的结果即为：</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/5c7be181-dfdc-4458-b477-765b1613b234/1528709503396.png" alt="img"></p>
+<p>接下来的一些细节涉及reinforcement learning，感兴趣的同学可以去看这篇 paper。</p>
+<p><strong>2. Deterministic “Soft” Attention</strong> </p>
+<p>说完“硬”的 attention，再来说说“软”的 attention。 相对来说 soft attention 很好理解，在 hard attention 里面，每个时刻 t 模型的序列 [ St1,…,StL ] 只有一个取 1，其余全部为 0，也就是说每次只 focus 一个位置，而 soft attention 每次会照顾到全部的位置，只是不同位置的权重不同罢了。这时 Zt 即为 ai 的加权求和：</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/419b690d-2d19-4506-8f2e-67edf525fa7c/1528709503873.png" alt="img"></p>
+<p>这样 soft attention 是光滑的且可微的（即目标函数，也就是 LSTM 的目标函数对权重αti 是可微的，原因很简单，因为目标函数对 Zt 可微，而 Zt 对 αti 可微，根据 chain rule 可得目标函数对 αti 可微）。</p>
+<p>文章还对这种 soft attention 做了微调：</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/caa7b6b6-ce70-4e19-aa1b-8a77a7914c09/1528709503914.png" alt="img"></p>
+<p>其中<img src="https://image.jiqizhixin.com/uploads/editor/7de8d1a3-3be6-4a66-801e-25cb0bee7b00/1528709504003.png" alt="img">，用来调节 context vector 在 LSTM 中的比重（相对于<img src="https://image.jiqizhixin.com/uploads/editor/ae0fcc90-f8ef-40d8-be2a-8f9721dae24d/1528709501949.png" alt="img"><img src="https://image.jiqizhixin.com/uploads/editor/90abe04d-a4ea-4f7b-9d6b-d5832ad531f1/1528709502672.png" alt="img">的比重）。</p>
+<p>btw，模型的 loss function 加入了 αti 的正则项。</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/3193dce5-51b7-4ae2-893d-0696635c9ec9/1528709504051.png" alt="img"></p>
+<h2 id="global-attention-amp-local-attention"><a href="#global-attention-amp-local-attention" class="headerlink" title="global attention &amp; local attention"></a>global attention &amp; local attention</h2><p><img src="https://image.jiqizhixin.com/uploads/editor/e3a3408b-7e64-4752-b8f9-a71563bb06c6/1528709504652.png" alt="img"></p>
+<p>■ 论文 | Effective Approaches to Attention-based Neural Machine Translation</p>
+<p>■ 链接 | <a href="https://www.paperweekly.site/papers/806" target="_blank" rel="noopener">https://www.paperweekly.site/papers/806</a></p>
+<p>■ 源码 | <a href="https://github.com/lmthang/nmt.matlab" target="_blank" rel="noopener">https://github.com/lmthang/nmt.matlab</a></p>
+<p>文章提出了两种 attention 的改进版本，即 global attention 和 local attention。先感受一下 global attention 和 local attention 长什么样子。</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/55e64daf-5e26-474f-bdea-b99669de205c/1528709504213.png" alt="img"></p>
+<p><strong>▲</strong> Global Attention</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/4df6785f-b67e-4a41-9234-401d03c07b59/1528709504569.png" alt="img"></p>
+<p><strong>▲</strong> Local Attention</p>
+<p>文章指出，local attention 可以视为 hard attention 和 soft attention 的混合体（优势上的混合），因为它的计算复杂度要低于 global attention、soft attention，而且与 hard attention 不同的是，local attention 几乎处处可微，易与训练。 文章以机器翻译为场景， x1,…,xn 为 source sentence， y1,…,ym 为 target sentence， c1,…,cm 为 encoder 产生的 context vector，objective function 为：</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/129e5871-39db-4005-8062-ca744a216335/1528709504768.png" alt="img"></p>
+<p>Ct 来源于 encoder 中多个 source position 所产生的 hidden states，global attention 和 local attention 的主要区别在于 attention 所 forcus 的 source positions 数目的不同：如果 attention forcus 全部的 position，则是 global attention，反之，若只 focus 一部分 position，则为 local attention。 </p>
+<p>由此可见，这里的 global attention、local attention 和 soft attention 并无本质上的区别，两篇 paper 模型的差别只是在 LSTM 结构上有微小的差别。 </p>
+<p>在 decoder 的时刻 t ，在利用 global attention 或 local attention 得到 context vector Ct之后，结合 ht ，对二者做 concatenate 操作，得到 attention hidden state。</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/7acdb6ad-0741-4531-a96a-a9e128afda32/1528709505007.png" alt="img"></p>
+<p>最后利用 softmax 产出该时刻的输出：</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/078f1af3-0c67-4b13-9359-14f1b48aea4d/1528709505051.png" alt="img"></p>
+<p>下面重点介绍 global attention、local attention。</p>
+<p><strong>1. global attention</strong> </p>
+<p>global attention 在计算 context vector ct 的时候会考虑 encoder 所产生的全部hidden state。记 decoder 时刻 t 的 target hidden为 ht，encoder 的全部 hidden state 为<img src="https://image.jiqizhixin.com/uploads/editor/1a9b3f6f-cd94-4ba5-94d9-96e096dd0802/1528709505151.png" alt="img">，对于其中任意<img src="https://image.jiqizhixin.com/uploads/editor/cab720ef-628c-4af9-b827-f2839ba387a5/1528709505228.png" alt="img">，其权重 αts 为：</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/ebea9e73-7f59-42a1-975b-9cd9f44ee7ba/1528709505312.png" alt="img"></p>
+<p>而其中的<img src="https://image.jiqizhixin.com/uploads/editor/31b5d177-4123-47f7-b75a-766690049b6f/1528709505690.png" alt="img">，文章给出了四种种计算方法（文章称为 alignment function）：</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/5b89594b-f47c-4870-be8a-f3406b38088b/1528709505811.png" alt="img"></p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/1f8e7063-9c3f-4c96-a528-a841c6117825/1528709505852.png" alt="img"></p>
+<p>四种方法都比较直观、简单。在得到这些权重后， ct 的计算是很自然的，即为<img src="https://image.jiqizhixin.com/uploads/editor/1b37607a-9316-442c-9226-49595d34ff02/1528709505264.png" alt="img">的 weighted summation。</p>
+<p><strong>2. local attention</strong> </p>
+<p>global attention 可能的缺点在于每次都要扫描全部的 source hidden state，计算开销较大，对于长句翻译不利，为了提升效率，提出 local attention，每次只 focus 一小部分的 source position。 </p>
+<p>这里，context vector ct 的计算只 focus 窗口 [pt-D,pt+D] 内的 2D+1 个source hidden states（若发生越界，则忽略界外的 source hidden states）。</p>
+<p>其中 pt 是一个 source position index，可以理解为 attention 的“焦点”，作为模型的参数， D 根据经验来选择（文章选用 10）。 关于 pt 的计算，文章给出了两种计算方案：</p>
+<ul>
+<li><strong>Monotonic alignment (local-m)</strong></li>
+</ul>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/4fe24e96-b61e-4bb4-9cb6-88760dc0f228/1528709505970.png" alt="img"></p>
+<ul>
+<li><strong>Predictive alignment (local-p)</strong></li>
+</ul>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/ec31a794-00f9-4dba-b9d8-89295f1aa1d0/1528709506099.png" alt="img"></p>
+<p>其中 Wp 和 vp 是模型的参数， S 是 source sentence 的长度，易知 pt∈[0,S] 。 权重αt(s) 的计算如下：</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/703a445f-62ed-43dd-a313-256883bac239/1528709506142.png" alt="img"></p>
+<p>可以看出，距离中心 pt 越远的位置，其位置上的 source hidden state 对应的权重就会被压缩地越厉害。</p>
+<h2 id="self-attention-amp-multiple-head-attention"><a href="#self-attention-amp-multiple-head-attention" class="headerlink" title="self-attention &amp; multiple-head attention"></a>self-attention &amp; multiple-head attention</h2><p><img src="https://image.jiqizhixin.com/uploads/editor/d993ae54-145e-4e12-93dd-1f3c94d156f9/1528709506751.png" alt="img"></p>
+<p>■ 论文 | Attention Is All You Need</p>
+<p>■ 链接 | <a href="https://www.paperweekly.site/papers/224" target="_blank" rel="noopener">https://www.paperweekly.site/papers/224</a></p>
+<p>■ 源码 | <a href="https://github.com/Kyubyong/transformer" target="_blank" rel="noopener">https://github.com/Kyubyong/transformer</a></p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/da5cb6b1-aa95-48b4-a728-01bde8de45b4/1528709506930.png" alt="img"></p>
+<p>■ 论文 | Weighted Transformer Network for Machine Translation</p>
+<p>■ 链接 | <a href="https://www.paperweekly.site/papers/2013" target="_blank" rel="noopener">https://www.paperweekly.site/papers/2013</a></p>
+<p>■ 源码 | <a href="https://github.com/JayParks/transformer" target="_blank" rel="noopener">https://github.com/JayParks/transformer</a></p>
+<p>作者首先指出，结合了 RNN（及其变体）和注意力机制的模型在序列建模领域取得了不错的成绩，但由于 RNN 的循环特性导致其不利于并行计算，所以模型的训练时间往往较长，在 GPU 上一个大一点的 seq2seq 模型通常要跑上几天，所以作者对 RNN 深恶痛绝，遂决定舍弃 RNN，只用注意力模型来进行序列的建模。 </p>
+<p>作者提出一种新型的网络结构，并起了个名字 Transformer，里面所包含的注意力机制称之为 self-attention。作者骄傲地宣称他这套 Transformer 是能够计算 input 和 output 的 representation 而不借助 RNN 的唯一的 model，所以作者说有 attention 就够了。</p>
+<p>模型同样包含 encoder 和 decoder 两个 stage，encoder 和 decoder 都是抛弃 RNN，而是用堆叠起来的 self-attention，和 fully-connected layer 来完成，模型的架构如下：</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/43ca78f9-024c-4a20-aa8c-681a42b6a734/1528709507321.png" alt="img"></p>
+<p>从图中可以看出，模型共包含三个 attention 成分，分别是 encoder 的 self-attention，decoder 的 self-attention，以及连接 encoder 和 decoder 的 attention。  </p>
+<p>这三个 attention block 都是 multi-head attention 的形式，输入都是 query Q 、key K 、value V 三个元素，只是 Q 、 K 、 V 的取值不同罢了。接下来重点讨论最核心的模块 multi-head attention（多头注意力）。 </p>
+<p>multi-head attention 由多个 scaled dot-product attention 这样的基础单元经过 stack 而成。</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/2a179490-64ac-4b22-b42d-1c3de5e08b5c/1528709507410.png" alt="img"></p>
+<p>那重点就变成 scaled dot-product attention 是什么鬼了。按字面意思理解，scaled dot-product attention 即缩放了的点乘注意力，我们来对它进行研究。 </p>
+<p>在这之前，我们先回顾一下上文提到的传统的 attention 方法（例如 global attention，score 采用 dot 形式）。</p>
+<p>记 decoder 时刻 t 的 target hidden state 为 ht，encoder 得到的全部 source hidden state为<img src="https://image.jiqizhixin.com/uploads/editor/9f26e09b-d1f7-4e77-b1e8-2e8e5642ae9c/1528709507675.png" alt="img">，则 decoder 的 context vector ct 的计算过程如下：</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/57b33413-699a-4c04-ae99-0bddaf11ea32/1528709507900.png" alt="img"></p>
+<p>作者先抛出三个名词 query Q、key K、value V，然后计算这三个元素的 attention。</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/cbffe9ff-5149-4959-ac8b-f6c4714ff9c9/1528709509122.png" alt="img"></p>
+<p>我的写法与论文有细微差别，但为了接下来说明的简便，我姑且简化成这样。这个 Attention 的计算跟上面的 (*) 式有几分相似。</p>
+<p>那么 Q、K、V 到底是什么？论文里讲的比较晦涩，说说我的理解。encoder 里的 attention 叫 self-attention，顾名思义，就是自己和自己做 attention。</p>
+<p>抛开这篇论文的做法，让我们激活自己的创造力，在传统的 seq2seq 中的 encoder 阶段，我们得到 n 个时刻的 hidden states 之后，可以用每一时刻的 hidden state hi，去分别和任意的 hidden state hj,j=1,2,…,n 计算 attention，这就有点 self-attention 的意思。</p>
+<p>回到当前的模型，由于抛弃了 RNN，encoder 过程就没了 hidden states，那拿什么做 self-attention 来自嗨呢？</p>
+<p>可以想到，假如作为 input 的 sequence 共有 n 个 word，那么我可以先对每一个 word 做 embedding 吧？就得到 n 个 embedding，然后我就可以用 embedding 代替 hidden state 来做 self-attention 了。所以 Q 这个矩阵里面装的就是全部的 word embedding，K、V 也是一样。</p>
+<p>所以为什么管 Q 叫query？就是你每次拿一个 word embedding，去“查询”其和任意的 word embedding 的 match 程度（也就是 attention 的大小），你一共要做 n 轮这样的操作。 </p>
+<p>我们记 word embedding 的 dimension 为 dmodel ，所以 Q 的 shape 就是 n*dmodel， K、V 也是一样，第 i 个 word 的 embedding 为 vi，所以该 word 的 attention 应为：</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/17ebfb62-21b6-4df4-99ea-08d3bf275d36/1528709509168.png" alt="img"></p>
+<p>那同时做全部 word 的 attention，则是：</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/529a6cbf-f2fe-4d8c-a90d-f8a0567f6bf8/1528709508901.png" alt="img"></p>
+<p>scaled dot-product attention 基本就是这样了。基于 RNN 的传统 encoder 在每个时刻会有输入和输出，而现在 encoder 由于抛弃了 RNN 序列模型，所以可以一下子把序列的全部内容输进去，来一次 self-attention 的自嗨。</p>
+<p>理解了 scaled dot-product attention 之后，multi-head attention 就好理解了，因为就是 scaled dot-product attention 的 stacking。</p>
+<p>先把 Q、K、V 做 linear transformation，然后对新生成的 Q’、K’、V’ 算 attention，重复这样的操作 h 次，然后把 h 次的结果做 concat，最后再做一次 linear transformation，就是 multi-head attention 这个小 block 的输出了。 </p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/b39171e2-f71c-4ea9-a9de-0d6c8d983550/1528709508952.png" alt="img"></p>
+<p>以上介绍了 encoder 的 self-attention。decoder 中的 encoder-decoder attention 道理类似，可以理解为用 decoder 中的每个 vi 对 encoder 中的 vj 做一种交叉 attention。</p>
+<p>decoder 中的 self-attention 也一样的道理，只是要注意一点，decoder 中你在用 vi 对 vj 做 attention 时，有一些 pair 是不合法的。原因在于，虽然 encoder 阶段你可以把序列的全部 word 一次全输入进去，但是 decoder 阶段却并不总是可以，想象一下你在做 inference，decoder 的产出还是按从左至右的顺序，所以你的 vi 是没机会和 vj ( j&gt;i ) 做 attention 的。</p>
+<p>那怎么将这一点体现在 attention 的计算中呢？文中说只需要令 score(vi,vj)=-∞ 即可。为何？因为这样的话：</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/13be2088-2463-474a-855b-b2193a08ce44/1528709509073.png" alt="img"></p>
+<p>所以在计算 vi 的 self-attention 的时候，就能够把 vj 屏蔽掉。所以这个问题也就解决了。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Attention/" rel="tag"><i class="fa fa-tag"></i> Attention</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/15/LSTM/" rel="next" title="LSTM">
+                <i class="fa fa-chevron-left"></i> LSTM
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/17/CNN/" rel="prev" title="CNN">
+                CNN <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MzU5OS8yMDEzOA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpeg" alt="KODGV">
+            
+              <p class="site-author-name" itemprop="name">KODGV</p>
+              <p class="site-description motion-element" itemprop="description">生活会给你一切，请相信它。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+			<br>
+<br>
+<div class="site-state-item site-state-posts" style="border-left:none;">
+       <span class="site-state-item-count" id="busuanzi_value_site_pv"></span>
+       <span class="site-state-item-name">浏览量</span>
+</div>
+<div class="site-state-item site-state-posts">
+      <span class="site-state-item-count" id="busuanzi_value_site_uv"></span>
+     <span class="site-state-item-name">访客量</span>
+</div>
+<div class="site-state-item site-state-posts">
+      <span class="site-state-item-count">29.1k</span>
+      <span class="site-state-item-name">总字数</span>
+</div>
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/KODGV" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/yourname" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-什么是Attention机制？"><span class="nav-number">1.</span> <span class="nav-text">1. 什么是Attention机制？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-先了解编码-解码框架：Encoder-Decoder框架"><span class="nav-number">2.</span> <span class="nav-text">2. 先了解编码-解码框架：Encoder-Decoder框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Attention-Model"><span class="nav-number">3.</span> <span class="nav-text">3. Attention Model</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#划重点-注意力权重获取的过程-（Tom-0-3）（Chase-0-2）（Jerry-0-5）是如何得到的呢？"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">　　划重点(注意力权重获取的过程)（Tom,0.3）（Chase,0.2）（Jerry,0.5）是如何得到的呢？</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Attention机制的本质思想"><span class="nav-number">4.</span> <span class="nav-text">4. Attention机制的本质思想</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-Self-Attention模型"><span class="nav-number">5.</span> <span class="nav-text">5. Self Attention模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五种attention模型"><span class="nav-number">6.</span> <span class="nav-text">五种attention模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#hard-attention-amp-soft-attention"><span class="nav-number">6.1.</span> <span class="nav-text">hard attention&amp;soft attention</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#global-attention-amp-local-attention"><span class="nav-number">6.2.</span> <span class="nav-text">global attention &amp; local attention</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#self-attention-amp-multiple-head-attention"><span class="nav-number">6.3.</span> <span class="nav-text">self-attention &amp; multiple-head attention</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KODGV</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 总访客
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("jfbBQ9nxK2MWpND3JeGVWsqL-gzGzoHsz", "itMpPY29yfkFQMmR0dV1MvdU");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>

@@ -136,7 +136,7 @@
 <meta property="og:image" content="https://img-blog.csdn.net/20180812161246184?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ZseXNreV9qYXk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
 <meta property="og:image" content="http://image.bubuko.com/info/201810/20181023003228230058.png">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2018/png/139777/1540608513263-a57374b7-2448-43f6-931e-4624acc4a146.png">
-<meta property="og:updated_time" content="2019-04-21T14:21:50.719Z">
+<meta property="og:updated_time" content="2019-04-22T06:28:29.607Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pytorch学习">
 <meta name="twitter:description" content="pytorch学习日记">
@@ -390,8 +390,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-04-21T22:21:50+08:00">
-                2019-04-21
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-22T14:28:29+08:00">
+                2019-04-22
               </time>
             
           </span>
@@ -451,7 +451,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.4k字
+                  1.5k字
                 </span>
               
 
@@ -516,10 +516,10 @@
 </ol>
 <h3 id="pack-padded-sequence-amp-pad-packed-sequence"><a href="#pack-padded-sequence-amp-pad-packed-sequence" class="headerlink" title="pack_padded_sequence&amp;pad_packed_sequence"></a>pack_padded_sequence&amp;pad_packed_sequence</h3><p>踩坑：</p>
 <ul>
-<li><p>要注意pad回来的会自动补0序列的，注意这些0序列，会对后续的操作产生影响</p>
-</li>
-<li><p>要注意0是补在后面，不是补在前面，这一点坑了我两天</p>
-</li>
+<li>要注意pad回来的会自动补0序列的，注意这些0序列，会对后续的操作产生影响</li>
+<li>要注意0是补在后面，不是补在前面，这一点坑了我两天</li>
+<li>动态padding会快，但是注意pack和pad会额外需要耗时</li>
+<li>注意预测的时候要reverse回来，不然没法做stacking</li>
 </ul>
 <p><strong>RNN处理变长序列参考的的代码</strong>：<a href="https://zhuanlan.zhihu.com/p/40391002" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/40391002</a></p>
 <p><strong>pytorch 处理变长序列过程中各个tensor变化情况</strong>：<a href="https://blog.csdn.net/qq_27505047/article/details/78764888" target="_blank" rel="noopener">https://blog.csdn.net/qq_27505047/article/details/78764888</a></p>

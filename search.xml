@@ -76,7 +76,7 @@
   <entry>
     <title><![CDATA[pytorch学习]]></title>
     <url>%2F2019%2F04%2F14%2F%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%2Fpytorch%E5%AD%A6%E4%B9%A0%2F</url>
-    <content type="text"><![CDATA[pytorch学习日记 [TOC] APItorch.utils.data.Dataset并行化读取数据len：代表样本数量。len(obj)等价于obj.len()。getitem：返回一条数据或一个样本。obj[index]等价于obj.getitem。 建议将节奏的图片等高负载的操作放到这里，因为多进程时会并行调用这个函数，这样做可以加速。dataset中应尽量只包含只读对象，避免修改任何可变对象。因为如果使用多进程，可变对象要加锁，但后面讲到的dataloader的设计使其难以加锁。如下面例子中的self.num可能在多进程下出问题 12345678910111213class CustomDataset(data.Dataset):#需要继承data.Dataset def __init__(self): # TODO # 1. Initialize file path or list of file. # 初始化变量 pass def __getitem__(self, index): # TODO # 需要返回batch中的data，即返回index下标的数值 pass def __len__(self): # the total size of your dataset. return 0 示例 12345678910111213141516171819202122232425262728293031323334353637383940414243class MNIST(data.Dataset): def __init__(self, root, train=True, transform=None, target_transform=None, download=False): self.root = root self.transform = transform self.target_transform = target_transform self.train = train # training set or test set if download: self.download() if not self._check_exists(): raise RuntimeError('Dataset not found.' + ' You can use download=True to download it') if self.train: self.train_data, self.train_labels = torch.load( os.path.join(root, self.processed_folder, self.training_file)) else: self.test_data, self.test_labels = torch.load(os.path.join(root, self.processed_folder, self.test_file)) def __getitem__(self, index): if self.train: img, target = self.train_data[index], self.train_labels[index] else: img, target = self.test_data[index], self.test_labels[index] # doing this so that it is consistent with all other datasets # to return a PIL Image img = Image.fromarray(img.numpy(), mode='L') if self.transform is not None: img = self.transform(img) if self.target_transform is not None: target = self.target_transform(target) return img, target def __len__(self): if self.train: return 60000 else: return 10000 torch.utils.data.Dataloadtorch.utils.data.DataLoader(dataset, batch_size=1, shuffle=False, sampler=None, batch_sampler=None, num_workers=0, collate_fn=, pin_memory=False, drop_last=False, timeout=0, worker_init_fn=None)[SOURCE] Data loader. Combines a dataset and a sampler, and provides single- or multi-process iterators over the dataset.dataset：加载的数据集(Dataset对象)batch_size：batch sizeshuffle:：是否将数据打乱sampler： 样本抽样，后续会详细介绍num_workers：使用多进程加载的进程数，0代表不使用多进程collate_fn： 如何将多个样本数据拼接成一个batch，一般使用默认的拼接方式即可pin_memory：是否将数据保存在pin memory区，pin memory中的数据转到GPU会快一些drop_last：dataset中的数据个数可能不是batch_size的整数倍，drop_last为True会将多出来不足一个batch的数据丢弃 重点在于collate_fn 是不是看着有点头大，没有关系，我们先搞清楚他的输入是什么。这里可以看到他的输入被命名为batch，但是我们还是不知道到底是什么，可以猜测应该是一个batch size的数据。我们继续往后找，可以找到这个地方。 Paste_Image.png 我们可以从这里看到collate_fn在这里进行了调用，那么他的输入我们就找到了，从这里看这就是一个list，list中的每个元素就是self.data[i]，如果你在往上看，可以看到这个self.data就是我们需要预先定义的Dataset，那么这里self.data[i]就等价于我们在Dataset里面定义的__getitem__这个函数。 所以我们知道了collate_fn这个函数的输入就是一个list，list的长度是一个batch size，list中的每个元素都是__getitem__得到的结果。 注意如果dataset里面返回的不是一个值而是元组的话：[tuple]，这时候就需要用texts, lens, y = zip(*batch)来解开 squeeze&amp;unsqueeze 首先初始化一个a 可以看出a的维度为（2，3） 在第二维增加一个维度，使其维度变为（2，1，3）可以看出a的维度已经变为（2，1，3）了，同样如果需要在倒数第二个维度上增加一个维度，那么使用b.unsqueeze(-2)二、squeeze()函数介绍 首先得到一个维度为（1，2，3）的tensor（张量）由图中可以看出c的维度为（1，2，3）2.下面使用squeeze()函数将第一维去掉可见，维度已经变为（2，3）3.另外可以看出维度并没有变化，仍然为（1，2，3），这是因为只有维度为1时才会去掉。 pack_padded_sequence&amp;pad_packed_sequence踩坑： 要注意pad回来的会自动补0序列的，注意这些0序列，会对后续的操作产生影响 要注意0是补在后面，不是补在前面，这一点坑了我两天 RNN处理变长序列参考的的代码：https://zhuanlan.zhihu.com/p/40391002 pytorch 处理变长序列过程中各个tensor变化情况：https://blog.csdn.net/qq_27505047/article/details/78764888 kaggle比赛代码：https://www.kaggle.com/johnfarrell/plasticc-2018-emb-gru torch.nn.utils.rnn.pack_padded_sequence() 这里的pack，理解成压紧比较好。 将一个 填充过的变长序列 压紧。（填充时候，会有冗余，所以压紧一下） 其中pack的过程为：（注意pack的形式，不是按行压，而是按列压） （下面方框内为PackedSequence对象，由data和batch_sizes组成） 输入的形状可以是(T×B× )。T是最长序列长度，B是batch size，`代表任意维度(可以是0)。如果batch_first=True的话，那么相应的input size就是(B×T×*)`。 读PyTorch源码学习RNN（1） pack之后得到的每个batch就是一个timestep,也就是说timestep的时候取都是1的状态(a1和b1)，它实际上就是告诉Model为每个序列构建不同数量的状态。 pack和pad要统一是否使用batch_first=True，否则转换维度会出问题 问题解答专区如何自定义forward函数只需要继承nn.Module，然后重写forward函数，注意调用时机为该模块名字 module(参数)，这里得参数跟forward得参数一致 如何自定义LOSS函数https://www.zhihu.com/question/66988664 如何打印网络和参数结构https://github.com/nmhkahn/torchsummaryX 如何释放显存12gc.collect()torch.cuda.empty_cache()]]></content>
+    <content type="text"><![CDATA[pytorch学习日记 [TOC] APItorch.utils.data.Dataset并行化读取数据len：代表样本数量。len(obj)等价于obj.len()。getitem：返回一条数据或一个样本。obj[index]等价于obj.getitem。 建议将节奏的图片等高负载的操作放到这里，因为多进程时会并行调用这个函数，这样做可以加速。dataset中应尽量只包含只读对象，避免修改任何可变对象。因为如果使用多进程，可变对象要加锁，但后面讲到的dataloader的设计使其难以加锁。如下面例子中的self.num可能在多进程下出问题 12345678910111213class CustomDataset(data.Dataset):#需要继承data.Dataset def __init__(self): # TODO # 1. Initialize file path or list of file. # 初始化变量 pass def __getitem__(self, index): # TODO # 需要返回batch中的data，即返回index下标的数值 pass def __len__(self): # the total size of your dataset. return 0 示例 12345678910111213141516171819202122232425262728293031323334353637383940414243class MNIST(data.Dataset): def __init__(self, root, train=True, transform=None, target_transform=None, download=False): self.root = root self.transform = transform self.target_transform = target_transform self.train = train # training set or test set if download: self.download() if not self._check_exists(): raise RuntimeError('Dataset not found.' + ' You can use download=True to download it') if self.train: self.train_data, self.train_labels = torch.load( os.path.join(root, self.processed_folder, self.training_file)) else: self.test_data, self.test_labels = torch.load(os.path.join(root, self.processed_folder, self.test_file)) def __getitem__(self, index): if self.train: img, target = self.train_data[index], self.train_labels[index] else: img, target = self.test_data[index], self.test_labels[index] # doing this so that it is consistent with all other datasets # to return a PIL Image img = Image.fromarray(img.numpy(), mode='L') if self.transform is not None: img = self.transform(img) if self.target_transform is not None: target = self.target_transform(target) return img, target def __len__(self): if self.train: return 60000 else: return 10000 torch.utils.data.Dataloadtorch.utils.data.DataLoader(dataset, batch_size=1, shuffle=False, sampler=None, batch_sampler=None, num_workers=0, collate_fn=, pin_memory=False, drop_last=False, timeout=0, worker_init_fn=None)[SOURCE] Data loader. Combines a dataset and a sampler, and provides single- or multi-process iterators over the dataset.dataset：加载的数据集(Dataset对象)batch_size：batch sizeshuffle:：是否将数据打乱sampler： 样本抽样，后续会详细介绍num_workers：使用多进程加载的进程数，0代表不使用多进程collate_fn： 如何将多个样本数据拼接成一个batch，一般使用默认的拼接方式即可pin_memory：是否将数据保存在pin memory区，pin memory中的数据转到GPU会快一些drop_last：dataset中的数据个数可能不是batch_size的整数倍，drop_last为True会将多出来不足一个batch的数据丢弃 重点在于collate_fn 是不是看着有点头大，没有关系，我们先搞清楚他的输入是什么。这里可以看到他的输入被命名为batch，但是我们还是不知道到底是什么，可以猜测应该是一个batch size的数据。我们继续往后找，可以找到这个地方。 Paste_Image.png 我们可以从这里看到collate_fn在这里进行了调用，那么他的输入我们就找到了，从这里看这就是一个list，list中的每个元素就是self.data[i]，如果你在往上看，可以看到这个self.data就是我们需要预先定义的Dataset，那么这里self.data[i]就等价于我们在Dataset里面定义的__getitem__这个函数。 所以我们知道了collate_fn这个函数的输入就是一个list，list的长度是一个batch size，list中的每个元素都是__getitem__得到的结果。 注意如果dataset里面返回的不是一个值而是元组的话：[tuple]，这时候就需要用texts, lens, y = zip(*batch)来解开 squeeze&amp;unsqueeze 首先初始化一个a 可以看出a的维度为（2，3） 在第二维增加一个维度，使其维度变为（2，1，3）可以看出a的维度已经变为（2，1，3）了，同样如果需要在倒数第二个维度上增加一个维度，那么使用b.unsqueeze(-2)二、squeeze()函数介绍 首先得到一个维度为（1，2，3）的tensor（张量）由图中可以看出c的维度为（1，2，3）2.下面使用squeeze()函数将第一维去掉可见，维度已经变为（2，3）3.另外可以看出维度并没有变化，仍然为（1，2，3），这是因为只有维度为1时才会去掉。 pack_padded_sequence&amp;pad_packed_sequence踩坑： 要注意pad回来的会自动补0序列的，注意这些0序列，会对后续的操作产生影响 要注意0是补在后面，不是补在前面，这一点坑了我两天 动态padding会快，但是注意pack和pad会额外需要耗时 注意预测的时候要reverse回来，不然没法做stacking RNN处理变长序列参考的的代码：https://zhuanlan.zhihu.com/p/40391002 pytorch 处理变长序列过程中各个tensor变化情况：https://blog.csdn.net/qq_27505047/article/details/78764888 kaggle比赛代码：https://www.kaggle.com/johnfarrell/plasticc-2018-emb-gru torch.nn.utils.rnn.pack_padded_sequence() 这里的pack，理解成压紧比较好。 将一个 填充过的变长序列 压紧。（填充时候，会有冗余，所以压紧一下） 其中pack的过程为：（注意pack的形式，不是按行压，而是按列压） （下面方框内为PackedSequence对象，由data和batch_sizes组成） 输入的形状可以是(T×B× )。T是最长序列长度，B是batch size，`代表任意维度(可以是0)。如果batch_first=True的话，那么相应的input size就是(B×T×*)`。 读PyTorch源码学习RNN（1） pack之后得到的每个batch就是一个timestep,也就是说timestep的时候取都是1的状态(a1和b1)，它实际上就是告诉Model为每个序列构建不同数量的状态。 pack和pad要统一是否使用batch_first=True，否则转换维度会出问题 问题解答专区如何自定义forward函数只需要继承nn.Module，然后重写forward函数，注意调用时机为该模块名字 module(参数)，这里得参数跟forward得参数一致 如何自定义LOSS函数https://www.zhihu.com/question/66988664 如何打印网络和参数结构https://github.com/nmhkahn/torchsummaryX 如何释放显存12gc.collect()torch.cuda.empty_cache()]]></content>
       <categories>
         <category>nn学习</category>
       </categories>
@@ -92,8 +92,8 @@
         <category>竞赛经验</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>特征工程</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -115,8 +115,8 @@
         <category>数据竞赛</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>特征工程</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -127,8 +127,8 @@
         <category>竞赛经验</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>特征工程</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -186,8 +186,8 @@
         <category>数据竞赛</category>
       </categories>
       <tags>
-        <tag>特征工程</tag>
         <tag>预处理</tag>
+        <tag>特征工程</tag>
       </tags>
   </entry>
   <entry>
@@ -198,8 +198,8 @@
         <category>数据竞赛</category>
       </categories>
       <tags>
-        <tag>Numpy</tag>
         <tag>机器学习</tag>
+        <tag>Numpy</tag>
         <tag>python</tag>
       </tags>
   </entry>

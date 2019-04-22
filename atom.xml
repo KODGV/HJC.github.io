@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://kodgv.xyz/"/>
-  <updated>2019-04-21T12:35:37.523Z</updated>
+  <updated>2019-04-22T10:43:45.559Z</updated>
   <id>http://kodgv.xyz/</id>
   
   <author>
@@ -15,6 +15,62 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>FocalLoss针对不平衡数据</title>
+    <link href="http://kodgv.xyz/2019/04/22/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/FocalLoss%E9%92%88%E5%AF%B9%E4%B8%8D%E5%B9%B3%E8%A1%A1%E6%95%B0%E6%8D%AE/"/>
+    <id>http://kodgv.xyz/2019/04/22/神经网络/FocalLoss针对不平衡数据/</id>
+    <published>2019-04-22T10:32:49.000Z</published>
+    <updated>2019-04-22T10:43:45.559Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a><p>[TOC]</p><p>参考来源:</p><p><a href="https://zhuanlan.zhihu.com/p/32423092" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/32423092</a></p><p>​    本质上讲，Focal Loss 就是一个解决<strong>分类问题中类别不平衡、分类难度差异</strong>的一个 loss，总之这个工作一片好评就是了。大家还可以看知乎的讨论：<a href="https://www.zhihu.com/question/63581984" target="_blank" rel="noopener">如何评价 Kaiming 的 Focal Loss for Dense Object Detection？</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;p&gt;参考来源:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/32423092&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanl
+      
+    
+    </summary>
+    
+      <category term="nn学习" scheme="http://kodgv.xyz/categories/nn%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="不平衡数据" scheme="http://kodgv.xyz/tags/%E4%B8%8D%E5%B9%B3%E8%A1%A1%E6%95%B0%E6%8D%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>FocalLoss针对不平衡数据</title>
+    <link href="http://kodgv.xyz/2019/04/22/FocalLoss%E9%92%88%E5%AF%B9%E4%B8%8D%E5%B9%B3%E8%A1%A1%E6%95%B0%E6%8D%AE/"/>
+    <id>http://kodgv.xyz/2019/04/22/FocalLoss针对不平衡数据/</id>
+    <published>2019-04-22T10:32:49.000Z</published>
+    <updated>2019-04-22T11:18:06.687Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a><p>[TOC]</p><p>参考来源:</p><p><a href="https://zhuanlan.zhihu.com/p/32423092" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/32423092</a></p><p>​    本质上讲，Focal Loss 就是一个解决<strong>分类问题中类别不平衡、分类难度差异</strong>的一个 loss，总之这个工作一片好评就是了。大家还可以看知乎的讨论：<a href="https://www.zhihu.com/question/63581984" target="_blank" rel="noopener">如何评价 Kaiming 的 Focal Loss for Dense Object Detection？</a></p><p><strong>核心思想</strong></p><p>这样的做法就是：<strong>正样本的预测值大于 0.5 的，或者负样本的预测值小于 0.5 的，我都不更新了，把注意力集中在预测不准的那些样本，当然这个阈值可以调整。</strong>这样做能部分地达到目的，但是所需要的迭代次数会大大增加。</p><p>原因是这样的：以正样本为例，<strong>我只告诉模型正样本的预测值大于 0.5 就不更新了，却没有告诉它要“保持”大于 0.5</strong>，所以下一阶段，它的预测值就很有可能变回小于 0.5 了。当然，如果是这样的话，下一回合它又被更新了，这样反复迭代，理论上也能达到目的，但是迭代次数会大大增加。</p><p>所以，要想改进的话，重点就是<strong>“不只是要告诉模型正样本的预测值大于0.5就不更新了，而是要告诉模型当其大于0.5后就只需要保持就好了”</strong>。好比老师看到一个学生及格了就不管了，这显然是不行的。如果学生已经及格，那么应该要想办法要他保持目前这个状态甚至变得更好，而不是不管。</p><p>Kaiming 大神的 Focal Loss 形式是：</p><p><img src="/2019/04/22/FocalLoss针对不平衡数据/f1.jpg" alt></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;p&gt;参考来源:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/32423092&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanl
+      
+    
+    </summary>
+    
+      <category term="nn学习" scheme="http://kodgv.xyz/categories/nn%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="不平衡数据" scheme="http://kodgv.xyz/tags/%E4%B8%8D%E5%B9%B3%E8%A1%A1%E6%95%B0%E6%8D%AE/"/>
+    
+  </entry>
   
   <entry>
     <title>好的代码参考汇总</title>
@@ -127,7 +183,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;[TOC]&lt;br&gt;Attention本质就是一系列注意力分配系数，也就是一系列权重参数罢了。&lt;br&gt;
+      &lt;p&gt;[TOC]&lt;br&gt;Attention本质就是一系列注意力分配系数，也就是一系列权重参数罢了。&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -161,16 +217,24 @@
   </entry>
   
   <entry>
-    <title></title>
+    <title>RNN</title>
     <link href="http://kodgv.xyz/2019/04/14/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/RNN/"/>
     <id>http://kodgv.xyz/2019/04/14/神经网络/RNN/</id>
-    <published>2019-04-14T08:20:34.582Z</published>
-    <updated>2019-04-22T08:20:14.788Z</updated>
+    <published>2019-04-14T08:20:34.000Z</published>
+    <updated>2019-04-22T08:20:14.796Z</updated>
+    
+    <content type="html"><![CDATA[<p>RNN快速学习</p><a id="more"></a><p>[TOC]</p><h2 id="一、从单层网络谈起"><a href="#一、从单层网络谈起" class="headerlink" title="一、从单层网络谈起"></a>一、从单层网络谈起</h2><p>在学习RNN之前，首先要了解一下最基本的单层网络，它的结构如图：</p><p><img src="https://pic1.zhimg.com/80/v2-da9ac1b5e3f91086fd06e6173fed1580_hd.jpg" alt="img"></p><p>输入是x，经过变换Wx+b和激活函数f得到输出y。相信大家对这个已经非常熟悉了。</p><h2 id="二、经典的RNN结构（N-vs-N）"><a href="#二、经典的RNN结构（N-vs-N）" class="headerlink" title="二、经典的RNN结构（N vs N）"></a>二、经典的RNN结构（N vs N）</h2><p>在实际应用中，我们还会遇到很多序列形的数据：</p><p><img src="https://pic3.zhimg.com/80/v2-0f8f8a8313867459d33e902fed97bd16_hd.jpg" alt="img"></p><p>如：</p><ul><li>自然语言处理问题。x1可以看做是第一个单词，x2可以看做是第二个单词，依次类推。</li><li>语音处理。此时，x1、x2、x3……是每帧的声音信号。</li><li>时间序列问题。例如每天的股票价格等等</li></ul><p>序列形的数据就不太好用原始的神经网络处理了。为了建模序列问题，RNN引入了隐状态h（hidden state）的概念，h可以对序列形的数据提取特征，接着再转换为输出。先从h1的计算开始看：</p><p><img src="https://pic1.zhimg.com/80/v2-a5f8bc30bcc2d9eba7470810cb362850_hd.jpg" alt="img"></p><p>图示中记号的含义是：</p><ul><li><strong>圆圈或方块表示的是向量。</strong></li><li><strong>一个箭头就表示对该向量做一次变换。如上图中h0和x1分别有一个箭头连接，就表示对h0和x1各做了一次变换。</strong></li></ul><p><strong>在很多论文中也会出现类似的记号，初学的时候很容易搞乱，但只要把握住以上两点，就可以比较轻松地理解图示背后的含义。</strong></p><p>h2的计算和h1类似。要注意的是，在计算时，<strong>每一步使用的参数U、W、b都是一样的，也就是说每个步骤的参数都是共享的，这是RNN的重要特点，一定要牢记。</strong></p><p><img src="https://pic3.zhimg.com/80/v2-74d7ac80ca83165092579932920d0ffe_hd.jpg" alt="img"></p><p>依次计算剩下来的（使用相同的参数U、W、b）：</p><p><img src="https://pic2.zhimg.com/80/v2-bc9759f8c642208a0f8514ccd0260b31_hd.jpg" alt="img"></p><p>我们这里为了方便起见，只画出序列长度为4的情况，实际上，这个计算过程可以无限地持续下去。</p><p>我们目前的RNN还没有输出，得到输出值的方法就是直接通过h进行计算：</p><p><img src="https://pic1.zhimg.com/80/v2-9f3a921d0d5c1313afa58bd3ef53af48_hd.jpg" alt="img"><br>正如之前所说，<strong>一个箭头就表示对对应的向量做一次类似于f(Wx+b)的变换，这里的这个箭头就表示对h1进行一次变换，得到输出y1。</strong></p><p><img src="https://pic4.zhimg.com/80/v2-9524a28210c98ed130644eb3c3002087_hd.jpg" alt></p><p>剩下的输出类似进行（使用和y1同样的参数V和c）：</p><p><img src="https://pic2.zhimg.com/80/v2-629abbab0d5cc871db396f17e9c58631_hd.jpg" alt="img"></p><p>OK！大功告成！这就是最经典的RNN结构，我们像搭积木一样把它搭好了。它的输入是x1, x2, …..xn，输出为y1, y2, …yn，也就是说，<strong>输入和输出序列必须要是等长的</strong>。</p><p>由于这个限制的存在，经典RNN的适用范围比较小，但也有一些问题适合用经典的RNN结构建模，如：</p><ul><li>计算视频中每一帧的分类标签。因为要对每一帧进行计算，因此输入和输出序列等长。</li><li>输入为字符，输出为下一个字符的概率。这就是著名的Char RNN（详细介绍请参考：<a href="https://link.zhihu.com/?target=http%3A//karpathy.github.io/2015/05/21/rnn-effectiveness/" target="_blank" rel="noopener">The Unreasonable Effectiveness of Recurrent Neural Networks</a>，Char RNN可以用来生成文章，诗歌，甚至是代码，非常有意思）。</li></ul><h2 id="三、N-VS-1"><a href="#三、N-VS-1" class="headerlink" title="三、N VS 1"></a>三、N VS 1</h2><p>有的时候，我们要处理的问题输入是一个序列，输出是一个单独的值而不是序列，应该怎样建模呢？实际上，我们只在最后一个h上进行输出变换就可以了：</p><p><img src="https://pic1.zhimg.com/80/v2-6caa75392fe47801e605d5e8f2d3a100_hd.jpg" alt="img"></p><p>这种结构通常用来处理序列分类问题。如输入一段文字判别它所属的类别，输入一个句子判断其情感倾向，输入一段视频并判断它的类别等等。</p><h2 id="四、1-VS-N"><a href="#四、1-VS-N" class="headerlink" title="四、1 VS N"></a>四、1 VS N</h2><p>输入不是序列而输出为序列的情况怎么处理？我们可以只在序列开始进行输入计算：</p><p><img src="https://pic3.zhimg.com/80/v2-87ebd6a82e32e81657682ffa0ba084ee_hd.jpg" alt="img"></p><p>还有一种结构是把输入信息X作为每个阶段的输入：</p><p><img src="https://pic3.zhimg.com/80/v2-fe054c488bb3a9fbcdfad299b2294266_hd.jpg" alt="img"></p><p>下图省略了一些X的圆圈，是一个等价表示：</p><p><img src="https://pic1.zhimg.com/80/v2-16e626b6e99fb1d23c8a54536f7d28dc_hd.jpg" alt="img"></p><p>这种1 VS N的结构可以处理的问题有：</p><ul><li>从图像生成文字（image caption），此时输入的X就是图像的特征，而输出的y序列就是一段句子</li><li>从类别生成语音或音乐等</li></ul><h2 id="五、N-vs-M"><a href="#五、N-vs-M" class="headerlink" title="五、N vs M"></a>五、N vs M</h2><p>下面我们来介绍RNN最重要的一个变种：N vs M。这种结构又叫Encoder-Decoder模型，也可以称之为Seq2Seq模型。</p><p>原始的N vs N RNN要求序列等长，然而我们遇到的大部分问题序列都是不等长的，如机器翻译中，源语言和目标语言的句子往往并没有相同的长度。</p><p><strong>为此，Encoder-Decoder结构先将输入数据编码成一个上下文向量c：</strong></p><p><img src="https://pic2.zhimg.com/80/v2-03aaa7754bb9992858a05bb9668631a9_hd.jpg" alt="img"></p><p>得到c有多种方式，最简单的方法就是把Encoder的最后一个隐状态赋值给c，还可以对最后的隐状态做一个变换得到c，也可以对所有的隐状态做变换。</p><p><strong>拿到c之后，就用另一个RNN网络对其进行解码</strong>，这部分RNN网络被称为Decoder。具体做法就是将c当做之前的初始状态h0输入到Decoder中：</p><p><img src="https://pic4.zhimg.com/80/v2-77e8a977fc3d43bec8b05633dc52ff9f_hd.jpg" alt="img"></p><p>还有一种做法是将c当做每一步的输入：</p><p><img src="https://pic4.zhimg.com/80/v2-e0fbb46d897400a384873fc100c442db_hd.jpg" alt="img"></p><p>由于这种Encoder-Decoder结构不限制输入和输出的序列长度，因此应用的范围非常广泛，比如：</p><ul><li>机器翻译。Encoder-Decoder的最经典应用，事实上这一结构就是在机器翻译领域最先提出的</li><li>文本摘要。输入是一段文本序列，输出是这段文本序列的摘要序列。</li><li>阅读理解。将输入的文章和问题分别编码，再对其进行解码得到问题的答案。</li><li>语音识别。输入是语音信号序列，输出是文字序列。</li></ul><h2 id="六、Attention机制"><a href="#六、Attention机制" class="headerlink" title="六、Attention机制"></a>六、Attention机制</h2><p>在Encoder-Decoder结构中，Encoder把所有的输入序列都编码成一个统一的语义特征c再解码，<strong>因此， c中必须包含原始序列中的所有信息，它的长度就成了限制模型性能的瓶颈。</strong>如机器翻译问题，当要翻译的句子较长时，一个c可能存不下那么多信息，就会造成翻译精度的下降。</p><p>Attention机制通过在每个时间输入不同的c来解决这个问题，下图是带有Attention机制的Decoder：</p><p><img src="https://pic2.zhimg.com/80/v2-8da16d429d33b0f2705e47af98e66579_hd.jpg" alt="img"></p><p><strong>每一个c会自动去选取与当前所要输出的y最合适的上下文信息。具体来说，我们用 <img src="https://www.zhihu.com/equation?tex=a_%7Bij%7D" alt="a_{ij}"> 衡量Encoder中第j阶段的hj和解码时第i阶段的相关性，最终Decoder中第i阶段的输入的上下文信息 <img src="https://www.zhihu.com/equation?tex=c_i" alt="c_i"> 就来自于所有 <img src="https://www.zhihu.com/equation?tex=h_j" alt="h_j"> 对 <img src="https://www.zhihu.com/equation?tex=a_%7Bij%7D" alt="a_{ij}"> 的加权和。</strong></p><p>以机器翻译为例（将中文翻译成英文）：</p><p><img src="https://pic1.zhimg.com/80/v2-d266bf48a1d77e7e4db607978574c9fc_hd.jpg" alt="img"></p><p>输入的序列是“我爱中国”，因此，Encoder中的h1、h2、h3、h4就可以分别看做是“我”、“爱”、“中”、“国”所代表的信息。在翻译成英语时，第一个上下文c1应该和“我”这个字最相关，因此对应的 <img src="https://www.zhihu.com/equation?tex=a_%7B11%7D" alt="a_{11}"> 就比较大，而相应的 <img src="https://www.zhihu.com/equation?tex=a_%7B12%7D" alt="a_{12}"> 、 <img src="https://www.zhihu.com/equation?tex=a_%7B13%7D" alt="a_{13}"> 、 <img src="https://www.zhihu.com/equation?tex=a_%7B14%7D" alt="a_{14}"> 就比较小。c2应该和“爱”最相关，因此对应的 <img src="https://www.zhihu.com/equation?tex=a_%7B22%7D" alt="a_{22}"> 就比较大。最后的c3和h3、h4最相关，因此 <img src="https://www.zhihu.com/equation?tex=a_%7B33%7D" alt="a_{33}"> 、 <img src="https://www.zhihu.com/equation?tex=a_%7B34%7D" alt="a_{34}"> 的值就比较大。</p><p>至此，关于Attention模型，我们就只剩最后一个问题了，那就是：<strong>这些权重 <img src="https://www.zhihu.com/equation?tex=a_%7Bij%7D" alt="a_{ij}"> 是怎么来的？</strong></p><p>事实上， <img src="https://www.zhihu.com/equation?tex=a_%7Bij%7D" alt="a_{ij}"> 同样是从模型中学出的，它实际和Decoder的第i-1阶段的隐状态、Encoder第j个阶段的隐状态有关。</p><p>同样还是拿上面的机器翻译举例， <img src="https://www.zhihu.com/equation?tex=a_%7B1j%7D" alt="a_{1j}"> 的计算（此时箭头就表示对h’和 <img src="https://www.zhihu.com/equation?tex=h_j" alt="h_j"> 同时做变换）：</p><p><img src="https://pic4.zhimg.com/80/v2-5561fa61321f31113043fb9711ee3263_hd.jpg" alt="img"></p><p><img src="https://www.zhihu.com/equation?tex=a_%7B2j%7D" alt="a_{2j}"> 的计算：</p><p><img src="https://pic1.zhimg.com/80/v2-50473aa7b1c20d680abf8ca36d82c9e4_hd.jpg" alt="img"></p><p><img src="https://www.zhihu.com/equation?tex=a_%7B3j%7D" alt="a_{3j}"> 的计算：</p><p><img src="https://pic4.zhimg.com/80/v2-07f7411c77901a7bd913e55884057a63_hd.jpg" alt="img"></p><p>以上就是带有Attention的Encoder-Decoder模型计算的全过程。</p><h2 id="七、总结"><a href="#七、总结" class="headerlink" title="七、总结"></a>七、总结</h2><p>本文主要讲了N vs N，N vs 1、1 vs N、N vs M四种经典的RNN模型，以及如何使用Attention结构。希望能对大家有所帮助。</p><p>可能有小伙伴发现没有LSTM的内容，其实是因为LSTM从外部看和RNN完全一样，因此上面的所有结构对LSTM都是通用的，想了解LSTM内部结构的可以参考这篇文章：<a href="https://link.zhihu.com/?target=http%3A//colah.github.io/posts/2015-08-Understanding-LSTMs/" target="_blank" rel="noopener">Understanding LSTM Networks</a>，写得非常好，推荐阅读。</p><p>所以RNN不是一定是seqtoseq的模型，其一般图为：</p><p><img src="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/RNN-rolled.png" alt="RNN-rolled"></p>]]></content>
     
     <summary type="html">
     
+      &lt;p&gt;RNN快速学习&lt;/p&gt;
+    
     </summary>
     
+      <category term="nn学习" scheme="http://kodgv.xyz/categories/nn%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="RNN" scheme="http://kodgv.xyz/tags/RNN/"/>
     
   </entry>
   
@@ -185,7 +249,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;pytorch学习日记&lt;br&gt;
+      &lt;p&gt;pytorch学习日记&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -413,56 +477,6 @@
       <category term="特征工程" scheme="http://kodgv.xyz/tags/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/"/>
     
       <category term="预处理" scheme="http://kodgv.xyz/tags/%E9%A2%84%E5%A4%84%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>numpy</title>
-    <link href="http://kodgv.xyz/2019/04/08/%E6%95%B0%E6%8D%AE%E7%AB%9E%E8%B5%9B/numpy/"/>
-    <id>http://kodgv.xyz/2019/04/08/数据竞赛/numpy/</id>
-    <published>2019-04-08T08:31:21.000Z</published>
-    <updated>2019-04-13T11:43:45.171Z</updated>
-    
-    <content type="html"><![CDATA[<p>numpy 操作小技巧<br><a id="more"></a></p><h2 id="增加"><a href="#增加" class="headerlink" title="增加"></a>增加</h2><p>concat/vstack/hstack</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="regexp">//</span>blog.csdn.net<span class="regexp">/xiaodongxiexie/</span>article<span class="regexp">/details/</span><span class="number">71774466</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;numpy 操作小技巧&lt;br&gt;
-    
-    </summary>
-    
-      <category term="数据竞赛" scheme="http://kodgv.xyz/categories/%E6%95%B0%E6%8D%AE%E7%AB%9E%E8%B5%9B/"/>
-    
-    
-      <category term="Numpy" scheme="http://kodgv.xyz/tags/Numpy/"/>
-    
-      <category term="机器学习" scheme="http://kodgv.xyz/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="python" scheme="http://kodgv.xyz/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>python代码</title>
-    <link href="http://kodgv.xyz/2019/04/08/%E6%95%B0%E6%8D%AE%E7%AB%9E%E8%B5%9B/python%E4%BB%A3%E7%A0%81/"/>
-    <id>http://kodgv.xyz/2019/04/08/数据竞赛/python代码/</id>
-    <published>2019-04-08T08:12:31.000Z</published>
-    <updated>2019-04-17T09:15:49.220Z</updated>
-    
-    <content type="html"><![CDATA[<p>python 代码小技巧</p><a id="more"></a><p>[TOC]</p><h2 id="通用"><a href="#通用" class="headerlink" title="通用"></a>通用</h2><h3 id="测试时间"><a href="#测试时间" class="headerlink" title="测试时间"></a>测试时间</h3><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">关注walltime</span><br><span class="line"><span class="meta">%</span><span class="meta">%</span>time</span><br></pre></td></tr></table></figure><h2 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h2><h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> index, item <span class="keyword">in</span> enumerate(list1):</span><br><span class="line">    <span class="keyword">print</span> index, item</span><br></pre></td></tr></table></figure><h3 id="并行遍历"><a href="#并行遍历" class="headerlink" title="并行遍历"></a>并行遍历</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (x,y) <span class="keyword">in</span> zip(a,b):</span><br><span class="line">   <span class="keyword">print</span> x,y</span><br></pre></td></tr></table></figure><h3 id="通过字典保存了所有中间过程，不仅命名容易，而且便于后续操作"><a href="#通过字典保存了所有中间过程，不仅命名容易，而且便于后续操作" class="headerlink" title="通过字典保存了所有中间过程，不仅命名容易，而且便于后续操作"></a>通过字典保存了所有中间过程，不仅命名容易，而且便于后续操作</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">d=&#123;d_name:get_dvalue(d_name) <span class="keyword">for</span> d_name <span class="keyword">in</span> d_list&#125;</span><br><span class="line">best_dvalue_dname=min(d.items(),key=<span class="keyword">lambda</span> x:x[<span class="number">1</span>])</span><br></pre></td></tr></table></figure><h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#这样会比单纯用readlines()快</span></span><br><span class="line">count = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> index, line <span class="keyword">in</span> enumerate(open(filepath,<span class="string">'r'</span>))： </span><br><span class="line">    count += <span class="number">1</span></span><br></pre></td></tr></table></figure><h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict 通过这个声明dict&#123;里面的格式&#125;</span><br><span class="line">如 defaultdict(list)</span><br></pre></td></tr></table></figure><h3 id="列表生成式"><a href="#列表生成式" class="headerlink" title="列表生成式"></a>列表生成式</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. [<span class="selector-tag">i</span> <span class="keyword">for</span> <span class="selector-tag">i</span> <span class="keyword">in</span> range(k) <span class="keyword">if</span> condition]：此时<span class="keyword">if</span>起条件判断作用，满足条件的，将被返回成为最终生成的列表的一员。</span><br><span class="line"><span class="number">2</span>. [<span class="selector-tag">i</span> <span class="keyword">if</span> condition <span class="keyword">else</span> exp <span class="keyword">for</span> exp]：此时<span class="keyword">if</span>...<span class="keyword">else</span>被用来赋值，满足条件的i以及<span class="keyword">else</span>被用来生成最终的列表</span><br></pre></td></tr></table></figure><h2 id="提高处理速度"><a href="#提高处理速度" class="headerlink" title="提高处理速度"></a>提高处理速度</h2><h3 id="多进程提高数据预处理"><a href="#多进程提高数据预处理" class="headerlink" title="多进程提高数据预处理"></a>多进程提高数据预处理</h3><p>df和numpy都可以，注意windows下保证两个代码分开，否则函数无法识别主进程和子进程</p><p>jupyter上代码：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这样子会很好的传参数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">np_parallelize_run</span><span class="params">(func,df,nlp)</span>:</span></span><br><span class="line">    df_split = np.array_split(df, num_partitions)</span><br><span class="line">    params=[]</span><br><span class="line">    <span class="keyword">for</span> sub_df <span class="keyword">in</span> df_split:</span><br><span class="line">        param = &#123;&#125;</span><br><span class="line">        param[<span class="string">'text'</span>]=sub_df</span><br><span class="line">        param[<span class="string">'nlp'</span>]=nlp</span><br><span class="line">        params.append(param)</span><br><span class="line">    pool = Pool(num_cores)</span><br><span class="line">    df = np.concatenate(pool.map(func, params))</span><br><span class="line">    <span class="comment">#df = sp.vstack(pool.map(func, df_split), format='csr') faster and mem efficient for</span></span><br><span class="line">    pool.close()</span><br><span class="line">    pool.join()</span><br><span class="line">    <span class="keyword">return</span> df</span><br></pre></td></tr></table></figure><p>py文件上的代码</p><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def spacy_split(<span class="built_in">param</span>):</span><br><span class="line"><span class="keyword">text</span>,nlp = <span class="built_in">param</span>[<span class="string">'text'</span>],<span class="built_in">param</span>[<span class="string">'nlp'</span>]</span><br><span class="line">docs = nlp.pipe(<span class="keyword">text</span>) </span><br><span class="line">print(<span class="string">'finish'</span>)</span><br><span class="line"><span class="literal">return</span> list(docs)</span><br></pre></td></tr></table></figure><h2 id="自带算法库"><a href="#自带算法库" class="headerlink" title="自带算法库"></a>自带算法库</h2><h3 id="数组中查找插入的位置"><a href="#数组中查找插入的位置" class="headerlink" title="数组中查找插入的位置"></a>数组中查找插入的位置</h3><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">返回排序插入的位置，并不是真的插入排序数组中</span><br><span class="line"><span class="symbol">from</span> <span class="keyword">bisect </span><span class="meta">import</span> <span class="keyword">bisect_left, </span><span class="keyword">bisect_right</span></span><br><span class="line"><span class="keyword">end </span>= <span class="keyword">bisect_left(keys, </span><span class="number">0</span>)</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;python 代码小技巧&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="数据竞赛" scheme="http://kodgv.xyz/categories/%E6%95%B0%E6%8D%AE%E7%AB%9E%E8%B5%9B/"/>
-    
-    
-      <category term="机器学习" scheme="http://kodgv.xyz/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="python" scheme="http://kodgv.xyz/tags/python/"/>
     
   </entry>
   

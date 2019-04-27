@@ -7,7 +7,7 @@
 
 <html class="theme-next mist use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
@@ -130,7 +130,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://playagricola.com/Kaggle/198without.png">
 <meta property="og:image" content="http://playagricola.com/Kaggle/198zoom3.png">
-<meta property="og:updated_time" content="2019-04-13T11:44:10.007Z">
+<meta property="og:updated_time" content="2019-04-22T12:59:36.514Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Santander Customer Transaction Prediction 比赛经验">
 <meta name="twitter:description" content="Santander Customer Transaction Prediction 比赛，01分类问题，200维连续型匿名变量。 讲述了magic操作，count的新特征构造，特征相关性。。。">
@@ -170,7 +170,7 @@
 
 
 
-  <title>Santander Customer Transaction Prediction 比赛经验 | 小黑屋</title>
+  <title>Santander Customer Transaction Prediction 比赛经验 | 小黑屋</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -189,7 +189,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -384,8 +384,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-04-13T19:44:10+08:00">
-                2019-04-13
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-22T20:59:36+08:00">
+                2019-04-22
               </time>
             
           </span>
@@ -519,7 +519,7 @@
 </ul>
 <h2 id="technial-part"><a href="#technial-part" class="headerlink" title="technial part:"></a>technial part:</h2><p>匿名变量用NN会更好</p>
 <p>NN的concat可以更好的处理变量之间的关系</p>
-<h2 id="rest-magic"><a href="#rest-magic" class="headerlink" title="rest magic"></a>rest magic</h2><p> using the shuffle augmentation (duplicate and shuffle 16 times samples with target == 1, 4 for target ==0) and added pseudo label (2700 highest predicted test points as 1 and 2000 lowest as 0)</p>
+<h2 id="augment-magic"><a href="#augment-magic" class="headerlink" title="augment magic"></a>augment magic</h2><p> using the shuffle augmentation (duplicate and shuffle 16 times samples with target == 1, 4 for target ==0) and added pseudo label (2700 highest predicted test points as 1 and 2000 lowest as 0)</p>
 <p>pseudo label指从测试集中取最高的为1最低的为0，加进去</p>
 <p>shuffle augmentation 指数据增强(eda代码中有)</p>
 
@@ -650,7 +650,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -672,7 +672,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -688,7 +688,7 @@
      <span class="site-state-item-name">访客量</span>
 </div>
 <div class="site-state-item site-state-posts">
-      <span class="site-state-item-count">32.3k</span>
+      <span class="site-state-item-count">37.8k</span>
       <span class="site-state-item-name">总字数</span>
 </div>
           </nav>
@@ -747,7 +747,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#magic-kernel"><span class="nav-number">1.</span> <span class="nav-text">magic kernel</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#树模型的缺点"><span class="nav-number">1.1.</span> <span class="nav-text">树模型的缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#无法学习到的东西"><span class="nav-number">1.1.1.</span> <span class="nav-text">无法学习到的东西</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对特征敏感的参数设置"><span class="nav-number">1.1.2.</span> <span class="nav-text">对特征敏感的参数设置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">1.2.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#first-kernel"><span class="nav-number">2.</span> <span class="nav-text">first kernel</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#magic-feature"><span class="nav-number">2.1.</span> <span class="nav-text">magic feature</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#magic-insight"><span class="nav-number">2.2.</span> <span class="nav-text">magic insight</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#technial-part"><span class="nav-number">2.3.</span> <span class="nav-text">technial part:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rest-magic"><span class="nav-number">2.4.</span> <span class="nav-text">rest magic</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#magic-kernel"><span class="nav-number">1.</span> <span class="nav-text">magic kernel</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#树模型的缺点"><span class="nav-number">1.1.</span> <span class="nav-text">树模型的缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#无法学习到的东西"><span class="nav-number">1.1.1.</span> <span class="nav-text">无法学习到的东西</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对特征敏感的参数设置"><span class="nav-number">1.1.2.</span> <span class="nav-text">对特征敏感的参数设置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">1.2.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#first-kernel"><span class="nav-number">2.</span> <span class="nav-text">first kernel</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#magic-feature"><span class="nav-number">2.1.</span> <span class="nav-text">magic feature</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#magic-insight"><span class="nav-number">2.2.</span> <span class="nav-text">magic insight</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#technial-part"><span class="nav-number">2.3.</span> <span class="nav-text">technial part:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#augment-magic"><span class="nav-number">2.4.</span> <span class="nav-text">augment magic</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1405,11 +1405,33 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 
   
 
-  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

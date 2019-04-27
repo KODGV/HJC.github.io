@@ -7,7 +7,7 @@
 
 <html class="theme-next mist use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
@@ -120,18 +120,21 @@
 
 
 
-<meta name="description" content="[TOC] 参考来源: https://zhuanlan.zhihu.com/p/32423092 ​    本质上讲，Focal Loss 就是一个解决分类问题中类别不平衡、分类难度差异的一个 loss，总之这个工作一片好评就是了。大家还可以看知乎的讨论：如何评价 Kaiming 的 Focal Loss for Dense Object Detection？">
+<meta name="description" content="[TOC] 参考来源: https://zhuanlan.zhihu.com/p/32423092 https://www.zhihu.com/question/63581984 https://zhuanlan.zhihu.com/p/28527749 讲解​    本质上讲，Focal Loss 就是一个解决分类问题中类别不平衡、分类难度差异的一个 loss，总之这个工作一片好评就是了。大家">
 <meta name="keywords" content="不平衡数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="FocalLoss针对不平衡数据">
 <meta property="og:url" content="http://kodgv.xyz/2019/04/22/神经网络/FocalLoss针对不平衡数据/index.html">
 <meta property="og:site_name" content="小黑屋">
-<meta property="og:description" content="[TOC] 参考来源: https://zhuanlan.zhihu.com/p/32423092 ​    本质上讲，Focal Loss 就是一个解决分类问题中类别不平衡、分类难度差异的一个 loss，总之这个工作一片好评就是了。大家还可以看知乎的讨论：如何评价 Kaiming 的 Focal Loss for Dense Object Detection？">
+<meta property="og:description" content="[TOC] 参考来源: https://zhuanlan.zhihu.com/p/32423092 https://www.zhihu.com/question/63581984 https://zhuanlan.zhihu.com/p/28527749 讲解​    本质上讲，Focal Loss 就是一个解决分类问题中类别不平衡、分类难度差异的一个 loss，总之这个工作一片好评就是了。大家">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-22T10:43:45.559Z">
+<meta property="og:image" content="http://kodgv.xyz/2019/04/22/神经网络/FocalLoss针对不平衡数据/f1.jpg">
+<meta property="og:image" content="http://kodgv.xyz/2019/04/22/神经网络/FocalLoss针对不平衡数据/f2.jpg">
+<meta property="og:updated_time" content="2019-04-22T13:00:27.644Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FocalLoss针对不平衡数据">
-<meta name="twitter:description" content="[TOC] 参考来源: https://zhuanlan.zhihu.com/p/32423092 ​    本质上讲，Focal Loss 就是一个解决分类问题中类别不平衡、分类难度差异的一个 loss，总之这个工作一片好评就是了。大家还可以看知乎的讨论：如何评价 Kaiming 的 Focal Loss for Dense Object Detection？">
+<meta name="twitter:description" content="[TOC] 参考来源: https://zhuanlan.zhihu.com/p/32423092 https://www.zhihu.com/question/63581984 https://zhuanlan.zhihu.com/p/28527749 讲解​    本质上讲，Focal Loss 就是一个解决分类问题中类别不平衡、分类难度差异的一个 loss，总之这个工作一片好评就是了。大家">
+<meta name="twitter:image" content="http://kodgv.xyz/2019/04/22/神经网络/FocalLoss针对不平衡数据/f1.jpg">
 
 
 
@@ -167,7 +170,7 @@
 
 
 
-  <title>FocalLoss针对不平衡数据 | 小黑屋</title>
+  <title>FocalLoss针对不平衡数据 | 小黑屋</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -186,7 +189,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -381,7 +384,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-04-22T18:43:45+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-22T21:00:27+08:00">
                 2019-04-22
               </time>
             
@@ -442,7 +445,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  79字
+                  1.3k字
                 </span>
               
 
@@ -458,7 +461,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1分钟
+                  5分钟
                 </span>
               
             </div>
@@ -483,7 +486,26 @@
 <p>[TOC]</p>
 <p>参考来源:</p>
 <p><a href="https://zhuanlan.zhihu.com/p/32423092" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/32423092</a></p>
-<p>​    本质上讲，Focal Loss 就是一个解决<strong>分类问题中类别不平衡、分类难度差异</strong>的一个 loss，总之这个工作一片好评就是了。大家还可以看知乎的讨论：<a href="https://www.zhihu.com/question/63581984" target="_blank" rel="noopener">如何评价 Kaiming 的 Focal Loss for Dense Object Detection？</a></p>
+<p><a href="https://www.zhihu.com/question/63581984" target="_blank" rel="noopener">https://www.zhihu.com/question/63581984</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/28527749" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/28527749</a></p>
+<h2 id="讲解"><a href="#讲解" class="headerlink" title="讲解"></a>讲解</h2><p>​    本质上讲，Focal Loss 就是一个解决<strong>分类问题中类别不平衡、分类难度差异</strong>的一个 loss，总之这个工作一片好评就是了。大家还可以看知乎的讨论：<a href="https://www.zhihu.com/question/63581984" target="_blank" rel="noopener">如何评价 Kaiming 的 Focal Loss for Dense Object Detection？</a></p>
+<p><strong>核心思想</strong></p>
+<p>这样的做法就是：<strong>正样本的预测值大于 0.5 的，或者负样本的预测值小于 0.5 的，我都不更新了，把注意力集中在预测不准的那些样本，当然这个阈值可以调整。</strong>这样做能部分地达到目的，但是所需要的迭代次数会大大增加。</p>
+<p>原因是这样的：以正样本为例，<strong>我只告诉模型正样本的预测值大于 0.5 就不更新了，却没有告诉它要“保持”大于 0.5</strong>，所以下一阶段，它的预测值就很有可能变回小于 0.5 了。当然，如果是这样的话，下一回合它又被更新了，这样反复迭代，理论上也能达到目的，但是迭代次数会大大增加。</p>
+<p>所以，要想改进的话，重点就是<strong>“不只是要告诉模型正样本的预测值大于0.5就不更新了，而是要告诉模型当其大于0.5后就只需要保持就好了”</strong>。好比老师看到一个学生及格了就不管了，这显然是不行的。如果学生已经及格，那么应该要想办法要他保持目前这个状态甚至变得更好，而不是不管。</p>
+<p>所以除了单纯的区分外，必须使该loss可导，这样才可以告诉模型。</p>
+<p><strong>目的是通过减少易分类样本的权重，从而使得模型在训练时更专注于难分类的样本</strong>。</p>
+<p>Kaiming 大神的 Focal Loss 形式是：</p>
+<p><img src="/2019/04/22/神经网络/FocalLoss针对不平衡数据/f1.jpg" alt></p>
+<p>​    首先y’的范围是0到1，所以不管γ是多少，这个调制系数都是大于等于0的。易分类的样本再多，你的权重很小，那么对于total loss的共享也就不会太大。那么怎么控制样本权重呢？举个例子，假设一个二分类，样本x1属于类别1的y’=0.9，样本x2属于类别1的y’=0.6，显然前者更可能是类别1，假设γ=1，那么对于y’=0.9，调制系数则为0.1；对于y’=0.6，调制系数则为0.4，这个调制系数就是这个样本对loss的贡献程度，也就是权重，所以难分的样本（pt=0.6）的权重更大。</p>
+<p>​    <strong>比如负样本远比正样本多的话，模型肯定会倾向于数目多的负类（可以想象全部样本都判为负类），这时候，负类的</strong> <strong>*ŷ γ*</strong> <strong>或</strong> <strong>σ(Kx) 都很小，而正类的</strong> <strong>(1−ŷ )γ</strong> <strong>或</strong> <strong>*σ(−Kx)*</strong> <strong>就很大，这时候模型就会开始集中精力关注正样本。</strong></p>
+<p><img src="/2019/04/22/神经网络/FocalLoss针对不平衡数据/f2.jpg" alt></p>
+<p>通过一系列调参，得到 <em>α=0.25, γ=2</em>（在他的模型上）的效果最好。注意在他的任务中，正样本是属于少数样本，也就是说，本来正样本难以“匹敌”负样本，但经过 <em>(1−ŷ )γ</em> 和 <em>ŷγ</em> 的“操控”后，也许形势还逆转了，还要对正样本降权。</p>
+<p>不过我认为这样调整只是经验结果，理论上很难有一个指导方案来决定 <em>α</em> 的值，如果没有大算力调参，倒不如直接让 <em>α=0.5</em>（均等）。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>本文实验中采用的Focal Loss 代码如下。</p>
+<p>关于Focal Loss 的数学推倒在文章：<strong>Focal Loss 的前向与后向公式推导</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"><span class="keyword">from</span> torch.autograd <span class="keyword">import</span> Variable</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FocalLoss</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="string">r"""</span></span><br><span class="line"><span class="string">        This criterion is a implemenation of Focal Loss, which is proposed in </span></span><br><span class="line"><span class="string">        Focal Loss for Dense Object Detection.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            Loss(x, class) = - \alpha (1-softmax(x)[class])^gamma \log(softmax(x)[class])</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        The losses are averaged across observations for each minibatch.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            alpha(1D Tensor, Variable) : the scalar factor for this criterion</span></span><br><span class="line"><span class="string">            gamma(float, double) : gamma &gt; 0; reduces the relative loss for well-classiﬁed examples (p &gt; .5), </span></span><br><span class="line"><span class="string">                                   putting more focus on hard, misclassiﬁed examples</span></span><br><span class="line"><span class="string">            size_average(bool): By default, the losses are averaged over observations for each minibatch.</span></span><br><span class="line"><span class="string">                                However, if the field size_average is set to False, the losses are</span></span><br><span class="line"><span class="string">                                instead summed for each minibatch.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, class_num, alpha=None, gamma=<span class="number">2</span>, size_average=True)</span>:</span></span><br><span class="line">        super(FocalLoss, self).__init__()</span><br><span class="line">        <span class="keyword">if</span> alpha <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            self.alpha = Variable(torch.ones(class_num, <span class="number">1</span>))</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span> isinstance(alpha, Variable):</span><br><span class="line">                self.alpha = alpha</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                self.alpha = Variable(alpha)</span><br><span class="line">        self.gamma = gamma</span><br><span class="line">        self.class_num = class_num</span><br><span class="line">        self.size_average = size_average</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, inputs, targets)</span>:</span></span><br><span class="line">        N = inputs.size(<span class="number">0</span>)</span><br><span class="line">        C = inputs.size(<span class="number">1</span>)</span><br><span class="line">        P = F.softmax(inputs)</span><br><span class="line"></span><br><span class="line">        class_mask = inputs.data.new(N, C).fill_(<span class="number">0</span>)</span><br><span class="line">        class_mask = Variable(class_mask)</span><br><span class="line">        ids = targets.view(<span class="number">-1</span>, <span class="number">1</span>)</span><br><span class="line">        class_mask.scatter_(<span class="number">1</span>, ids.data, <span class="number">1.</span>)</span><br><span class="line">        <span class="comment">#print(class_mask)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> inputs.is_cuda <span class="keyword">and</span> <span class="keyword">not</span> self.alpha.is_cuda:</span><br><span class="line">            self.alpha = self.alpha.cuda()</span><br><span class="line">        alpha = self.alpha[ids.data.view(<span class="number">-1</span>)]</span><br><span class="line"></span><br><span class="line">        probs = (P*class_mask).sum(<span class="number">1</span>).view(<span class="number">-1</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        log_p = probs.log()</span><br><span class="line">        <span class="comment">#print('probs size= &#123;&#125;'.format(probs.size()))</span></span><br><span class="line">        <span class="comment">#print(probs)</span></span><br><span class="line"></span><br><span class="line">        batch_loss = -alpha*(torch.pow((<span class="number">1</span>-probs), self.gamma))*log_p </span><br><span class="line">        <span class="comment">#print('-----bacth_loss------')</span></span><br><span class="line">        <span class="comment">#print(batch_loss)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.size_average:</span><br><span class="line">            loss = batch_loss.mean()</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            loss = batch_loss.sum()</span><br><span class="line">        <span class="keyword">return</span> loss</span><br></pre></td></tr></table></figure>
+<h2 id="引申"><a href="#引申" class="headerlink" title="引申"></a>引申</h2><p>这就是为什么之前别人做数据增强的时候，把预测很高的数据当作1把预测很低的数据当作0放进去加强训练。</p>
 
       
     </div>
@@ -514,8 +536,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/22/FocalLoss针对不平衡数据/" rel="next" title="FocalLoss针对不平衡数据">
-                <i class="fa fa-chevron-left"></i> FocalLoss针对不平衡数据
+              <a href="/2019/04/21/好的参考汇总/" rel="next" title="好的参考汇总">
+                <i class="fa fa-chevron-left"></i> 好的参考汇总
               </a>
             
           </div>
@@ -523,6 +545,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/22/竞赛经验/比赛心得搜集集合/" rel="prev" title="NLP比赛心得搜集集合">
+                NLP比赛心得搜集集合 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -579,8 +605,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -597,7 +632,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -619,7 +654,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -635,7 +670,7 @@
      <span class="site-state-item-name">访客量</span>
 </div>
 <div class="site-state-item site-state-posts">
-      <span class="site-state-item-count">32.3k</span>
+      <span class="site-state-item-count">37.8k</span>
       <span class="site-state-item-name">总字数</span>
 </div>
           </nav>
@@ -684,6 +719,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#讲解"><span class="nav-number">1.</span> <span class="nav-text">讲解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">2.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引申"><span class="nav-number">3.</span> <span class="nav-text">引申</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1336,11 +1387,33 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 
   
 
-  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

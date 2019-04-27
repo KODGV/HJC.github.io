@@ -7,7 +7,7 @@
 
 <html class="theme-next mist use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
@@ -199,7 +199,7 @@
 <meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/529a6cbf-f2fe-4d8c-a90d-f8a0567f6bf8/1528709508901.png">
 <meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/b39171e2-f71c-4ea9-a9de-0d6c8d983550/1528709508952.png">
 <meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/13be2088-2463-474a-855b-b2193a08ce44/1528709509073.png">
-<meta property="og:updated_time" content="2019-04-16T14:45:16.960Z">
+<meta property="og:updated_time" content="2019-04-27T07:11:19.484Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Attention">
 <meta name="twitter:description" content="[TOC]Attention本质就是一系列注意力分配系数，也就是一系列权重参数罢了。">
@@ -239,7 +239,7 @@
 
 
 
-  <title>Attention | 小黑屋</title>
+  <title>Attention | 小黑屋</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -258,7 +258,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -453,8 +453,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-04-16T22:45:16+08:00">
-                2019-04-16
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-27T15:11:19+08:00">
+                2019-04-27
               </time>
             
           </span>
@@ -586,7 +586,8 @@
 <p><img src="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806142412460-1178080370.png" alt="img"></p>
 <p>图3 Ci的形成过程</p>
 <p>　　这里还有一个问题：生成目标句子某个单词，比如“汤姆”的时候，<strong>你怎么知道AM模型所需要的输入句子单词注意力分配概率分布值呢？</strong>就是说“汤姆”对应的概率分布：</p>
-<h4 id="划重点-注意力权重获取的过程-（Tom-0-3）（Chase-0-2）（Jerry-0-5）是如何得到的呢？"><a href="#划重点-注意力权重获取的过程-（Tom-0-3）（Chase-0-2）（Jerry-0-5）是如何得到的呢？" class="headerlink" title="　　划重点(注意力权重获取的过程)（Tom,0.3）（Chase,0.2）（Jerry,0.5）是如何得到的呢？"></a>　　划重点(注意力权重获取的过程)（Tom,0.3）（Chase,0.2）（Jerry,0.5）是如何得到的呢？</h4><p>　　为了便于说明，我们假设对图1的非AM模型的Encoder-Decoder框架进行细化，Encoder采用RNN模型，Decoder也采用RNN模型，这是比较常见的一种模型配置，则图1的图转换为下图：</p>
+<p>划重点(注意力权重获取的过程)（Tom,0.3）（Chase,0.2）（Jerry,0.5）是如何得到的呢？</p>
+<p>　　为了便于说明，我们假设对图1的非AM模型的Encoder-Decoder框架进行细化，Encoder采用RNN模型，Decoder也采用RNN模型，这是比较常见的一种模型配置，则图1的图转换为下图：</p>
 <p><img src="https://images2018.cnblogs.com/blog/1192699/201808/1192699-20180806142520665-1351011214.png" alt="img"></p>
 <p>图4 RNN作为具体模型的Encoder-Decoder框架</p>
 <p>　　注意力分配概率分布值的通用计算过程：</p>
@@ -872,7 +873,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -894,7 +895,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -910,7 +911,7 @@
      <span class="site-state-item-name">访客量</span>
 </div>
 <div class="site-state-item site-state-posts">
-      <span class="site-state-item-count">32.3k</span>
+      <span class="site-state-item-count">37.8k</span>
       <span class="site-state-item-name">总字数</span>
 </div>
           </nav>
@@ -969,7 +970,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-什么是Attention机制？"><span class="nav-number">1.</span> <span class="nav-text">1. 什么是Attention机制？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-先了解编码-解码框架：Encoder-Decoder框架"><span class="nav-number">2.</span> <span class="nav-text">2. 先了解编码-解码框架：Encoder-Decoder框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Attention-Model"><span class="nav-number">3.</span> <span class="nav-text">3. Attention Model</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#划重点-注意力权重获取的过程-（Tom-0-3）（Chase-0-2）（Jerry-0-5）是如何得到的呢？"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">　　划重点(注意力权重获取的过程)（Tom,0.3）（Chase,0.2）（Jerry,0.5）是如何得到的呢？</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Attention机制的本质思想"><span class="nav-number">4.</span> <span class="nav-text">4. Attention机制的本质思想</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-Self-Attention模型"><span class="nav-number">5.</span> <span class="nav-text">5. Self Attention模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五种attention模型"><span class="nav-number">6.</span> <span class="nav-text">五种attention模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#hard-attention-amp-soft-attention"><span class="nav-number">6.1.</span> <span class="nav-text">hard attention&amp;soft attention</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#global-attention-amp-local-attention"><span class="nav-number">6.2.</span> <span class="nav-text">global attention &amp; local attention</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#self-attention-amp-multiple-head-attention"><span class="nav-number">6.3.</span> <span class="nav-text">self-attention &amp; multiple-head attention</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-什么是Attention机制？"><span class="nav-number">1.</span> <span class="nav-text">1. 什么是Attention机制？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-先了解编码-解码框架：Encoder-Decoder框架"><span class="nav-number">2.</span> <span class="nav-text">2. 先了解编码-解码框架：Encoder-Decoder框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Attention-Model"><span class="nav-number">3.</span> <span class="nav-text">3. Attention Model</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Attention机制的本质思想"><span class="nav-number">4.</span> <span class="nav-text">4. Attention机制的本质思想</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-Self-Attention模型"><span class="nav-number">5.</span> <span class="nav-text">5. Self Attention模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五种attention模型"><span class="nav-number">6.</span> <span class="nav-text">五种attention模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#hard-attention-amp-soft-attention"><span class="nav-number">6.1.</span> <span class="nav-text">hard attention&amp;soft attention</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#global-attention-amp-local-attention"><span class="nav-number">6.2.</span> <span class="nav-text">global attention &amp; local attention</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#self-attention-amp-multiple-head-attention"><span class="nav-number">6.3.</span> <span class="nav-text">self-attention &amp; multiple-head attention</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1627,11 +1628,33 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 
   
 
-  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

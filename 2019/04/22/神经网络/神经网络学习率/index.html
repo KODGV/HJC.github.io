@@ -107,7 +107,7 @@
 
 
 
-  <meta name="keywords" content="学习率,">
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -121,9 +121,9 @@
 
 
 <meta name="description" content="神经网络学习率">
-<meta name="keywords" content="学习率">
+<meta name="keywords" content="数据竞赛，深度学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="神经网络学习率">
+<meta property="og:title" content="小黑屋">
 <meta property="og:url" content="http://kodgv.xyz/2019/04/22/神经网络/神经网络学习率/index.html">
 <meta property="og:site_name" content="小黑屋">
 <meta property="og:description" content="神经网络学习率">
@@ -134,13 +134,12 @@
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Ctheta_%7Bi-1%7D+-+%5Calpha%5Cbeta+d_%7Bi-1%7D">
 <meta property="og:image" content="http://kodgv.xyz/2019/04/22/神经网络/神经网络学习率/f6.jpg">
 <meta property="og:image" content="http://kodgv.xyz/2019/04/22/神经网络/神经网络学习率/f7.jpg">
-<meta property="og:image" content="https://www.zhihu.com/equation?tex=V_t">
 <meta property="og:image" content="http://kodgv.xyz/2019/04/22/神经网络/神经网络学习率/p2.png">
 <meta property="og:image" content="http://kodgv.xyz/2019/04/22/神经网络/神经网络学习率/p3.png">
 <meta property="og:image" content="http://kodgv.xyz/2019/04/22/神经网络/神经网络学习率/p4.jpeg">
-<meta property="og:updated_time" content="2019-04-27T08:08:04.372Z">
+<meta property="og:updated_time" content="2019-04-27T12:43:33.293Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="神经网络学习率">
+<meta name="twitter:title" content="小黑屋">
 <meta name="twitter:description" content="神经网络学习率">
 <meta name="twitter:image" content="http://kodgv.xyz/2019/04/22/神经网络/神经网络学习率/p1.png">
 
@@ -178,7 +177,7 @@
 
 
 
-  <title>神经网络学习率 | 小黑屋</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> | 小黑屋</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -364,7 +363,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">神经网络学习率</h1>
+          <h1 class="post-title" itemprop="name headline"></h1>
         
 
         <div class="post-meta">
@@ -376,7 +375,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-22T22:54:39+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-22T22:54:40+08:00">
                 2019-04-22
               </time>
             
@@ -392,35 +391,13 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-04-27T16:08:04+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-27T20:43:33+08:00">
                 2019-04-27
               </time>
             
           </span>
 
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/nn学习/" itemprop="url" rel="index">
-                    <span itemprop="name">nn学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -428,7 +405,7 @@
 
           
           
-             <span id="/2019/04/22/神经网络/神经网络学习率/" class="leancloud_visitors" data-flag-title="神经网络学习率">
+             <span id="/2019/04/22/神经网络/神经网络学习率/" class="leancloud_visitors" data-flag-title>
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -490,7 +467,10 @@
       
 
       
-        <p>神经网络学习率</p>
+        <ul>
+<li><p>神经网络学习率</p>
+</li>
+</ul>
 <a id="more"></a>
 <p>[TOC]</p>
 <p>来源:<a href="http://ruder.io/optimizing-gradient-descent/index.html#momentum" target="_blank" rel="noopener">http://ruder.io/optimizing-gradient-descent/index.html#momentum</a></p>
@@ -584,7 +564,7 @@ v_t &= \beta_2 v_{t-1} + (1 - \beta_2) g_t^2
 \theta_{t+1} = \theta_{t} - \dfrac{\eta}{\sqrt{\hat{v}_t} + \epsilon} \hat{m}_t</script><p>The authors propose default values of 0.9 for β1, 0.999 for β2, and 10−8for ϵ.</p>
 <p><strong>1.Adams可能不收敛</strong></p>
 <p>文中各大优化算法的学习率：其中，SGD没有用到二阶动量，因此学习率是恒定的（实际使用过程中会采用学习率衰减策略，因此学习率递减）。AdaGrad的二阶动量不断累积，单调递增，因此学习率是单调递减的。因此，这两类算法会使得学习率不断递减，最终收敛到0，模型也得以收敛。</p>
-<p>但AdaDelta和Adam则不然。二阶动量是固定时间窗口内的累积，随着时间窗口的变化，遇到的数据可能发生巨变，使得 <img src="https://www.zhihu.com/equation?tex=V_t" alt="V_t"> 可能会时大时小，不是单调变化。这就可能在训练后期引起学习率的震荡，导致模型无法收敛。</p>
+<p>但AdaDelta和Adam则不然。二阶动量是固定时间窗口内的累积，随着时间窗口的变化，遇到的数据可能发生巨变，使得Vt 可能会时大时小，不是单调变化。这就可能在训练后期引起学习率的震荡，导致模型无法收敛。</p>
 <p><strong>2.Adams可能错失全局最优解</strong></p>
 <p>​       吐槽Adam最狠的 <a href="https://link.zhihu.com/?target=https%3A//arxiv.org/abs/1705.08292" target="_blank" rel="noopener">The Marginal Value of Adaptive Gradient Methods in Machine Learning</a> 。文中说到，同样的一个优化问题，不同的优化算法可能会找到不同的答案，但自适应学习率的算法往往找到非常差的答案。他们通过一个特定的数据例子说明，自适应学习率算法可能会对前期出现的特征过拟合，后期才出现的特征很难纠正前期的拟合效果。</p>
 <h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>那么，现在应该使用哪个优化器呢?如果您的输入数据是稀疏的，那么您可能使用自适应学习率方法之一获得最佳结果。另一个好处是，您不需要调优学习率，但是可以使用缺省值获得最佳结果。</p>
@@ -639,12 +619,6 @@ v_t &= \beta_2 v_{t-1} + (1 - \beta_2) g_t^2
     
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/学习率/" rel="tag"><i class="fa fa-tag"></i> 学习率</a>
-          
-        </div>
       
 
       
@@ -762,7 +736,7 @@ v_t &= \beta_2 v_{t-1} + (1 - \beta_2) g_t^2
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -773,7 +747,7 @@ v_t &= \beta_2 v_{t-1} + (1 - \beta_2) g_t^2
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

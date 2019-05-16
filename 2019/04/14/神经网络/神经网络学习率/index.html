@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|18:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学习率,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小黑屋" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="神经网络学习率以及参数的更新">
+<meta name="keywords" content="学习率">
+<meta property="og:type" content="article">
+<meta property="og:title" content="神经网络迭代更新">
+<meta property="og:url" content="http://kodgv.xyz/2019/04/14/神经网络/神经网络学习率/index.html">
+<meta property="og:site_name" content="小黑屋">
+<meta property="og:description" content="神经网络学习率以及参数的更新">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://kodgv.xyz/2019/04/14/神经网络/神经网络学习率/p1.png">
+<meta property="og:image" content="http://kodgv.xyz/2019/04/14/神经网络/神经网络学习率/p2.jpeg">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Ctheta_%7Bi-1%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Ctheta_%7Bi-1%7D+-+%5Calpha%5Cbeta+d_%7Bi-1%7D">
+<meta property="og:image" content="http://kodgv.xyz/2019/04/14/神经网络/神经网络学习率/f6.jpg">
+<meta property="og:image" content="http://kodgv.xyz/2019/04/14/神经网络/神经网络学习率/f7.jpg">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=V_t">
+<meta property="og:image" content="http://kodgv.xyz/2019/04/14/神经网络/神经网络学习率/p2.png">
+<meta property="og:image" content="http://kodgv.xyz/2019/04/14/神经网络/神经网络学习率/p3.png">
+<meta property="og:updated_time" content="2019-04-30T12:50:08.035Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="神经网络迭代更新">
+<meta name="twitter:description" content="神经网络学习率以及参数的更新">
+<meta name="twitter:image" content="http://kodgv.xyz/2019/04/14/神经网络/神经网络学习率/p1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://kodgv.xyz/2019/04/14/神经网络/神经网络学习率/">
+
+
+
+
+
+  <title>神经网络迭代更新 | 小黑屋</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小黑屋</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://kodgv.xyz/2019/04/14/神经网络/神经网络学习率/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KODGV">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黑屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">神经网络迭代更新</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-14T16:20:34+08:00">
+                2019-04-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-30T20:50:08+08:00">
+                2019-04-30
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/神经网络/" itemprop="url" rel="index">
+                    <span itemprop="name">神经网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/04/14/神经网络/神经网络学习率/" class="leancloud_visitors" data-flag-title="神经网络迭代更新">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.2k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  16分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>神经网络学习率以及参数的更新</p>
+<a id="more"></a>
+<hr>
+<p>要注意区别，梯度下降计算的是参数，cyc计算的是学习率，自适应优化器学习率本身就会衰减，所以要注意两者是否冲突。</p>
+<p><strong>因为kernel跑不超过5epcho，所以其实学习率不会太影响，因为它更新也只能更新5次</strong></p>
+<p>[TOC]</p>
+<p>来源:<a href="http://ruder.io/optimizing-gradient-descent/index.html#momentum" target="_blank" rel="noopener">http://ruder.io/optimizing-gradient-descent/index.html#momentum</a></p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>​    调参就是指调学习率</p>
+<p>​    学习速率是指导我们该如何通过损失函数的梯度调整网络权重的超参数。学习率越低，损失函数的变化速度就越慢。虽然使用低学习率可以确保我们不会错过任何局部极小值，但也意味着我们将花费更长的时间来进行收敛，特别是在被困在高原区域的情况下。</p>
+<p>​    一般而言，用户可以利用过去的经验（或其他类型的学习资料）直观地设定学习率的最佳值。</p>
+<p>因此，想得到最佳学习速率是很难做到的。下图演示了配置学习速率时可能遇到的不同情况。</p>
+<p><img src="/2019/04/14/神经网络/神经网络学习率/p1.png" alt></p>
+<p>对于太慢的学习速率来说，损失函数可能减小，但是按照非常浅薄的速率减小的。当进入了最优学习率区域，你将会观察到在损失函数上一次非常大的下降。进一步增加学习速率会造成损失函数值「跳来跳去」甚至在最低点附近发散。记住，最好的学习速率搭配着损失函数上最陡的下降，所以我们主要关注分析图的坡度。</p>
+<p><img src="/2019/04/14/神经网络/神经网络学习率/p2.jpeg" alt></p>
+<h2 id="Gradient-descent"><a href="#Gradient-descent" class="headerlink" title="Gradient descent"></a>Gradient descent</h2><p><strong>make a trade-off between the accuracy of the parameter update and the time it takes to perform an update.</strong></p>
+<h3 id="Batch-gradient-descent"><a href="#Batch-gradient-descent" class="headerlink" title="Batch gradient descent"></a>Batch gradient descent</h3><script type="math/tex; mode=display">
+\theta = \theta - \eta \cdot \nabla_\theta J( \theta)</script><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="title">range</span>(<span class="params">nb_epochs</span>):</span></span><br><span class="line"><span class="function">  params_grad</span> = evaluate_gradient(loss_function, data, <span class="keyword">params</span>)</span><br><span class="line">  <span class="keyword">params</span> = <span class="keyword">params</span> - learning_rate * params_grad</span><br></pre></td></tr></table></figure>
+<p>优点：保证批量梯度下降收敛于凸误差曲面的全局最小值和非凸曲面的局部最小值。</p>
+<p>缺点：下降可能非常慢，而且要求每次计算整个epcho的数据，对内存要求比较高，而且它不允许在线更新。</p>
+<h3 id="Stochastic-gradient-descent"><a href="#Stochastic-gradient-descent" class="headerlink" title="Stochastic gradient descent"></a>Stochastic gradient descent</h3><script type="math/tex; mode=display">
+\theta = \theta - \eta \cdot \nabla_\theta J( \theta; x^{(i)}; y^{(i)})</script><p>注意每次都需要对数据进行shuffle打乱</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(nb_epochs):</span><br><span class="line">  <span class="built_in">np</span>.<span class="built_in">random</span>.shuffle(data)</span><br><span class="line">  <span class="keyword">for</span> <span class="built_in">example</span> <span class="keyword">in</span> data:</span><br><span class="line">    params_grad = evaluate_gradient(loss_function, <span class="built_in">example</span>, params)</span><br><span class="line">    params = params - learning_rate * params_grad</span><br></pre></td></tr></table></figure>
+<p>优点：减少计算的冗余，由于每次只更新一次，速度快，对在线更新友好。</p>
+<p>缺点：会拥有比较高的方差，会震荡比较明显，如果学习率不足够小的话可能会收敛于局部点。</p>
+<p>SGD的学习率一般要配合退火，不断变小</p>
+<h3 id="Mini-batch-gradient-descent"><a href="#Mini-batch-gradient-descent" class="headerlink" title="Mini-batch gradient descent"></a>Mini-batch gradient descent</h3><script type="math/tex; mode=display">
+\theta = \theta - \eta \cdot \nabla_\theta J( \theta; x^{(i:i+n)}; y^{(i:i+n)})</script><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(nb_epochs):</span><br><span class="line">  <span class="built_in">np</span>.<span class="built_in">random</span>.shuffle(data)</span><br><span class="line">  <span class="keyword">for</span> <span class="built_in">batch</span> <span class="keyword">in</span> get_batches(data, batch_size=<span class="number">50</span>):</span><br><span class="line">    params_grad = evaluate_gradient(loss_function, <span class="built_in">batch</span>, params)</span><br><span class="line">    params = params - learning_rate * params_grad</span><br></pre></td></tr></table></figure>
+<p>优点：减少方差</p>
+<p>缺点：batch需要调节，在内存和速度上trade-off</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>简而言之，虽然有mini-batch，但是学习率仍然需要精心设计学习速率过小会导致收敛异常缓慢，而学习速率过大则会阻碍收敛，导致损失函数在最小值附近波动，甚至出现发散。</p>
+<h2 id="Adaptive-Optimizers"><a href="#Adaptive-Optimizers" class="headerlink" title="Adaptive Optimizers"></a>Adaptive Optimizers</h2><h3 id="Momentum"><a href="#Momentum" class="headerlink" title="Momentum"></a>Momentum</h3><script type="math/tex; mode=display">
+\begin{align} 
+\begin{split} 
+v_t &= \gamma v_{t-1} + \eta \nabla_\theta J( \theta) \\ 
+\theta &= \theta - v_t 
+\end{split} 
+\end{align}</script><p>要理解vt-1是上一次的更新，如果符号一致就会加速，如果符号不一致说明震荡，就会减速，这就是命名动量的意义，就像一个ball向下滚，它向下加速，向上却会受到空气阻力</p>
+<p>优点：动量项对于梯度指向相同方向的维度增加，对于梯度改变方向的维度减少更新。因此，我们获得更快的收敛速度和减少振荡。</p>
+<h3 id="Nesterov-accelerated-gradient"><a href="#Nesterov-accelerated-gradient" class="headerlink" title="Nesterov accelerated gradient"></a>Nesterov accelerated gradient</h3><p>然而，一个从山上滚下来的球，盲目地跟着斜坡走，是非常令人不满意的。我们想要一个更聪明的球，一个知道它要去哪里的球，这样它就知道在山再次倾斜之前减速。</p>
+<script type="math/tex; mode=display">
+\begin{align} 
+\begin{split} 
+v_t &= \gamma v_{t-1} + \eta \nabla_\theta J( \theta - \gamma v_{t-1} ) \\ 
+\theta &= \theta - v_t 
+\end{split} 
+\end{align}</script><p>跟上面Momentum公式的唯一区别在于，梯度不是根据当前参数位置<img src="https://www.zhihu.com/equation?tex=%5Ctheta_%7Bi-1%7D" alt="\theta_{i-1}">，而是根据先走了本来计划要走的一步后，达到的参数位置<img src="https://www.zhihu.com/equation?tex=%5Ctheta_%7Bi-1%7D+-+%5Calpha%5Cbeta+d_%7Bi-1%7D" alt="\theta_{i-1} - \alpha\beta d_{i-1}">计算出来的。</p>
+<p>对于这个改动，很多文章给出的解释是，能够让算法提前看到前方的地形梯度，如果前面的梯度比当前位置的梯度大，那我就可以把步子迈得比原来大一些，如果前面的梯度比现在的梯度小，那我就可以把步子迈得小一些。这个大一些、小一些，都是相对于原来不看前方梯度、只看当前位置梯度的情况来说的。</p>
+<p>有很复杂的推导过程:<a href="https://zhuanlan.zhihu.com/p/22810533" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/22810533</a></p>
+<p>在原始形式中，Nesterov Accelerated Gradient（NAG）算法相对于Momentum的改进在于，以“向前看”看到的梯度而不是当前位置梯度去更新。经过变换之后的等效形式中，NAG算法相对于Momentum多了一个本次梯度相对上次梯度的变化量，这个变化量本质上是对目标函数二阶导的近似。由于利用了二阶导的信息，NAG算法才会比Momentum具有更快的收敛速度。</p>
+<h3 id="Adagrad"><a href="#Adagrad" class="headerlink" title="Adagrad"></a>Adagrad</h3><p>针对不同的参数设置不同的学习率，根据频繁更新的学习率小，不频繁更新的学习率大。</p>
+<p>For brevity, we use gtgt to denote the gradient at time step tt. gt,igt,i is then the partial derivative of the objective function w.r.t. to the parameter θiθi at time step tt:</p>
+<script type="math/tex; mode=display">
+g_{t, i} = \nabla_\theta J( \theta_{t, i})</script><p>The SGD update for every parameter θiθi at each time step tt then becomes:</p>
+<script type="math/tex; mode=display">
+\theta_{t+1, i} = \theta_{t, i} - \eta \cdot g_{t, i}</script><p>In its update rule, Adagrad modifies the general learning rate ηη at each time step tt for every parameter θiθi based on the past gradients that have been computed for θiθi:</p>
+<script type="math/tex; mode=display">
+\theta_{t+1, i} = \theta_{t, i} - \dfrac{\eta}{\sqrt{G_{t, ii} + \epsilon}} \cdot g_{t, i}</script><p>Gt∈Rd×d是一个对角矩阵，每个对角线位置i,i的值累加到t次迭代的对应参数 θi 梯度平方和。ϵ是平滑项，防止除零操作，一般取值1e−8。为什么分母要进行平方根的原因是去掉平方根操作算法的表现会大打折扣。</p>
+<p>缺点：G_t会了累积越来越大，分母累积的和会越来越大。这样学习到后来的阶段，网络的更新能力会越来越弱，能学到的更多知识的能力也越来越弱</p>
+<p>优点：因为有G_t的存在，所以n不用调，一般设0.01默认就可以了。</p>
+<h3 id="Adadelta"><a href="#Adadelta" class="headerlink" title="Adadelta"></a>Adadelta</h3><p>修复上面的缺点，梯度和是递归的定义成历史梯度平方的衰减平均值。动态平均值E[g^2]_t<br>仅仅取决于当前的梯度值与上一时刻的平均值.这样就不需要算累积的量</p>
+<script type="math/tex; mode=display">
+E[g^2]_t = \gamma E[g^2]_{t-1} + (1 - \gamma) g^2_t</script><script type="math/tex; mode=display">
+\Delta \theta_t = - \dfrac{\eta}{\sqrt{E[g^2]_t + \epsilon}} g_{t}
+\\
+\Delta \theta_t = - \dfrac{\eta}{RMS[g]_{t}} g_t</script><script type="math/tex; mode=display">
+RMS[\Delta \theta]_{t} = \sqrt{E[\Delta \theta^2]_t + \epsilon}</script><p>在此处Adadelta其实还是依赖于全局学习率的，但是作者做了一定处理，经过近似牛顿迭代法之后：</p>
+<script type="math/tex; mode=display">
+\begin{align} 
+\begin{split} 
+\Delta \theta_t &= - \dfrac{RMS[\Delta \theta]_{t-1}}{RMS[g]_{t}} g_{t} \\ 
+\theta_{t+1} &= \theta_t + \Delta \theta_t 
+\end{split} 
+\end{align}</script><h3 id="RMSprop"><a href="#RMSprop" class="headerlink" title="RMSprop"></a>RMSprop</h3><p><em>相比于AdaGrad的历史梯度：</em></p>
+<p><img src="/2019/04/14/神经网络/神经网络学习率/f6.jpg" alt="img"></p>
+<p><em>RMSProp增加了一个衰减系数来控制历史信息的获取多少：</em></p>
+<p><img src="/2019/04/14/神经网络/神经网络学习率/f7.jpg" alt="img"></p>
+<p><strong>简单来讲，设置全局学习率之后，每次通过，全局学习率逐参数的除以经过衰减系数控制的历史梯度平方和的平方根，使得每个参数的学习率不同</strong></p>
+<p>那么它起到的作用是什么呢？</p>
+<p><strong>起到的效果是在参数空间更为平缓的方向，会取得更大的进步（因为平缓，所以历史梯度平方和较小，对应学习下降的幅度较小），并且能够使得陡峭的方向变得平缓，从而加快训练速度。</strong></p>
+<h3 id="Adam"><a href="#Adam" class="headerlink" title="Adam"></a>Adam</h3><p><strong>其实就是Momentum+RMSProp的结合，然后再修正其偏差</strong></p>
+<script type="math/tex; mode=display">
+\begin{align} 
+\begin{split} 
+m_t &= \beta_1 m_{t-1} + (1 - \beta_1) g_t \\ 
+v_t &= \beta_2 v_{t-1} + (1 - \beta_2) g_t^2 
+\end{split} 
+\end{align}</script><p>修正偏差：</p>
+<script type="math/tex; mode=display">
+\begin{align} 
+\begin{split} 
+\hat{m}_t &= \dfrac{m_t}{1 - \beta^t_1} \\ 
+\hat{v}_t &= \dfrac{v_t}{1 - \beta^t_2} \end{split} 
+\end{align}</script><p>计算梯度：</p>
+<script type="math/tex; mode=display">
+\theta_{t+1} = \theta_{t} - \dfrac{\eta}{\sqrt{\hat{v}_t} + \epsilon} \hat{m}_t</script><p>The authors propose default values of 0.9 for β1, 0.999 for β2, and 10−8for ϵ.</p>
+<p><strong>1.Adams可能不收敛</strong></p>
+<p>文中各大优化算法的学习率：其中，SGD没有用到二阶动量，因此学习率是恒定的（实际使用过程中会采用学习率衰减策略，因此学习率递减）。AdaGrad的二阶动量不断累积，单调递增，因此学习率是单调递减的。因此，这两类算法会使得学习率不断递减，最终收敛到0，模型也得以收敛。</p>
+<p>但AdaDelta和Adam则不然。二阶动量是固定时间窗口内的累积，随着时间窗口的变化，遇到的数据可能发生巨变，使得 <img src="https://www.zhihu.com/equation?tex=V_t" alt="V_t"> 可能会时大时小，不是单调变化。这就可能在训练后期引起学习率的震荡，导致模型无法收敛。</p>
+<p><strong>2.Adams可能错失全局最优解</strong></p>
+<p>​       吐槽Adam最狠的 <a href="https://link.zhihu.com/?target=https%3A//arxiv.org/abs/1705.08292" target="_blank" rel="noopener">The Marginal Value of Adaptive Gradient Methods in Machine Learning</a> 。文中说到，同样的一个优化问题，不同的优化算法可能会找到不同的答案，但自适应学习率的算法往往找到非常差的答案。他们通过一个特定的数据例子说明，自适应学习率算法可能会对前期出现的特征过拟合，后期才出现的特征很难纠正前期的拟合效果。</p>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>那么，现在应该使用哪个优化器呢?如果您的输入数据是稀疏的，那么您可能使用自适应学习率方法之一获得最佳结果。另一个好处是，您不需要调优学习率，但是可以使用缺省值获得最佳结果。</p>
+<p>总之，RMSprop是Adagrad的一个扩展，它处理的是学习速度的急剧下降。它与Adadelta相同，只是Adadelta在numinator update规则中使用参数更新的RMS。最后，Adam为RMSprop添加了偏差修正和动量。到目前为止，RMSprop、Adadelta和Adam都是非常相似的算法，它们在相似的环境中都表现得很好。Kingma等人[14:1]表明，当梯度变得更稀疏时，它的偏倚校正帮助Adam在优化的最后略微优于RMSprop。到目前为止，Adam可能是最好的选择。</p>
+<p>有趣的是，许多最近的论文使用SGD和一个简单的学习速率退火时间表。正如所示，SGD通常能够找到最小值，但是它可能比一些优化器花费的时间要长得多，更依赖于健壮的初始化和退火调度，并且可能会陷入鞍点而不是局部极小值。因此，如果你关心快速收敛和训练一个深度或复杂的神经网络，你应该选择一种自适应学习速率方法。</p>
+<h2 id="Additional-strategies"><a href="#Additional-strategies" class="headerlink" title="Additional strategies"></a>Additional strategies</h2><h3 id="Shuffling-and-Curriculum-Learning"><a href="#Shuffling-and-Curriculum-Learning" class="headerlink" title="Shuffling and Curriculum Learning"></a>Shuffling and Curriculum Learning</h3><p>​    通常，我们希望避免以有意义的顺序为模型提供训练示例，因为这可能会影响优化算法。因此，在每个epoch之后重新整理训练数据通常是一个好主意。</p>
+<p>​    另一方面，在某些情况下，我们的目标是逐步解决更难的问题，按有意义的顺序提供训练示例实际上可能会提高性能和更好的收敛性。建立这种有意义顺序的方法称为课程学习</p>
+<h3 id="Batch-normalization"><a href="#Batch-normalization" class="headerlink" title="Batch normalization"></a>Batch normalization</h3><p>​    为了便于学习，我们通常用零均值和单位方差初始化参数的初始值，从而对参数的初始值进行标准化。随着训练的进展，我们在不同程度上更新参数，我们失去了这种标准化，这减慢了训练的速度，并随着网络变得更深而放大了变化。</p>
+<p>​    批处理规范化[27]为每个小批处理重新建立这些规范化，并通过操作反向传播更改。通过将标准化作为模型体系结构的一部分，我们可以使用更高的学习率，而不太关注初始化参数。批处理规范化还可以作为一个正则化器，减少(有时甚至消除)退出的需要。</p>
+<h3 id="Early-stopping"><a href="#Early-stopping" class="headerlink" title="Early stopping"></a>Early stopping</h3><p>​    你应该观察验证集上的误差，并且停止如果它没有足够的提高了。</p>
+<h2 id="newest-algorithns"><a href="#newest-algorithns" class="headerlink" title="newest algorithns"></a>newest algorithns</h2><h3 id="Cyclical-Learning-Rates"><a href="#Cyclical-Learning-Rates" class="headerlink" title="Cyclical Learning Rates"></a>Cyclical Learning Rates</h3><p>两个特点：</p>
+<ul>
+<li>它为我们提供了一种在训练过程中有效地控制学习率的方法，方法是在上下界之间以三角形的方式改变学习率</li>
+<li>它为我们提供了一个非常不错的估计，即哪种学习率的范围适合您的特定网络。</li>
+</ul>
+<p><img src="/2019/04/14/神经网络/神经网络学习率/p2.png" alt></p>
+<p>There are a number of parameters to play around with here:</p>
+<ul>
+<li><strong>step size</strong>: during how many epochs will the LR go up from the lower bound, up to the upper bound.</li>
+<li><strong>max_lr</strong>: the highest LR in the schedule.</li>
+<li><strong>base_lr</strong>: the lowest LR in the schedule, in practice: the author of the paper suggests to take this a factor R smaller than the <strong>max_lr</strong>. Our used factor was 6.</li>
+</ul>
+<p>它的核心思想:这个学习率策略的本质来自于一个观察，增加学习率会有短暂的负面影响，但是长远来看有好处。这个观察启发了我们的想法，让学习率在一个范围内变化，而不是用常值或指数递减啥的。所以只需要设置上下界和周期变化就可以了。大量的实验尝试了各种形式，triangular window (linear), a Welch window (parabolic) and a Hann window (sinusoidal)，他们的结果差不多。就采用triangular窗吧</p>
+<p><strong>代码实现</strong></p>
+<h4 id="Step-1-find-the-upper-LR"><a href="#Step-1-find-the-upper-LR" class="headerlink" title="Step 1: find the upper LR"></a>Step 1: find the upper LR</h4><ul>
+<li>define an initial learning rate, the lower boundary of the range you want to test (let’s say 1e-7)</li>
+<li>define an upper boundary of the range (let’s say 0.1)</li>
+<li>define an exponential scheme to run through this step by step:</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lr_lambda = lambda x: math.exp(x * math.log(end_lr / start_lr) / (lr_find_epochs * len( dataloaders[<span class="string">"train"</span>])))</span><br><span class="line">scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Next, do a run (I used two epochs) through your network. At each step (each batch size): capture the LR, capture the loss and optimize the gradients:</li>
+</ul>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Create the model</span></span><br><span class="line"><span class="attr">model</span> = CNN().to(device)</span><br><span class="line"></span><br><span class="line"><span class="attr">optimizer</span> = torch.optim.SGD(model.parameters(), start_lr)</span><br><span class="line"><span class="attr">criterion</span> = nn.CrossEntropyLoss()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Make lists to capture the logs</span></span><br><span class="line"></span><br><span class="line"><span class="attr">lr_find_loss</span> = []</span><br><span class="line"><span class="attr">lr_find_lr</span> = []</span><br><span class="line"></span><br><span class="line"><span class="attr">iter</span> = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="attr">smoothing</span> = <span class="number">0.05</span></span><br><span class="line"></span><br><span class="line">for i <span class="keyword">in</span> range(lr_find_epochs):</span><br><span class="line">  print(<span class="string">"epoch &#123;&#125;"</span>.format(i))</span><br><span class="line">  for inputs, labels <span class="keyword">in</span> dataloaders[<span class="string">"train"</span>]:</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Send to device</span></span><br><span class="line">    <span class="attr">inputs</span> = inputs.to(device)</span><br><span class="line">    <span class="attr">labels</span> = labels.to(device)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Training mode and zero gradients</span></span><br><span class="line">    model.train()</span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Get outputs to calc loss</span></span><br><span class="line">    <span class="attr">outputs</span> = model(inputs)</span><br><span class="line">    <span class="attr">loss</span> = criterion(outputs, labels)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Backward pass</span></span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Update LR</span></span><br><span class="line">    scheduler.step()</span><br><span class="line">    <span class="attr">lr_step</span> = optimizer.state_dict()[<span class="string">"param_groups"</span>][<span class="number">0</span>][<span class="string">"lr"</span>]</span><br><span class="line">    lr_find_lr.append(lr_step)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># smooth the loss</span></span><br><span class="line">    <span class="keyword">if</span> <span class="attr">iter==0:</span></span><br><span class="line">      lr_find_loss.append(loss)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">      <span class="attr">loss</span> = smoothing  * loss + (<span class="number">1</span> - smoothing) * lr_find_loss[-<span class="number">1</span>]</span><br><span class="line">      lr_find_loss.append(loss)    </span><br><span class="line">    iter += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>观察图，确定一个范围。根据fast.ai的课程描述，一个好的上界不是在最低点，而是左移10倍左右，一个好的下界是上界，除以一个因子6</p>
+<p><img src="/2019/04/14/神经网络/神经网络学习率/p3.png" alt></p>
+<h4 id="Step-2-CLR-scheduler"><a href="#Step-2-CLR-scheduler" class="headerlink" title="Step 2: CLR scheduler"></a>Step 2: CLR scheduler</h4><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">def cyclical_lr(stepsize, min_lr=<span class="number">3e-2</span>, max_lr=<span class="number">3e-3</span>):</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Scaler: we can adapt this if we do not want the triangular CLR</span></span><br><span class="line">    scaler = lambda x: <span class="number">1.</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Lambda function to calculate the LR</span></span><br><span class="line">    lr_lambda = lambda <span class="keyword">it</span>: min_lr + (max_lr - min_lr) * <span class="built_in">relative</span>(<span class="keyword">it</span>, stepsize)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Additional function to see where on the cycle we are</span></span><br><span class="line">    def <span class="built_in">relative</span>(<span class="keyword">it</span>, stepsize):</span><br><span class="line">        cycle = math.floor(<span class="number">1</span> + <span class="keyword">it</span> / (<span class="number">2</span> * stepsize))</span><br><span class="line">        x = <span class="built_in">abs</span>(<span class="keyword">it</span> / stepsize - <span class="number">2</span> * cycle + <span class="number">1</span>)</span><br><span class="line">        <span class="literal">return</span> <span class="built_in">max</span>(<span class="number">0</span>, (<span class="number">1</span> - x)) * scaler(cycle)</span><br><span class="line"></span><br><span class="line">    <span class="literal">return</span> lr_lambda</span><br></pre></td></tr></table></figure>
+<h4 id="Step-3-wrap-it"><a href="#Step-3-wrap-it" class="headerlink" title="Step 3: wrap it"></a>Step 3: wrap it</h4><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">model = CNN().<span class="keyword">to</span>(device)</span><br><span class="line">criterion = nn.CrossEntropyLoss()</span><br><span class="line">    </span><br><span class="line">optimizer = torch.optim.SGD(model.parameters(), <span class="attribute">lr</span>=1.)</span><br><span class="line">step_size = 4*len(train_loader)</span><br><span class="line">clr = cyclical_lr(step_size, <span class="attribute">min_lr</span>=end_lr/factor, <span class="attribute">max_lr</span>=end_lr)</span><br><span class="line">scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, [clr])</span><br></pre></td></tr></table></figure>
+<h4 id="Step-4-train"><a href="#Step-4-train" class="headerlink" title="Step 4: train"></a>Step 4: train</h4><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i, (images, labels) <span class="keyword">in</span> enumerate(train_loader):</span><br><span class="line">  images, labels = images.<span class="keyword">to</span>(device), labels.<span class="keyword">to</span>(device)</span><br><span class="line">  <span class="comment">#Clear the gradients</span></span><br><span class="line">  optimizer.zero_grad()</span><br><span class="line"></span><br><span class="line">  <span class="comment">#Forward propagation </span></span><br><span class="line">  outputs = model(images)   </span><br><span class="line">            </span><br><span class="line">  <span class="comment">#Calculating loss with softmax to obtain cross entropy loss</span></span><br><span class="line">  loss = criterion(outputs, labels)</span><br><span class="line"></span><br><span class="line">  <span class="comment">#Backward propation</span></span><br><span class="line">  loss.backward()</span><br><span class="line">  scheduler.step() <span class="comment"># &gt; Where the magic happens</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">#Updating gradients</span></span><br><span class="line">  optimizer.step()</span><br></pre></td></tr></table></figure>
+<h2 id="AdamW"><a href="#AdamW" class="headerlink" title="AdamW"></a>AdamW</h2><p><a href="https://github.com/mpyrozhok/adamwr" target="_blank" rel="noopener">https://github.com/mpyrozhok/adamwr</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/52084949" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/52084949</a></p>
+<p>所以在 2018 年，你应该做什么来代替 3e-4 Adam 工作流程呢？有很多东西需要考虑，如批量大小、动量等。但是，更好的工作流程将是：</p>
+<ul>
+<li><p>使用 LR Range Test 找到最佳学习率，并完整地检查当前模型和数据。</p>
+</li>
+<li><p>始终使用学习率调度器，该调度器会改变上一步中找到的学习率，可以是 CLR 或 Restart。</p>
+</li>
+<li><p>如果需要 Adam，请使用具有适当权值衰减的 AdamW，而不是当前流行框架中使用的默认权值衰减。</p>
+</li>
+<li><p>如果想实现超收敛，可以进一步尝试一周期策略。</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学习率/" rel="tag"><i class="fa fa-tag"></i> 学习率</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/14/神经网络/RNN/" rel="next" title="RNN">
+                <i class="fa fa-chevron-left"></i> RNN
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/15/神经网络/LSTM/" rel="prev" title="LSTM">
+                LSTM <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MzU5OS8yMDEzOA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpeg" alt="KODGV">
+            
+              <p class="site-author-name" itemprop="name">KODGV</p>
+              <p class="site-description motion-element" itemprop="description">生活会给你一切，请相信它。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+			<br>
+<br>
+<div class="site-state-item site-state-posts" style="border-left:none;">
+       <span class="site-state-item-count" id="busuanzi_value_site_pv"></span>
+       <span class="site-state-item-name">浏览量</span>
+</div>
+<div class="site-state-item site-state-posts">
+      <span class="site-state-item-count" id="busuanzi_value_site_uv"></span>
+     <span class="site-state-item-name">访客量</span>
+</div>
+<div class="site-state-item site-state-posts">
+      <span class="site-state-item-count">50.4k</span>
+      <span class="site-state-item-name">总字数</span>
+</div>
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/KODGV" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/yourname" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradient-descent"><span class="nav-number">2.</span> <span class="nav-text">Gradient descent</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Batch-gradient-descent"><span class="nav-number">2.1.</span> <span class="nav-text">Batch gradient descent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stochastic-gradient-descent"><span class="nav-number">2.2.</span> <span class="nav-text">Stochastic gradient descent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mini-batch-gradient-descent"><span class="nav-number">2.3.</span> <span class="nav-text">Mini-batch gradient descent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Adaptive-Optimizers"><span class="nav-number">3.</span> <span class="nav-text">Adaptive Optimizers</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Momentum"><span class="nav-number">3.1.</span> <span class="nav-text">Momentum</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nesterov-accelerated-gradient"><span class="nav-number">3.2.</span> <span class="nav-text">Nesterov accelerated gradient</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Adagrad"><span class="nav-number">3.3.</span> <span class="nav-text">Adagrad</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Adadelta"><span class="nav-number">3.4.</span> <span class="nav-text">Adadelta</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RMSprop"><span class="nav-number">3.5.</span> <span class="nav-text">RMSprop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Adam"><span class="nav-number">3.6.</span> <span class="nav-text">Adam</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-1"><span class="nav-number">3.7.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Additional-strategies"><span class="nav-number">4.</span> <span class="nav-text">Additional strategies</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Shuffling-and-Curriculum-Learning"><span class="nav-number">4.1.</span> <span class="nav-text">Shuffling and Curriculum Learning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Batch-normalization"><span class="nav-number">4.2.</span> <span class="nav-text">Batch normalization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Early-stopping"><span class="nav-number">4.3.</span> <span class="nav-text">Early stopping</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#newest-algorithns"><span class="nav-number">5.</span> <span class="nav-text">newest algorithns</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cyclical-Learning-Rates"><span class="nav-number">5.1.</span> <span class="nav-text">Cyclical Learning Rates</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Step-1-find-the-upper-LR"><span class="nav-number">5.1.1.</span> <span class="nav-text">Step 1: find the upper LR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step-2-CLR-scheduler"><span class="nav-number">5.1.2.</span> <span class="nav-text">Step 2: CLR scheduler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step-3-wrap-it"><span class="nav-number">5.1.3.</span> <span class="nav-text">Step 3: wrap it</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step-4-train"><span class="nav-number">5.1.4.</span> <span class="nav-text">Step 4: train</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AdamW"><span class="nav-number">6.</span> <span class="nav-text">AdamW</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KODGV</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 总访客
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("jfbBQ9nxK2MWpND3JeGVWsqL-gzGzoHsz", "itMpPY29yfkFQMmR0dV1MvdU");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

@@ -62,28 +62,6 @@
   
   <entry>
     <title>elo比赛心得</title>
-    <link href="http://kodgv.xyz/2019/04/30/JAVA%E5%AD%A6%E4%B9%A0/java%E5%8F%82%E8%80%83%E8%B7%AF%E7%BA%BF/"/>
-    <id>http://kodgv.xyz/2019/04/30/JAVA学习/java参考路线/</id>
-    <published>2019-04-30T11:30:59.000Z</published>
-    <updated>2019-05-16T13:13:21.050Z</updated>
-    
-    <content type="html"><![CDATA[<p>java学习路线与推荐<br><a id="more"></a></p><h2 id="6个月-Java-服务端入门和进阶指南"><a href="#6个月-Java-服务端入门和进阶指南" class="headerlink" title="6个月 Java 服务端入门和进阶指南"></a>6个月 Java 服务端入门和进阶指南</h2><p><a href="https://www.zhihu.com/question/29581524" target="_blank" rel="noopener">https://www.zhihu.com/question/29581524</a><br><img src="/2019/04/30/JAVA学习/java参考路线/1" alt="1557919436614"></p><p><img src="/2019/04/30/JAVA学习/java参考路线/2" alt="1557919469076"></p><p><img src="/2019/04/30/JAVA学习/java参考路线/3" alt="1557919495443"></p><p>资料参考，先学第一阶段，学完再来看第二阶段的任务吧</p><p><a href="https://www.zhihu.com/question/22340525" target="_blank" rel="noopener">https://www.zhihu.com/question/22340525</a></p><p><a href="https://www.zhihu.com/question/307096748/answers/updated" target="_blank" rel="noopener">https://www.zhihu.com/question/307096748/answers/updated</a></p><p><a href="https://mp.weixin.qq.com/s/GxIRqj8s1zrnnPSOJ0203Q" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/GxIRqj8s1zrnnPSOJ0203Q</a></p><p><a href="https://zhuanlan.zhihu.com/p/34880504" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/34880504</a></p><p><a href="https://h2pl.github.io/" target="_blank" rel="noopener">后端校招以及大牛成长转折点</a></p><h2 id="自己整理"><a href="#自己整理" class="headerlink" title="自己整理"></a>自己整理</h2><h3 id="第一阶段"><a href="#第一阶段" class="headerlink" title="第一阶段"></a>第一阶段</h3><p><strong>JAVA基础的学习</strong></p><p>《Java 核心技术：卷1 基础知识》(或者《Java 编程思想》)必看</p><p>《Effective Java》</p><p><a href="http://how2j.cn/" target="_blank" rel="noopener">做题网站</a></p><p><strong>代码规范</strong></p><p>《Git 权威指南》 <a href="https://link.zhihu.com/?target=https%3A//learngitbranching.js.org/" target="_blank" rel="noopener">Learn Git Branching通关网站</a></p><p>《Maven 实战》</p><p><a href="https://link.zhihu.com/?target=https%3A//book.douban.com/subject/4262627/" target="_blank" rel="noopener">《重构_改善既有代码的设计》</a></p><p>学习代码规范。我们大致上遵循 oracle 的 Java 语言编码规范，你可以先阅读并熟悉它。Code Formatting 文件在 git@xxx/coding-standard.git，在编写代码之前，请把它导入到 IDE 中。另外，确认 IDE 已经安装 Findbugs 和 CheckStyle 插件。</p><p><strong>开发工具</strong></p><ul><li>熟练使用一种 IDE。Intellij IDEA或者 Eclipse 都可以，推荐使用前者。至少熟悉常用的快捷键，会 debug(包括远程 debug)项目。</li><li>熟悉一种编辑器。比如 Vim/Emacs/Sublime Text，至少学会搜索/替换/代码补全。</li></ul><p><strong>开发环境</strong></p><p>Linux 的基本使用可以通过《鸟哥的Linux私房菜：基础学习篇（第三版）》学习</p><p> bash shell 脚本可以参考《Linux Shell脚本攻略》</p><h2 id="第二阶段"><a href="#第二阶段" class="headerlink" title="第二阶段"></a>第二阶段</h2><p>刷题：</p><p>先从简单的图解算法看起，然后做题的时候不要做太多，做别人整理好的经典题比较重要。</p><p>先servelet和协议。再JAVA进阶，然后框架和数据库并行。</p><p>需要掌握三大框架SSM，需要掌握各类数据库，需要掌握各类协议</p><p>学Unix</p><p><strong>JAVA进阶</strong></p><ul><li><p><strong>《Java并发编程的艺术》《深入理解Java虚拟机》</strong></p></li><li><p>并发编程网：<strong>并发编程网 - ifeve.com</strong> 重点掌握java内存模型，各种锁的原理及应用，JVM GC垃圾回收原理。</p></li></ul><h2 id="第三阶段"><a href="#第三阶段" class="headerlink" title="第三阶段"></a>第三阶段</h2><p>后端校招以及大牛成长转折点</p><p>源码</p><p>微服务</p><p>微架构</p><p>各种组件</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;java学习路线与推荐&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="java" scheme="http://kodgv.xyz/categories/java/"/>
-    
-    
-      <category term="java" scheme="http://kodgv.xyz/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>elo比赛心得</title>
     <link href="http://kodgv.xyz/2019/04/30/elo%E6%AF%94%E8%B5%9B%E5%BF%83%E5%BE%97/"/>
     <id>http://kodgv.xyz/2019/04/30/elo比赛心得/</id>
     <published>2019-04-30T11:30:59.000Z</published>
@@ -105,6 +83,28 @@
     
     </summary>
     
+    
+  </entry>
+  
+  <entry>
+    <title>elo比赛心得</title>
+    <link href="http://kodgv.xyz/2019/04/30/JAVA%E5%AD%A6%E4%B9%A0/java%E5%8F%82%E8%80%83%E8%B7%AF%E7%BA%BF/"/>
+    <id>http://kodgv.xyz/2019/04/30/JAVA学习/java参考路线/</id>
+    <published>2019-04-30T11:30:59.000Z</published>
+    <updated>2019-05-16T13:17:36.504Z</updated>
+    
+    <content type="html"><![CDATA[<p>java学习路线与推荐<br><a id="more"></a></p><h2 id="6个月-Java-服务端入门和进阶指南"><a href="#6个月-Java-服务端入门和进阶指南" class="headerlink" title="6个月 Java 服务端入门和进阶指南"></a>6个月 Java 服务端入门和进阶指南</h2><p><a href="https://www.zhihu.com/question/29581524" target="_blank" rel="noopener">https://www.zhihu.com/question/29581524</a><br><img src="/2019/04/30/JAVA学习/java参考路线/1" alt="1557919436614"></p><p><img src="/2019/04/30/JAVA学习/java参考路线/2" alt="1557919469076"></p><p><img src="/2019/04/30/JAVA学习/java参考路线/3" alt="1557919495443"></p><p>资料参考，先学第一阶段，学完再来看第二阶段的任务吧</p><p><a href="https://www.zhihu.com/question/22340525" target="_blank" rel="noopener">https://www.zhihu.com/question/22340525</a></p><p><a href="https://www.zhihu.com/question/307096748/answers/updated" target="_blank" rel="noopener">https://www.zhihu.com/question/307096748/answers/updated</a></p><p><a href="https://mp.weixin.qq.com/s/GxIRqj8s1zrnnPSOJ0203Q" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/GxIRqj8s1zrnnPSOJ0203Q</a></p><p><a href="https://zhuanlan.zhihu.com/p/34880504" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/34880504</a></p><p><a href="https://h2pl.github.io/" target="_blank" rel="noopener">后端校招以及大牛成长转折点</a></p><h2 id="自己整理"><a href="#自己整理" class="headerlink" title="自己整理"></a>自己整理</h2><h3 id="第一阶段"><a href="#第一阶段" class="headerlink" title="第一阶段"></a>第一阶段</h3><p><strong>JAVA基础的学习</strong></p><p>《Java 核心技术：卷1 基础知识》(或者《Java 编程思想》)必看</p><p>《Effective Java》</p><p><a href="http://how2j.cn/" target="_blank" rel="noopener">做题网站</a></p><p><strong>代码规范</strong></p><p>《Git 权威指南》 <a href="https://link.zhihu.com/?target=https%3A//learngitbranching.js.org/" target="_blank" rel="noopener">Learn Git Branching通关网站</a></p><p>《Maven 实战》</p><p><a href="https://link.zhihu.com/?target=https%3A//book.douban.com/subject/4262627/" target="_blank" rel="noopener">《重构_改善既有代码的设计》</a></p><p>学习代码规范。我们大致上遵循 oracle 的 Java 语言编码规范，你可以先阅读并熟悉它。Code Formatting 文件在 git@xxx/coding-standard.git，在编写代码之前，请把它导入到 IDE 中。另外，确认 IDE 已经安装 Findbugs 和 CheckStyle 插件。</p><p><strong>开发工具</strong></p><ul><li>熟练使用一种 IDE。Intellij IDEA或者 Eclipse 都可以，推荐使用前者。至少熟悉常用的快捷键，会 debug(包括远程 debug)项目。</li><li>熟悉一种编辑器。比如 Vim/Emacs/Sublime Text，至少学会搜索/替换/代码补全。</li></ul><p><strong>开发环境</strong></p><p>Linux 的基本使用可以通过《鸟哥的Linux私房菜：基础学习篇（第三版）》学习</p><p> bash shell 脚本可以参考《Linux Shell脚本攻略》</p><h2 id="第二阶段"><a href="#第二阶段" class="headerlink" title="第二阶段"></a>第二阶段</h2><p>刷题：</p><p>先从简单的图解算法看起，然后做题的时候不要做太多，做别人整理好的经典题比较重要。</p><p>先servelet和协议。再JAVA进阶，然后框架和数据库并行。</p><p>需要掌握三大框架SSM，需要掌握各类数据库，需要掌握各类协议</p><p>学Unix</p><p><strong>JAVA进阶</strong></p><ul><li><p><strong>《Java并发编程的艺术》《深入理解Java虚拟机》</strong></p></li><li><p>并发编程网：<strong>并发编程网 - ifeve.com</strong> 重点掌握java内存模型，各种锁的原理及应用，JVM GC垃圾回收原理。</p></li></ul><h2 id="第三阶段"><a href="#第三阶段" class="headerlink" title="第三阶段"></a>第三阶段</h2><p>后端校招以及大牛成长转折点</p><p>源码</p><p>微服务</p><p>微架构</p><p>各种组件</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;java学习路线与推荐&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="java" scheme="http://kodgv.xyz/categories/java/"/>
+    
+    
+      <category term="java" scheme="http://kodgv.xyz/tags/java/"/>
     
   </entry>
   

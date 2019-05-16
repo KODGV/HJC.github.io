@@ -18,6 +18,11 @@
   </entry>
   <entry>
     <title><![CDATA[elo比赛心得]]></title>
+    <url>%2F2019%2F04%2F30%2Felo%E6%AF%94%E8%B5%9B%E5%BF%83%E5%BE%97%2F</url>
+    <content type="text"><![CDATA[比赛简介 回归问题 有异常点 商品信息， 每个用户的刷卡时间。 预测用户的忠诚度。 [TOC] 11th place solutionFEATURE ENGINEERING 123456789101112131415161718192021221. I refer the Kaggle Rank System Compute Formula（link:[https://www.kaggle.com/progression][4]) df_data['duration_sqrt_counts'] = df_data['durations']/sqrt(df_data['card_id_counts']) df_data['duration_log1p_counts'] = df_data['durations']/log1p(df_data['card_id_counts']) df_data['duration_counts'] = df_data['durations']/df_data['card_id_counts']2. Categorical features: frequence, Maxfrequence, MaxfrequenceRatio3. card_id/merchant_id/mechant_category_id/city_id (visit sequence to sequence embedding)4. purchase_amount:hist/new5. features interactions between hist/new df['purchase_amount_ratio_v3'] = df['new_purchase_amount_max']/df['hist_purchase_amount_sum'] df['purchase_amount_diff_v1'] = df['new_purchase_amount_sum']-df['hist_purchase_amount_sum'] df['purchase_amount_diff_v2'] = df['new_purchase_amount_mean']-df['hist_purchase_amount_mean'] df['purchase_amount_diff_v3'] = df['new_purchase_amount_max']-df['hist_purchase_amount_max'] df['purchase_amount_diff_v4'] = df['new_purchase_amount_min']-df['hist_purchase_amount_min'] df['pa_mlag_ratio'] = df['new_purchase_amount_sum']/(df['month_lag_mean'] - 1) df['pa_new_hist_ratio'] = df['new_purchase_amount_sum']/(df['hist_purchase_amount_sum']) df['pa_new_hist_mean_ratio'] = df['new_purchase_amount_mean']/(df['hist_purchase_amount_mean'] ) df['pa_new_hist_min_ratio'] = df['new_purchase_amount_min']/(df['hist_purchase_amount_min'] ) df['pa_new_hist_max_ratio'] = df['new_purchase_amount_max']/(df['hist_purchase_amount_max'] ) 我们有两个单独的feature sets。一个具有+1000个feature ，另一个具有+200个feature 然后，我们取+200特征集的相关矩阵，将每个特征与其关联最小的特征配对。然后我们对每一对应用了大量的聚合，结果得到了非常强大的特征。 所以我们最终得到了两个功能集，每个功能集+1000个功能。” STACKING We stacked around 32 models using bayesian regression. Our models were well varied that it yielded a score of CV:3.630X LB :3.675 STUFF THAT DID NOT WORK Of course these last two months were not all roses and rainbows. We pulled our hair trying a lot of things and we failed miserably. Here are the bloopers of our participation :D : NN. We tried designing different architectures with the main focus on having a simple NN with heavy regularization (BatchNorm and Strong Dropout) In the middle of the competition, we tried tackling the outliers detection as an anomaly detection problem using AutoEncoders trained only on the non outliers data We tried PCA for more features. And it didn’t work We tried TSNE. It didn’t work We tried FM and FFM. It did not work We tried isolation forest. Nope. Did not work. We had a Ridge-based pairwise ranker that we intended to use for outliers detection but it didn’t match with the approach we had. We tried a lot of weak models in the hope of adding diversity (simple tree-based, linear, svm, etc.). And guess what? It did not work. 如何识别异常点？ 两个不同的特征集怎么做？]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[elo比赛心得]]></title>
     <url>%2F2019%2F04%2F30%2FJAVA%E5%AD%A6%E4%B9%A0%2Fjava%E5%8F%82%E8%80%83%E8%B7%AF%E7%BA%BF%2F</url>
     <content type="text"><![CDATA[java学习路线与推荐 6个月 Java 服务端入门和进阶指南https://www.zhihu.com/question/29581524 资料参考，先学第一阶段，学完再来看第二阶段的任务吧 https://www.zhihu.com/question/22340525 https://www.zhihu.com/question/307096748/answers/updated https://mp.weixin.qq.com/s/GxIRqj8s1zrnnPSOJ0203Q https://zhuanlan.zhihu.com/p/34880504 后端校招以及大牛成长转折点 自己整理第一阶段JAVA基础的学习 《Java 核心技术：卷1 基础知识》(或者《Java 编程思想》)必看 《Effective Java》 做题网站 代码规范 《Git 权威指南》 Learn Git Branching通关网站 《Maven 实战》 《重构_改善既有代码的设计》 学习代码规范。我们大致上遵循 oracle 的 Java 语言编码规范，你可以先阅读并熟悉它。Code Formatting 文件在 git@xxx/coding-standard.git，在编写代码之前，请把它导入到 IDE 中。另外，确认 IDE 已经安装 Findbugs 和 CheckStyle 插件。 开发工具 熟练使用一种 IDE。Intellij IDEA或者 Eclipse 都可以，推荐使用前者。至少熟悉常用的快捷键，会 debug(包括远程 debug)项目。 熟悉一种编辑器。比如 Vim/Emacs/Sublime Text，至少学会搜索/替换/代码补全。 开发环境 Linux 的基本使用可以通过《鸟哥的Linux私房菜：基础学习篇（第三版）》学习 bash shell 脚本可以参考《Linux Shell脚本攻略》 第二阶段刷题： 先从简单的图解算法看起，然后做题的时候不要做太多，做别人整理好的经典题比较重要。 先servelet和协议。再JAVA进阶，然后框架和数据库并行。 需要掌握三大框架SSM，需要掌握各类数据库，需要掌握各类协议 学Unix JAVA进阶 《Java并发编程的艺术》《深入理解Java虚拟机》 并发编程网：并发编程网 - ifeve.com 重点掌握java内存模型，各种锁的原理及应用，JVM GC垃圾回收原理。 第三阶段后端校招以及大牛成长转折点 源码 微服务 微架构 各种组件]]></content>
       <categories>
@@ -26,11 +31,6 @@
       <tags>
         <tag>java</tag>
       </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[elo比赛心得]]></title>
-    <url>%2F2019%2F04%2F30%2Felo%E6%AF%94%E8%B5%9B%E5%BF%83%E5%BE%97%2F</url>
-    <content type="text"><![CDATA[比赛简介 回归问题 有异常点 商品信息， 每个用户的刷卡时间。 预测用户的忠诚度。 [TOC] 11th place solutionFEATURE ENGINEERING 123456789101112131415161718192021221. I refer the Kaggle Rank System Compute Formula（link:[https://www.kaggle.com/progression][4]) df_data['duration_sqrt_counts'] = df_data['durations']/sqrt(df_data['card_id_counts']) df_data['duration_log1p_counts'] = df_data['durations']/log1p(df_data['card_id_counts']) df_data['duration_counts'] = df_data['durations']/df_data['card_id_counts']2. Categorical features: frequence, Maxfrequence, MaxfrequenceRatio3. card_id/merchant_id/mechant_category_id/city_id (visit sequence to sequence embedding)4. purchase_amount:hist/new5. features interactions between hist/new df['purchase_amount_ratio_v3'] = df['new_purchase_amount_max']/df['hist_purchase_amount_sum'] df['purchase_amount_diff_v1'] = df['new_purchase_amount_sum']-df['hist_purchase_amount_sum'] df['purchase_amount_diff_v2'] = df['new_purchase_amount_mean']-df['hist_purchase_amount_mean'] df['purchase_amount_diff_v3'] = df['new_purchase_amount_max']-df['hist_purchase_amount_max'] df['purchase_amount_diff_v4'] = df['new_purchase_amount_min']-df['hist_purchase_amount_min'] df['pa_mlag_ratio'] = df['new_purchase_amount_sum']/(df['month_lag_mean'] - 1) df['pa_new_hist_ratio'] = df['new_purchase_amount_sum']/(df['hist_purchase_amount_sum']) df['pa_new_hist_mean_ratio'] = df['new_purchase_amount_mean']/(df['hist_purchase_amount_mean'] ) df['pa_new_hist_min_ratio'] = df['new_purchase_amount_min']/(df['hist_purchase_amount_min'] ) df['pa_new_hist_max_ratio'] = df['new_purchase_amount_max']/(df['hist_purchase_amount_max'] ) 我们有两个单独的feature sets。一个具有+1000个feature ，另一个具有+200个feature 然后，我们取+200特征集的相关矩阵，将每个特征与其关联最小的特征配对。然后我们对每一对应用了大量的聚合，结果得到了非常强大的特征。 所以我们最终得到了两个功能集，每个功能集+1000个功能。” STACKING We stacked around 32 models using bayesian regression. Our models were well varied that it yielded a score of CV:3.630X LB :3.675 STUFF THAT DID NOT WORK Of course these last two months were not all roses and rainbows. We pulled our hair trying a lot of things and we failed miserably. Here are the bloopers of our participation :D : NN. We tried designing different architectures with the main focus on having a simple NN with heavy regularization (BatchNorm and Strong Dropout) In the middle of the competition, we tried tackling the outliers detection as an anomaly detection problem using AutoEncoders trained only on the non outliers data We tried PCA for more features. And it didn’t work We tried TSNE. It didn’t work We tried FM and FFM. It did not work We tried isolation forest. Nope. Did not work. We had a Ridge-based pairwise ranker that we intended to use for outliers detection but it didn’t match with the approach we had. We tried a lot of weak models in the hope of adding diversity (simple tree-based, linear, svm, etc.). And guess what? It did not work. 如何识别异常点？ 两个不同的特征集怎么做？]]></content>
   </entry>
   <entry>
     <title><![CDATA[java核心技术基础知识]]></title>
@@ -300,33 +300,33 @@
   </entry>
   <entry>
     <title><![CDATA[numpy]]></title>
-    <url>%2F2019%2F04%2F08%2F%E6%95%B0%E6%8D%AE%E7%AB%9E%E8%B5%9B%2Fnumpy%2F</url>
-    <content type="text"><![CDATA[numpy 操作小技巧 增加concat/vstack/hstack 1https://blog.csdn.net/xiaodongxiexie/article/details/71774466]]></content>
-      <categories>
-        <category>数据竞赛</category>
-      </categories>
-      <tags>
-        <tag>Numpy</tag>
-        <tag>机器学习</tag>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[numpy]]></title>
     <url>%2F2019%2F04%2F08%2F%E4%BB%A3%E7%A0%81%E5%9F%BA%E7%A1%80%2Fnumpy%2F</url>
     <content type="text"><![CDATA[numpy 操作小技巧 增加concat/vstack/hstack 1https://blog.csdn.net/xiaodongxiexie/article/details/71774466]]></content>
       <categories>
         <category>数据竞赛</category>
       </categories>
       <tags>
-        <tag>Numpy</tag>
         <tag>机器学习</tag>
         <tag>python</tag>
+        <tag>Numpy</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[numpy]]></title>
+    <url>%2F2019%2F04%2F08%2F%E6%95%B0%E6%8D%AE%E7%AB%9E%E8%B5%9B%2Fnumpy%2F</url>
+    <content type="text"><![CDATA[numpy 操作小技巧 增加concat/vstack/hstack 1https://blog.csdn.net/xiaodongxiexie/article/details/71774466]]></content>
+      <categories>
+        <category>数据竞赛</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>python</tag>
+        <tag>Numpy</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[python代码]]></title>
-    <url>%2F2019%2F04%2F08%2F%E6%95%B0%E6%8D%AE%E7%AB%9E%E8%B5%9B%2Fpython%E4%BB%A3%E7%A0%81%2F</url>
+    <url>%2F2019%2F04%2F08%2F%E4%BB%A3%E7%A0%81%E5%9F%BA%E7%A1%80%2Fpython%E4%BB%A3%E7%A0%81%2F</url>
     <content type="text"><![CDATA[python 代码小技巧 [TOC] 通用测试时间12关注walltime%%time 遍历列表12for index, item in enumerate(list1): print index, item 并行遍历12for (x,y) in zip(a,b): print x,y 通过字典保存了所有中间过程，不仅命名容易，而且便于后续操作12d=&#123;d_name:get_dvalue(d_name) for d_name in d_list&#125;best_dvalue_dname=min(d.items(),key=lambda x:x[1]) 文件1234#这样会比单纯用readlines()快count = 0for index, line in enumerate(open(filepath,'r'))： count += 1 数据结构字典12from collections import defaultdict 通过这个声明dict&#123;里面的格式&#125;如 defaultdict(list) 列表生成式121. [i for i in range(k) if condition]：此时if起条件判断作用，满足条件的，将被返回成为最终生成的列表的一员。2. [i if condition else exp for exp]：此时if...else被用来赋值，满足条件的i以及else被用来生成最终的列表 提高处理速度多进程提高数据预处理df和numpy都可以，注意windows下保证两个代码分开，否则函数无法识别主进程和子进程 jupyter上代码： 123456789101112131415# 这样子会很好的传参数def np_parallelize_run(func,df,nlp): df_split = np.array_split(df, num_partitions) params=[] for sub_df in df_split: param = &#123;&#125; param['text']=sub_df param['nlp']=nlp params.append(param) pool = Pool(num_cores) df = np.concatenate(pool.map(func, params)) #df = sp.vstack(pool.map(func, df_split), format='csr') faster and mem efficient for pool.close() pool.join() return df py文件上的代码 12345def spacy_split(param): text,nlp = param['text'],param['nlp'] docs = nlp.pipe(text) print('finish') return list(docs) 自带算法库数组中查找插入的位置123返回排序插入的位置，并不是真的插入排序数组中from bisect import bisect_left, bisect_rightend = bisect_left(keys, 0)]]></content>
       <categories>
         <category>数据竞赛</category>
@@ -338,7 +338,7 @@
   </entry>
   <entry>
     <title><![CDATA[python代码]]></title>
-    <url>%2F2019%2F04%2F08%2F%E4%BB%A3%E7%A0%81%E5%9F%BA%E7%A1%80%2Fpython%E4%BB%A3%E7%A0%81%2F</url>
+    <url>%2F2019%2F04%2F08%2F%E6%95%B0%E6%8D%AE%E7%AB%9E%E8%B5%9B%2Fpython%E4%BB%A3%E7%A0%81%2F</url>
     <content type="text"><![CDATA[python 代码小技巧 [TOC] 通用测试时间12关注walltime%%time 遍历列表12for index, item in enumerate(list1): print index, item 并行遍历12for (x,y) in zip(a,b): print x,y 通过字典保存了所有中间过程，不仅命名容易，而且便于后续操作12d=&#123;d_name:get_dvalue(d_name) for d_name in d_list&#125;best_dvalue_dname=min(d.items(),key=lambda x:x[1]) 文件1234#这样会比单纯用readlines()快count = 0for index, line in enumerate(open(filepath,'r'))： count += 1 数据结构字典12from collections import defaultdict 通过这个声明dict&#123;里面的格式&#125;如 defaultdict(list) 列表生成式121. [i for i in range(k) if condition]：此时if起条件判断作用，满足条件的，将被返回成为最终生成的列表的一员。2. [i if condition else exp for exp]：此时if...else被用来赋值，满足条件的i以及else被用来生成最终的列表 提高处理速度多进程提高数据预处理df和numpy都可以，注意windows下保证两个代码分开，否则函数无法识别主进程和子进程 jupyter上代码： 123456789101112131415# 这样子会很好的传参数def np_parallelize_run(func,df,nlp): df_split = np.array_split(df, num_partitions) params=[] for sub_df in df_split: param = &#123;&#125; param['text']=sub_df param['nlp']=nlp params.append(param) pool = Pool(num_cores) df = np.concatenate(pool.map(func, params)) #df = sp.vstack(pool.map(func, df_split), format='csr') faster and mem efficient for pool.close() pool.join() return df py文件上的代码 12345def spacy_split(param): text,nlp = param['text'],param['nlp'] docs = nlp.pipe(text) print('finish') return list(docs) 自带算法库数组中查找插入的位置123返回排序插入的位置，并不是真的插入排序数组中from bisect import bisect_left, bisect_rightend = bisect_left(keys, 0)]]></content>
       <categories>
         <category>数据竞赛</category>
@@ -368,9 +368,9 @@
         <category>数据竞赛</category>
       </categories>
       <tags>
+        <tag>pandas</tag>
         <tag>机器学习</tag>
         <tag>python</tag>
-        <tag>pandas</tag>
       </tags>
   </entry>
   <entry>
@@ -381,9 +381,9 @@
         <category>数据竞赛</category>
       </categories>
       <tags>
+        <tag>pandas</tag>
         <tag>机器学习</tag>
         <tag>python</tag>
-        <tag>pandas</tag>
       </tags>
   </entry>
 </search>

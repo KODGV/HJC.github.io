@@ -120,13 +120,13 @@
 
 
 
-<meta name="description" content="[TOC]Attention本质就是一系列注意力分配系数，也就是一系列权重参数罢了。">
+<meta name="description" content="Attention本质就是一系列注意力分配系数，也就是一系列权重参数罢了。">
 <meta name="keywords" content="网络结构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Attention">
 <meta property="og:url" content="http://kodgv.xyz/2019/04/15/神经网络/Attention/index.html">
 <meta property="og:site_name" content="小黑屋">
-<meta property="og:description" content="[TOC]Attention本质就是一系列注意力分配系数，也就是一系列权重参数罢了。">
+<meta property="og:description" content="Attention本质就是一系列注意力分配系数，也就是一系列权重参数罢了。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://kodgv.xyz/2019/04/15/神经网络/Attention/p1.png">
 <meta property="og:image" content="http://kodgv.xyz/2019/04/15/神经网络/Attention/f1.png">
@@ -199,10 +199,10 @@
 <meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/529a6cbf-f2fe-4d8c-a90d-f8a0567f6bf8/1528709508901.png">
 <meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/b39171e2-f71c-4ea9-a9de-0d6c8d983550/1528709508952.png">
 <meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/13be2088-2463-474a-855b-b2193a08ce44/1528709509073.png">
-<meta property="og:updated_time" content="2019-04-27T15:28:31.924Z">
+<meta property="og:updated_time" content="2019-05-25T12:37:09.876Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Attention">
-<meta name="twitter:description" content="[TOC]Attention本质就是一系列注意力分配系数，也就是一系列权重参数罢了。">
+<meta name="twitter:description" content="Attention本质就是一系列注意力分配系数，也就是一系列权重参数罢了。">
 <meta name="twitter:image" content="http://kodgv.xyz/2019/04/15/神经网络/Attention/p1.png">
 
 
@@ -453,8 +453,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-04-27T23:28:31+08:00">
-                2019-04-27
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-25T20:37:09+08:00">
+                2019-05-25
               </time>
             
           </span>
@@ -551,8 +551,7 @@
       
 
       
-        <p>[TOC]<br>Attention本质就是一系列注意力分配系数，也就是一系列权重参数罢了。<br><a id="more"></a></p>
-<p>来源：<a href="https://www.cnblogs.com/guoyaohua/p/9429924.html" target="_blank" rel="noopener">https://www.cnblogs.com/guoyaohua/p/9429924.html</a></p>
+        <p>Attention本质就是一系列注意力分配系数，也就是一系列权重参数罢了。<br><a id="more"></a><br>[TOC]<br>来源：<a href="https://www.cnblogs.com/guoyaohua/p/9429924.html" target="_blank" rel="noopener">https://www.cnblogs.com/guoyaohua/p/9429924.html</a></p>
 <h1 id="1-什么是Attention机制？"><a href="#1-什么是Attention机制？" class="headerlink" title="1. 什么是Attention机制？"></a>1. 什么是Attention机制？</h1><p>　　最近两年，注意力模型（Attention Model）被广泛使用在自然语言处理、图像识别及语音识别等各种不同类型的深度学习任务中，是深度学习技术中最值得关注与深入了解的核心技术之一。</p>
 <p>　　当我们人在看一样东西的时候，我们当前时刻关注的一定是我们当前正在看的这样东西的某一地方，换句话说，当我们目光移到别处时，注意力随着目光的移动也在转移，这意味着，当人们注意到某个目标或某个场景时，该目标内部以及该场景内每一处空间位置上的注意力分布是不一样的。————-（思考：对于图片，会有些特别显眼的场景会率先吸引住注意力，那是因为脑袋中对这类东西很敏感。对于文本，我们大都是带目的性的去读，顺序查找，顺序读，但是在理解的过程中，我们是根据我们自带的目的去理解，去关注的。 注意力模型应该与具体的目的(或者任务)相结合。）</p>
 <p>　　从Attention的作用角度出发，我们就可以从两个角度来分类Attention种类：<strong>Spatial Attention 空间注意力</strong>和<strong>Temporal Attention 时间注意力</strong>。更具实际的应用，也可以将Attention分为<strong>Soft Attention</strong>和<strong>Hard Attention</strong>。<strong>Soft Attention是所有的数据都会注意，都会计算出相应的注意力权值，不会设置筛选条件。Hard Attention会在生成注意力权重后筛选掉一部分不符合条件的注意力，让它的注意力权值为0，即可以理解为不再注意这些不符合条件的部分。</strong></p>
@@ -877,7 +876,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -888,7 +887,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -899,7 +898,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -915,7 +914,7 @@
      <span class="site-state-item-name">访客量</span>
 </div>
 <div class="site-state-item site-state-posts">
-      <span class="site-state-item-count">50.4k</span>
+      <span class="site-state-item-count">62.8k</span>
       <span class="site-state-item-name">总字数</span>
 </div>
           </nav>

@@ -107,7 +107,7 @@
 
 
 
-  <meta name="keywords" content="机器学习,特征工程,">
+  <meta name="keywords" content="特征工程,机器学习,">
 
 
 
@@ -120,18 +120,18 @@
 
 
 
-<meta name="description" content="[TOC] 思路　一阶特征 在绝大多数推荐类别的比赛场景中，如果仅仅是为了取得不错的成绩，有一个比较简单的特征挖掘思路：越细粒度的特征越重要，时间越近的特征越重要，未来的特征简直无敌。我们在进行特征组合的时候，其实也是在将特征的粒度变细。比如aid只有173维，age有3维，特征组合之后变成了1733，这个时候粒度就变细了。粒度越细，越容易定位到某一个单独的用户。粒度细了才能代表一个用户.*特征的">
-<meta name="keywords" content="机器学习,特征工程">
+<meta name="description" content="特征的构造思路包括代码的实现">
+<meta name="keywords" content="特征工程,机器学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="特征构造">
 <meta property="og:url" content="http://kodgv.xyz/2019/04/11/数据竞赛/特征构造/index.html">
 <meta property="og:site_name" content="小黑屋">
-<meta property="og:description" content="[TOC] 思路　一阶特征 在绝大多数推荐类别的比赛场景中，如果仅仅是为了取得不错的成绩，有一个比较简单的特征挖掘思路：越细粒度的特征越重要，时间越近的特征越重要，未来的特征简直无敌。我们在进行特征组合的时候，其实也是在将特征的粒度变细。比如aid只有173维，age有3维，特征组合之后变成了1733，这个时候粒度就变细了。粒度越细，越容易定位到某一个单独的用户。粒度细了才能代表一个用户.*特征的">
+<meta property="og:description" content="特征的构造思路包括代码的实现">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-29T07:42:31.648Z">
+<meta property="og:updated_time" content="2019-05-25T12:41:02.006Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="特征构造">
-<meta name="twitter:description" content="[TOC] 思路　一阶特征 在绝大多数推荐类别的比赛场景中，如果仅仅是为了取得不错的成绩，有一个比较简单的特征挖掘思路：越细粒度的特征越重要，时间越近的特征越重要，未来的特征简直无敌。我们在进行特征组合的时候，其实也是在将特征的粒度变细。比如aid只有173维，age有3维，特征组合之后变成了1733，这个时候粒度就变细了。粒度越细，越容易定位到某一个单独的用户。粒度细了才能代表一个用户.*特征的">
+<meta name="twitter:description" content="特征的构造思路包括代码的实现">
 
 
 
@@ -381,8 +381,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-04-29T15:42:31+08:00">
-                2019-04-29
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-25T20:41:02+08:00">
+                2019-05-25
               </time>
             
           </span>
@@ -479,7 +479,9 @@
       
 
       
-        <p>[TOC]</p>
+        <p>特征的构造思路包括代码的实现</p>
+<a id="more"></a>
+<p>[TOC]</p>
 <h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><h3 id="一阶特征"><a href="#一阶特征" class="headerlink" title="　一阶特征"></a>　一阶特征</h3><ul>
 <li>在绝大多数推荐类别的比赛场景中，如果仅仅是为了取得不错的成绩，有一个比较简单的特征挖掘思路：越细粒度的特征越重要，时间越近的特征越重要，未来的特征简直无敌。我们在进行特征组合的时候，其实也是在将特征的粒度变细。比如aid只有173维，age有3维，特征组合之后变成了173<em>3，这个时候粒度就变细了。粒度越细，越容易定位到某一个单独的用户。粒度细了才能代表一个用户.<em>*特征的处理，其实是一个就能不能够还原特征</em></em></li>
 <li>排序特征：对于同一维的特征的纵向排序，得到新维特征注意排序需要归一化，除以总长度，虽然我没看懂为什么需要归一化(注意mean排序，max排序，对分组后的统计特征进行排序)</li>
@@ -536,9 +538,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/机器学习/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
-          
             <a href="/tags/特征工程/" rel="tag"><i class="fa fa-tag"></i> 特征工程</a>
+          
+            <a href="/tags/机器学习/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
           
         </div>
       
@@ -561,7 +563,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/04/12/比赛规范经验/" rel="prev" title="比赛规范经验">
+              <a href="/2019/04/12/竞赛经验/比赛规范经验/" rel="prev" title="比赛规范经验">
                 比赛规范经验 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -647,7 +649,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -658,7 +660,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -669,7 +671,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -685,7 +687,7 @@
      <span class="site-state-item-name">访客量</span>
 </div>
 <div class="site-state-item site-state-posts">
-      <span class="site-state-item-count">50.4k</span>
+      <span class="site-state-item-count">62.8k</span>
       <span class="site-state-item-name">总字数</span>
 </div>
           </nav>

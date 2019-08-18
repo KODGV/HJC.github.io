@@ -128,7 +128,7 @@
 <meta property="og:site_name" content="小黑屋">
 <meta property="og:description" content="Linux收集习题">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-25T12:44:57.559Z">
+<meta property="og:updated_time" content="2019-06-17T11:44:19.827Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux习题">
 <meta name="twitter:description" content="Linux收集习题">
@@ -381,8 +381,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-25T20:44:57+08:00">
-                2019-05-25
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-17T19:44:19+08:00">
+                2019-06-17
               </time>
             
           </span>
@@ -442,7 +442,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  444字
+                  1.9k字
                 </span>
               
 
@@ -458,7 +458,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1分钟
+                  7分钟
                 </span>
               
             </div>
@@ -502,6 +502,77 @@
 <p>打开该目录就是执行ｘ</p>
 <p>2.当一个一般文件权限为 -rwxrwxrwx 则表示这个文件的意义为？</p>
 <p>任何人皆可读取、修改或编辑、可以执行，但不一定能删除。</p>
+<h3 id="第六章"><a href="#第六章" class="headerlink" title="第六章"></a>第六章</h3><p>一、让使用者能进入某目录成为“可工作目录”的基本权限为何：</p>
+<ul>
+<li>可使用的指令：例如 cd 等变换工作目录的指令；</li>
+<li>目录所需权限：使用者对这个目录至少需要具有 x 的权限</li>
+<li>额外需求：如果使用者想要在这个目录内利用 ls 查阅文件名，则使用者对此目录还需要 r 的权限。</li>
+</ul>
+<p>二、使用者在某个目录内读取一个文件的基本权限为何？</p>
+<ul>
+<li>可使用的指令：例如本章谈到的 cat, more, less等等</li>
+<li>目录所需权限：使用者对这个目录至少需要具有 x 权限；</li>
+<li>文件所需权限：使用者对文件至少需要具有 r 的权限才行！</li>
+</ul>
+<p>三、让使用者可以修改一个文件的基本权限为何？</p>
+<ul>
+<li>目录所需权限：使用者在该文件所在的目录至少要有 x 权限；</li>
+<li>文件所需权限：使用者对该文件至少要有 r, w 权限</li>
+</ul>
+<p>四、让一个使用者可以创建一个文件的基本权限为何？</p>
+<ul>
+<li>目录所需权限：使用者在该目录要具有 w,x 的权限，重点在 w 啦！</li>
+</ul>
+<p>例题：让一个使用者 dmtsai 能够进行“cp /dir1/file1 /dir2”的指令时，请说明 dir1, file1, dir2 的最小所需权限为何？</p>
+<ul>
+<li>dir1 ：至少需要有 x 权限；</li>
+<li>file1：至少需要有 r 权限；</li>
+<li>dir2 ：至少需要有 w, x 权限。</li>
+</ul>
+<p>例题：有一个文件全名为 /home/student/www/index.html ，各相关文件/目录的权限如下：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">drwxr-xr-x<span class="number"> 23 </span>root    root   <span class="number"> 4096 </span>Sep<span class="number"> 22 </span>12:09 /</span><br><span class="line">drwxr-xr-x <span class="number"> 6 </span>root    root   <span class="number"> 4096 </span>Sep<span class="number"> 29 </span>02:21 /home</span><br><span class="line">drwx------ <span class="number"> 6 </span>student student<span class="number"> 4096 </span>Sep<span class="number"> 29 </span>02:23 /home/student</span><br><span class="line">drwxr-xr-x <span class="number"> 6 </span>student student<span class="number"> 4096 </span>Sep<span class="number"> 29 </span>02:24 /home/student/www</span><br><span class="line">-rwxr--r-- <span class="number"> 6 </span>student student <span class="number"> 369 </span>Sep<span class="number"> 29 </span>02:27 /home/student/www/index.html</span><br></pre></td></tr></table></figure>
+<p>请问 vbird 这个帐号（不属于student群组）能否读取 index.html 这个文件呢?</p>
+<p>答：虽然 www 与 index.html 是可以让 vbird 读取的权限，但是因为目录结构是由根目录一层一层读取的， 因此 vbird 可进入 /home 但是却不可进入 /home/student/ ，既然连进入 /home/student 都不许了， 当然就读不到 index.html 了！所以答案是“vbird不会读取到 index.html 的内容”喔！</p>
+<ul>
+<li>找出 /etc 下面，文件大小介于 50K 到 60K 之间的文件，并且将权限完整的列出 （ls -l）：find /etc -size +50k -a -size -60k -exec ls -l {} \; 注意到 -a ，那个 -a 是 and 的意思，为符合两者才算成功</li>
+<li>找出 /etc 下面，文件大小大于 50K 且文件所属人不是 root 的文件名，且将权限完整的列出 （ls -l）；find /etc -size +50k -a ! -user root -exec ls -ld {} \; find /etc -size +50k -a ! -user root -type f -exec ls -l {} \; 上面两式均可！注意到 ! ，那个 ! 代表的是反向选择，亦即“不是后面的项目”之意！</li>
+<li>找出 /etc 下面，容量大于 1500K 以及容量等于 0 的文件：find /etc -size +1500k -o -size 0 相对于 -a ，那个 -o 就是或 （or） 的意思啰！</li>
+</ul>
+<h3 id="第九章"><a href="#第九章" class="headerlink" title="第九章"></a>第九章</h3><ol>
+<li>请在 /tmp 这个目录下创建一个名为 vitest 的目录；</li>
+<li>进入 vitest 这个目录当中；</li>
+<li>将 /etc/man_db.conf 复制到本目录下面（或由上述的链接下载 <a href="http://linux.vbird.org/linux_basic/0310vi/man_db.conf" target="_blank" rel="noopener">man_db.conf</a> 文件）；</li>
+<li>使用 vi 打开本目录下的 man_db.conf 这个文件；</li>
+<li>在 vi 中设置一下行号；</li>
+<li>移动到第 43 列，向右移动 59 个字符，请问你看到的小括号内是哪个文字？</li>
+<li>移动到第一列，并且向下搜寻一下“ gzip ”这个字串，请问他在第几列？</li>
+<li>接着下来，我要将 29 到 41 列之间的“小写 man 字串”改为“大写 MAN 字串”，并且一个一个挑选是否需要修改，如何下达指令？如果在挑选过程中一直按“y”， 结果会在最后一列出现改变了几个 man 呢？</li>
+<li>修改完之后，突然反悔了，要全部复原，有哪些方法？</li>
+<li>我要复制 66 到 71 这 6 列的内容（含有MANDB_MAP），并且贴到最后一列之后；</li>
+<li>113 到 128 列之间的开头为 # 符号的注解数据我不要了，要如何删除？</li>
+<li>将这个文件另存成一个 man.test.config 的文件名；</li>
+<li>去到第 25 列，并且删除 15 个字符，结果出现的第一个单字是什么？</li>
+<li>在第一列新增一列，该列内容输入“I am a student…”；</li>
+<li>储存后离开吧！</li>
+</ol>
+<p>整个步骤可以如下显示：</p>
+<ol>
+<li>“mkdir /tmp/vitest”</li>
+<li>“cd /tmp/vitest”</li>
+<li>“cp /etc/man_db.conf .”</li>
+<li>“/bin/vi man_db.conf”</li>
+<li>“:set nu”然后你会在画面中看到左侧出现数字即为行号。</li>
+<li>先按下“43G”再按下“59→”会看到“ as ”这个单字在小括号内；</li>
+<li>先执行“1G”或“gg”后，直接输入“/gzip”，则会去到第 93 列才对！</li>
+<li>直接下达“ :29,41s/man/MAN/gc ”即可！若一直按“y”最终会出现“在 13 列内置换 13 个字串”的说明。</li>
+<li>（1）简单的方法可以一直按“ u ”回复到原始状态，（2）使用不储存离开“ :q! ”之后，再重新读取一次该文件；</li>
+<li>“66G” 然后再“ 6yy ”之后最后一列会出现“复制6列”之类的说明字样。 按下“ G ”到最后一列，再给他“ p ”贴上6列！</li>
+<li>因为 113~128 共 16 列，因此“ 113G ”→“ 16dd ”就能删除 16 列，此时你会发现光标所在 113 列的地方变成 “ # Flags. ” 开头啰</li>
+<li>“ :w man.test.config ”，你会发现最后一列出现 “man.test.config” [New].. 的字样。</li>
+<li>“25G” 之后，再给他“ 15x ”即可删除 15 个字符，出现“ tree ”的字样；</li>
+<li>先“ 1G ”去到第一列，然后按下大写的“ O ”便新增一列且在插入模式；开始输入“I am a student…”后， 按下[Esc]回到一般指令模式等待后续工作；</li>
+<li>“:wq”</li>
+</ol>
 
       
     </div>
@@ -628,7 +699,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -650,7 +721,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -666,7 +737,7 @@
      <span class="site-state-item-name">访客量</span>
 </div>
 <div class="site-state-item site-state-posts">
-      <span class="site-state-item-count">66.3k</span>
+      <span class="site-state-item-count">88.3k</span>
       <span class="site-state-item-name">总字数</span>
 </div>
           </nav>
@@ -725,7 +796,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第四章"><span class="nav-number">1.</span> <span class="nav-text">第四章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五章"><span class="nav-number">2.</span> <span class="nav-text">　第五章</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第四章"><span class="nav-number">1.</span> <span class="nav-text">第四章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五章"><span class="nav-number">2.</span> <span class="nav-text">　第五章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第六章"><span class="nav-number">2.1.</span> <span class="nav-text">第六章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第九章"><span class="nav-number">2.2.</span> <span class="nav-text">第九章</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -128,7 +128,7 @@
 <meta property="og:site_name" content="小黑屋">
 <meta property="og:description" content="python 代码小技巧">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-25T12:43:46.751Z">
+<meta property="og:updated_time" content="2019-05-31T13:48:28.674Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python代码">
 <meta name="twitter:description" content="python 代码小技巧">
@@ -381,8 +381,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-05-25T20:43:46+08:00">
-                2019-05-25
+              <time title="更新于" itemprop="dateModified" datetime="2019-05-31T21:48:28+08:00">
+                2019-05-31
               </time>
             
           </span>
@@ -442,7 +442,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  410字
+                  423字
                 </span>
               
 
@@ -488,7 +488,7 @@
 <h3 id="通过字典保存了所有中间过程，不仅命名容易，而且便于后续操作"><a href="#通过字典保存了所有中间过程，不仅命名容易，而且便于后续操作" class="headerlink" title="通过字典保存了所有中间过程，不仅命名容易，而且便于后续操作"></a>通过字典保存了所有中间过程，不仅命名容易，而且便于后续操作</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">d=&#123;d_name:get_dvalue(d_name) <span class="keyword">for</span> d_name <span class="keyword">in</span> d_list&#125;</span><br><span class="line">best_dvalue_dname=min(d.items(),key=<span class="keyword">lambda</span> x:x[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
 <h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#这样会比单纯用readlines()快</span></span><br><span class="line">count = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> index, line <span class="keyword">in</span> enumerate(open(filepath,<span class="string">'r'</span>))： </span><br><span class="line">    count += <span class="number">1</span></span><br></pre></td></tr></table></figure>
 <h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict 通过这个声明dict&#123;里面的格式&#125;</span><br><span class="line">如 defaultdict(list)</span><br></pre></td></tr></table></figure>
-<h3 id="列表生成式"><a href="#列表生成式" class="headerlink" title="列表生成式"></a>列表生成式</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. [<span class="selector-tag">i</span> <span class="keyword">for</span> <span class="selector-tag">i</span> <span class="keyword">in</span> range(k) <span class="keyword">if</span> condition]：此时<span class="keyword">if</span>起条件判断作用，满足条件的，将被返回成为最终生成的列表的一员。</span><br><span class="line"><span class="number">2</span>. [<span class="selector-tag">i</span> <span class="keyword">if</span> condition <span class="keyword">else</span> exp <span class="keyword">for</span> exp]：此时<span class="keyword">if</span>...<span class="keyword">else</span>被用来赋值，满足条件的i以及<span class="keyword">else</span>被用来生成最终的列表</span><br></pre></td></tr></table></figure>
+<h3 id="列表生成式"><a href="#列表生成式" class="headerlink" title="列表生成式"></a>列表生成式</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. [<span class="selector-tag">i</span> <span class="keyword">for</span> <span class="selector-tag">i</span> <span class="keyword">in</span> range(k) <span class="keyword">if</span> condition]：此时<span class="keyword">if</span>起条件判断作用，满足条件的，将被返回成为最终生成的列表的一员。</span><br><span class="line"><span class="number">2</span>. [<span class="selector-tag">i</span> <span class="keyword">if</span> condition <span class="keyword">else</span> exp <span class="keyword">for</span> exp]：此时<span class="keyword">if</span>...<span class="keyword">else</span>被用来赋值，满足条件的i以及<span class="keyword">else</span>被用来生成最终的列表</span><br><span class="line"><span class="number">3</span>.[eval(i) <span class="keyword">if</span> <span class="selector-tag">i</span> is not None <span class="keyword">else</span> None <span class="keyword">for</span> <span class="selector-tag">i</span> <span class="keyword">in</span> l]</span><br></pre></td></tr></table></figure>
 <h2 id="提高处理速度"><a href="#提高处理速度" class="headerlink" title="提高处理速度"></a>提高处理速度</h2><h3 id="多进程提高数据预处理"><a href="#多进程提高数据预处理" class="headerlink" title="多进程提高数据预处理"></a>多进程提高数据预处理</h3><p>df和numpy都可以，注意windows下保证两个代码分开，否则函数无法识别主进程和子进程</p>
 <p>jupyter上代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这样子会很好的传参数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">np_parallelize_run</span><span class="params">(func,df,nlp)</span>:</span></span><br><span class="line">    df_split = np.array_split(df, num_partitions)</span><br><span class="line">    params=[]</span><br><span class="line">    <span class="keyword">for</span> sub_df <span class="keyword">in</span> df_split:</span><br><span class="line">        param = &#123;&#125;</span><br><span class="line">        param[<span class="string">'text'</span>]=sub_df</span><br><span class="line">        param[<span class="string">'nlp'</span>]=nlp</span><br><span class="line">        params.append(param)</span><br><span class="line">    pool = Pool(num_cores)</span><br><span class="line">    df = np.concatenate(pool.map(func, params))</span><br><span class="line">    <span class="comment">#df = sp.vstack(pool.map(func, df_split), format='csr') faster and mem efficient for</span></span><br><span class="line">    pool.close()</span><br><span class="line">    pool.join()</span><br><span class="line">    <span class="keyword">return</span> df</span><br></pre></td></tr></table></figure>
@@ -621,7 +621,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -643,7 +643,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -659,7 +659,7 @@
      <span class="site-state-item-name">访客量</span>
 </div>
 <div class="site-state-item site-state-posts">
-      <span class="site-state-item-count">66.3k</span>
+      <span class="site-state-item-count">88.3k</span>
       <span class="site-state-item-name">总字数</span>
 </div>
           </nav>

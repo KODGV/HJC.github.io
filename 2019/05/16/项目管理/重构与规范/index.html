@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|18:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="代码规范,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="小黑屋" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="代码整洁规范减少重复代码提高表达力提早构建简单抽象">
+<meta name="keywords" content="代码规范">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重构与规范">
+<meta property="og:url" content="http://kodgv.xyz/2019/05/16/项目管理/重构与规范/index.html">
+<meta property="og:site_name" content="小黑屋">
+<meta property="og:description" content="代码整洁规范减少重复代码提高表达力提早构建简单抽象">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-18T07:51:07.115Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="重构与规范">
+<meta name="twitter:description" content="代码整洁规范减少重复代码提高表达力提早构建简单抽象">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://kodgv.xyz/2019/05/16/项目管理/重构与规范/">
+
+
+
+
+
+  <title>重构与规范 | 小黑屋</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小黑屋</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://kodgv.xyz/2019/05/16/项目管理/重构与规范/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KODGV">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小黑屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">重构与规范</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-16T16:37:43+08:00">
+                2019-05-16
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-08-18T15:51:07+08:00">
+                2019-08-18
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/项目管理/" itemprop="url" rel="index">
+                    <span itemprop="name">项目管理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/16/项目管理/重构与规范/" class="leancloud_visitors" data-flag-title="重构与规范">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.7k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>代码整洁规范<br>减少重复代码<br>提高表达力<br>提早构建简单抽象<br><a id="more"></a></p>
+<p>[TOC]</p>
+<h1 id="代码整洁"><a href="#代码整洁" class="headerlink" title="代码整洁"></a>代码整洁</h1><h2 id="有意义的命名"><a href="#有意义的命名" class="headerlink" title="有意义的命名"></a>有意义的命名</h2><p><strong>名副其实</strong></p>
+<ul>
+<li>如果你需要注释来解释一个变量，那就说明它不是名副其实</li>
+<li>一旦发现有更好的命名，就要换掉旧的，要记住换花的时间是值得的</li>
+</ul>
+<p><strong>避免误导</strong></p>
+<ul>
+<li>尽量少使用类型名，除非它真的是这个类型</li>
+<li>不要使用过于相似的名字</li>
+</ul>
+<p><strong>命名规范</strong></p>
+<ul>
+<li>类名和对象是名词，方法是动词，注意get/set/is的前缀</li>
+<li>即每个抽象概念选一个词，DeviceManager和Protocal-Controller是一样的</li>
+<li>要保持前后术语规范。</li>
+<li>用常量代替原始数字（魔术数）</li>
+<li>不要在代码中重复写+1的边界条件，而是用变量进行封装</li>
+<li>函数的长短与其作用范围息息相关，所以for循环可以用i,j因为它们作用域很小</li>
+</ul>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>函数要做到自己理解，而不是通过测试用例，这需要改进和重构简洁。</p>
+<p><strong>尽量短小</strong></p>
+<ul>
+<li>if/for/while中应该只有一行</li>
+<li>函数只做一件事，抽象层上应该是同一级别！</li>
+<li>函数的顺序，是自顶向下的规则，抽象到具体的顺序</li>
+</ul>
+<p><strong>参数</strong></p>
+<ul>
+<li>参数最多不应该超过3个，如果参数多于3个的时候，就可以思考参数是否能构成一个类，参数过多的时候可以组合成字典传递</li>
+<li>参数不要传布尔值，应该将true/false分成两个函数，然后在布尔值的上一个抽象层直接做判断，而不是将其作为布尔值传递。（整数值，枚举元素等函数选择行为同理）</li>
+</ul>
+<p><strong>返回值</strong></p>
+<ul>
+<li>可以定义这样的规范，每个函数的返回值都叫result</li>
+</ul>
+<p><strong>处理异常</strong></p>
+<ul>
+<li>try/catch的每个功能都应该拆出成一个函数</li>
+<li>如果你用枚举类型来表示异常，那将意味着你会很不情愿修改它，使用异常代替错误码，新异常就可以从异常类中派生出来.</li>
+</ul>
+<p><strong>重复</strong></p>
+<ul>
+<li>永远无法容忍重复代码，这意味着抽象的遗漏</li>
+<li>如果你发现死代码（永不执行的代码块），果断删除</li>
+<li>多个switch/ifelse，考虑多态</li>
+</ul>
+<p><strong>判断</strong></p>
+<ul>
+<li>if的条件如果过多，就要封一个函数，因为没有上下文是看不懂if的</li>
+<li>避免否定条件，尽量保持一致，不要带！，可以直接把！函数封成函数</li>
+</ul>
+<p><strong>静态</strong></p>
+<ul>
+<li>如果一个函数不依赖其类的属性，都是依赖于参数，这时候该函数就应该声明为静态</li>
+<li>静态导入（就是单纯导入），而不是用继承的方式，这样别人不知道函数的来源</li>
+</ul>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p><strong>尽量少写注释</strong></p>
+<ul>
+<li>写注释意味着你的代码不够优雅，别人无法理解</li>
+<li>能用函数和变量拆解的时候就拆解，而不是用注释去描述</li>
+<li>你无法始终坚持维护你的注释，会出现各种问题</li>
+<li>不要注释代码，我们有优秀的代码管理器，无用的代码就删掉就可以了，它会保留的。</li>
+</ul>
+<p><strong>好的注释</strong></p>
+<ul>
+<li>法律与版本信息</li>
+<li>某个决定背后的意图解释，便于后续别人的修改</li>
+<li>TODO</li>
+</ul>
+<p><strong>如何写注释</strong></p>
+<ul>
+<li>一旦写注释就要花时间写好注释，注释的角度尽量从别人的角度出来来想会有什么疑惑，而不是解决自己的疑惑</li>
+<li>不要尝试描述代码本身</li>
+</ul>
+<h2 id="数据，对象的反对称性"><a href="#数据，对象的反对称性" class="headerlink" title="数据，对象的反对称性"></a>数据，对象的反对称性</h2><p><strong>抽象</strong></p>
+<ul>
+<li>隐藏实现并非在变量之间放上一层函数层，也不是单纯使用取值器和赋值器往外推，而是暴露抽象接口，以便于用户无需了解数据形式就可以操作数据。</li>
+<li>过程式代码便于添加函数（switch实现）；对象类代码便于添加数据类型（多态实现）</li>
+<li>DTO(data transfer object)，豆结构，即只有赋值器和取值器操作的私有变量</li>
+</ul>
+<h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><p><strong>try-catch</strong></p>
+<ul>
+<li>try-catch: 一开始可以用exception捕捉，捕捉到之后要缩小到对应范围。</li>
+<li>try的内容是一个原子事务，这一点要注意想清楚。</li>
+</ul>
+<p><strong>NULL值处理</strong></p>
+<ul>
+<li>绝对不要返回Null值，否则别人检查null值会很麻烦，而且检查一多就会乱(可以内部直接抛出错误，也可以定义为空值就好)</li>
+<li>禁止参数传入Null值，否则你总不可能每个变量一个个检查null（如果实在没有办法就只能用断言assert检查一下吧，用if有时会太乱混淆）</li>
+</ul>
+<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><p><strong>短小</strong></p>
+<ul>
+<li>类的名称要描述其权责而不能是一些模糊的词（Process,manger,super），而且描述该类职责的时候不应该出现if/and/or/but这些词语</li>
+<li>类的权责应该是单一的，尽量拆成多个短小类吧</li>
+<li>长的函数拆成小的函数的时候，参数是否要传，若是那为什么不把它们变成一个类，参数是它们的成员变量就好了。注意变的时候保持单一权责</li>
+<li>注意职责的分隔。如果当你新增一个功能可能会影响其他时，说明耦合过强</li>
+</ul>
+<h2 id="好的代码示范"><a href="#好的代码示范" class="headerlink" title="好的代码示范"></a>好的代码示范</h2><p>书的附录记录了好的代码示范</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 优秀的缩减了代码的长度，在简单代码的情况下，简洁是第一要义。所以允许在前面<span class="keyword">return</span></span><br><span class="line"><span class="keyword">public</span> boolean addCustomer(Customer customer)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">this</span>.customers.length == <span class="keyword">this</span>.total) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">       customers[total++] = customer;</span><br><span class="line">       <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="重构"><a href="#重构" class="headerlink" title="重构"></a>重构</h1><h3 id="重构的过程"><a href="#重构的过程" class="headerlink" title="重构的过程"></a>重构的过程</h3><p>发生的时间：</p>
+<ul>
+<li>当你想要给程序添加一个新特性的时候。</li>
+<li>营地法则：保证你离开时的代码库一定比来时更健康。</li>
+</ul>
+<p>第一步：</p>
+<ul>
+<li>确保即将修改的代码拥有一组可靠的测试。</li>
+</ul>
+<p>第二步：</p>
+<ul>
+<li>从整个代码中分离出不同的关注点。</li>
+<li>提炼代码到新的函数，关注又那些变量会离开原本的作用域</li>
+<li>每走一步都需要测试一遍，保证不会出错</li>
+</ul>
+<p>第三步：</p>
+<ul>
+<li>提炼出新的函数后首先关注变量改名</li>
+<li>关注函数的参数之间关系，是否真的需要传入</li>
+</ul>
+<p>第四步：</p>
+<ul>
+<li>去除临时变量，用内联函数进行替代。（我不太喜欢，因为内联函数名字比较长）</li>
+<li>检查变量是否可以合并或去除。</li>
+</ul>
+<p>第五步：</p>
+<ul>
+<li>检查循环，将不同的任务拆分，可以允许多个循环，如果重构引入性能损耗，先完成重构，再做性能优化。</li>
+</ul>
+<p>第六步：</p>
+<ul>
+<li>拆分计算阶段与格式阶段，即输出的时候格式可能会经常需要变动，避免重复的代码，应定义一个对象的格式作为计算阶段与格式阶段的交互。</li>
+</ul>
+<p>第七步：</p>
+<ul>
+<li>多态取代条件表达式，如switch等 </li>
+</ul>
+<p>注意事项</p>
+<ul>
+<li>为了简洁，在不会有太大变动的部分，可以采用一些不好的习惯。</li>
+</ul>
+<h3 id="重构的原则"><a href="#重构的原则" class="headerlink" title="重构的原则"></a>重构的原则</h3><ul>
+<li>重构是一个个小步骤，不是在迭代阶段的最后才执行的事情。</li>
+<li>添加新功能时不应该修改已有代码，只管新功能，两顶帽子（重构和增加），每次只戴一顶</li>
+<li>重构的时机：在添加新功能之前；当你需要思考这段代码到底在做什么；不需要重构的时机：不会有改动的地方，可以被API隐藏</li>
+<li>面对遗留代码，不建议一股脑全部重构，更愿意随时重构相关代码，每碰到一块代码都保持营地法则。</li>
+</ul>
+<h3 id="什么情况下重构"><a href="#什么情况下重构" class="headerlink" title="什么情况下重构"></a>什么情况下重构</h3><p>结合重构的过程</p>
+<ul>
+<li>奇怪命名与重复代码</li>
+<li>过长的函数，当你感觉要注释的时候，就需要把这一部分提取到一个独立的函数中</li>
+<li>全局变量，全局变量要么是常量要么就提供get/set方法。</li>
+<li>可变数据（可以建立原则：如果更新一个数据结构，就返回一个全新的数据副本）</li>
+<li>发散式变化 ，即同一个模块需要根据不同的原因发生变化，就要考虑是否可以拆分</li>
+<li>数据泥团，许多参数都喜欢糅杂，所以要用类去为它瘦身（很常见，数据项会经常很多）</li>
+<li>纯数据类常常以为这行为被放在了错误的地方，只要把处理数据的行为搬移到纯数据类里，就可以使情况大大改善。</li>
+</ul>
+<h3 id="构筑测试体系"><a href="#构筑测试体系" class="headerlink" title="构筑测试体系"></a>构筑测试体系</h3><p>编写优良的测试程序，可以极大提高自我的编程速度，即使不进行重构也一样如此。</p>
+<p>测试法则</p>
+<ul>
+<li>测试不是要把所有的错误找出来，所以你大可不必担忧繁杂的代码，而是让你更有自信的进行下一步。则保证核心主线功能正确</li>
+<li>不是再每次迭代结尾时增加测试，而是只要写好一点功能就添加它们</li>
+<li>TDD测试驱动开发，为了添加这个功能，我需要写什么测试函数。</li>
+<li>注意测试代码中那些重用的对象，有可能不同测试函数之间产生干扰导致结果出错。</li>
+<li>每当你遇见一个bug，先写一个测试来清楚地复现它。</li>
+</ul>
+<h3 id="重构手法目录"><a href="#重构手法目录" class="headerlink" title="重构手法目录"></a>重构手法目录</h3><p>需要的时候翻书</p>
+<h4 id="提炼函数"><a href="#提炼函数" class="headerlink" title="提炼函数"></a>提炼函数</h4><p>函数提取</p>
+<h4 id="内联函数"><a href="#内联函数" class="headerlink" title="内联函数"></a>内联函数</h4><p>函数的合并与删除</p>
+<h4 id="提炼变量"><a href="#提炼变量" class="headerlink" title="提炼变量"></a>提炼变量</h4><p>变量的提取</p>
+<h4 id="内联变量"><a href="#内联变量" class="headerlink" title="内联变量"></a>内联变量</h4><p>变量的删除</p>
+<h4 id="函数声明修改"><a href="#函数声明修改" class="headerlink" title="函数声明修改"></a>函数声明修改</h4><p>修改函数声明 </p>
+<h4 id="封装变量"><a href="#封装变量" class="headerlink" title="封装变量"></a>封装变量</h4><p>执行变量封装（数据作用域越大，封装越重要）</p>
+<h4 id="引入参数对象"><a href="#引入参数对象" class="headerlink" title="引入参数对象"></a>引入参数对象</h4><p>把参数提取成新类的成员，能够有更好的拓展性，和概念性</p>
+<h4 id="函数组合成类"><a href="#函数组合成类" class="headerlink" title="函数组合成类"></a>函数组合成类</h4><p>通过封装将函数和变量组合成类</p>
+<h4 id="封装记录"><a href="#封装记录" class="headerlink" title="封装记录"></a>封装记录</h4><p>对于可变的数据结构（散列，字典）转变为类</p>
+<p>返回的可变数据是地址值，注重是否需要拷贝</p>
+<h4 id="封装集合"><a href="#封装集合" class="headerlink" title="封装集合"></a>封装集合</h4><p>封装可变变量常犯的错误：只对访问进行了封装，依旧让取值函数返回变量本身。</p>
+<ul>
+<li>返回值是否需要拷贝</li>
+<li>参数传入时是否需要拷贝</li>
+<li>养成可变对象都采用拷贝的方法</li>
+</ul>
+<h4 id="以对象取代基本类型"><a href="#以对象取代基本类型" class="headerlink" title="以对象取代基本类型"></a>以对象取代基本类型</h4><p>或许一开始这个类只是简单包装，但只要类有了，日后添加的业务逻辑就有地可取。面向对象这是最实用的重构手法之一—-新手常忽略</p>
+<h4 id="以查询取代临时变量"><a href="#以查询取代临时变量" class="headerlink" title="以查询取代临时变量"></a>以查询取代临时变量</h4><p>用函数来代替临时变量：只适用于那些只计算以此且之后不再被修改的变量。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/代码规范/" rel="tag"><i class="fa fa-tag"></i> 代码规范</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/30/JAVA学习/java核心技术/" rel="next" title="java核心技术基础知识">
+                <i class="fa fa-chevron-left"></i> java核心技术基础知识
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/16/项目管理/Linux手册/" rel="prev" title="Linux文档">
+                Linux文档 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MzU5OS8yMDEzOA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpeg" alt="KODGV">
+            
+              <p class="site-author-name" itemprop="name">KODGV</p>
+              <p class="site-description motion-element" itemprop="description">生活会给你一切，请相信它。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+			<br>
+<br>
+<div class="site-state-item site-state-posts" style="border-left:none;">
+       <span class="site-state-item-count" id="busuanzi_value_site_pv"></span>
+       <span class="site-state-item-name">浏览量</span>
+</div>
+<div class="site-state-item site-state-posts">
+      <span class="site-state-item-count" id="busuanzi_value_site_uv"></span>
+     <span class="site-state-item-name">访客量</span>
+</div>
+<div class="site-state-item site-state-posts">
+      <span class="site-state-item-count">88.3k</span>
+      <span class="site-state-item-name">总字数</span>
+</div>
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/KODGV" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yourname@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/yourname" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#代码整洁"><span class="nav-number">1.</span> <span class="nav-text">代码整洁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#有意义的命名"><span class="nav-number">1.1.</span> <span class="nav-text">有意义的命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">1.2.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注释"><span class="nav-number">1.3.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据，对象的反对称性"><span class="nav-number">1.4.</span> <span class="nav-text">数据，对象的反对称性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误处理"><span class="nav-number">1.5.</span> <span class="nav-text">错误处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类"><span class="nav-number">1.6.</span> <span class="nav-text">类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#好的代码示范"><span class="nav-number">1.7.</span> <span class="nav-text">好的代码示范</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重构"><span class="nav-number">2.</span> <span class="nav-text">重构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重构的过程"><span class="nav-number">2.0.1.</span> <span class="nav-text">重构的过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构的原则"><span class="nav-number">2.0.2.</span> <span class="nav-text">重构的原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么情况下重构"><span class="nav-number">2.0.3.</span> <span class="nav-text">什么情况下重构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构筑测试体系"><span class="nav-number">2.0.4.</span> <span class="nav-text">构筑测试体系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构手法目录"><span class="nav-number">2.0.5.</span> <span class="nav-text">重构手法目录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#提炼函数"><span class="nav-number">2.0.5.1.</span> <span class="nav-text">提炼函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内联函数"><span class="nav-number">2.0.5.2.</span> <span class="nav-text">内联函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提炼变量"><span class="nav-number">2.0.5.3.</span> <span class="nav-text">提炼变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内联变量"><span class="nav-number">2.0.5.4.</span> <span class="nav-text">内联变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数声明修改"><span class="nav-number">2.0.5.5.</span> <span class="nav-text">函数声明修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#封装变量"><span class="nav-number">2.0.5.6.</span> <span class="nav-text">封装变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引入参数对象"><span class="nav-number">2.0.5.7.</span> <span class="nav-text">引入参数对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数组合成类"><span class="nav-number">2.0.5.8.</span> <span class="nav-text">函数组合成类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#封装记录"><span class="nav-number">2.0.5.9.</span> <span class="nav-text">封装记录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#封装集合"><span class="nav-number">2.0.5.10.</span> <span class="nav-text">封装集合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以对象取代基本类型"><span class="nav-number">2.0.5.11.</span> <span class="nav-text">以对象取代基本类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以查询取代临时变量"><span class="nav-number">2.0.5.12.</span> <span class="nav-text">以查询取代临时变量</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KODGV</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 总访客
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("jfbBQ9nxK2MWpND3JeGVWsqL-gzGzoHsz", "itMpPY29yfkFQMmR0dV1MvdU");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

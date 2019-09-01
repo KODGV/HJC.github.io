@@ -128,7 +128,7 @@
 <meta property="og:site_name" content="小黑屋">
 <meta property="og:description" content="代码整洁规范减少重复代码提高表达力提早构建简单抽象">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-18T07:51:07.115Z">
+<meta property="og:updated_time" content="2019-09-01T03:22:22.690Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="重构与规范">
 <meta name="twitter:description" content="代码整洁规范减少重复代码提高表达力提早构建简单抽象">
@@ -381,8 +381,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-18T15:51:07+08:00">
-                2019-08-18
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T11:22:22+08:00">
+                2019-09-01
               </time>
             
           </span>
@@ -442,7 +442,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.7k字
+                  4.1k字
                 </span>
               
 
@@ -458,7 +458,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  9分钟
+                  14分钟
                 </span>
               
             </div>
@@ -511,6 +511,8 @@
 <ul>
 <li>参数最多不应该超过3个，如果参数多于3个的时候，就可以思考参数是否能构成一个类，参数过多的时候可以组合成字典传递</li>
 <li>参数不要传布尔值，应该将true/false分成两个函数，然后在布尔值的上一个抽象层直接做判断，而不是将其作为布尔值传递。（整数值，枚举元素等函数选择行为同理）</li>
+<li>参数不要传字面值，应传变量</li>
+<li>最好保证对象的拷贝性，统一拷贝而不是在原值上修改</li>
 </ul>
 <p><strong>返回值</strong></p>
 <ul>
@@ -537,6 +539,8 @@
 <li>如果一个函数不依赖其类的属性，都是依赖于参数，这时候该函数就应该声明为静态</li>
 <li>静态导入（就是单纯导入），而不是用继承的方式，这样别人不知道函数的来源</li>
 </ul>
+<p><strong>变量</strong></p>
+<p>个人喜欢在第一次需要使用变量的地方声明，而不是在顶部一口去声明</p>
 <h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p><strong>尽量少写注释</strong></p>
 <ul>
 <li>写注释意味着你的代码不够优雅，别人无法理解</li>
@@ -665,6 +669,36 @@
 </ul>
 <h4 id="以对象取代基本类型"><a href="#以对象取代基本类型" class="headerlink" title="以对象取代基本类型"></a>以对象取代基本类型</h4><p>或许一开始这个类只是简单包装，但只要类有了，日后添加的业务逻辑就有地可取。面向对象这是最实用的重构手法之一—-新手常忽略</p>
 <h4 id="以查询取代临时变量"><a href="#以查询取代临时变量" class="headerlink" title="以查询取代临时变量"></a>以查询取代临时变量</h4><p>用函数来代替临时变量：只适用于那些只计算以此且之后不再被修改的变量。</p>
+<h4 id="搬移函数"><a href="#搬移函数" class="headerlink" title="搬移函数"></a>搬移函数</h4><p>检查函数当前上下文与目标上下的区别进行函数的移动，或通用或更紧密</p>
+<h4 id="搬移字段"><a href="#搬移字段" class="headerlink" title="搬移字段"></a>搬移字段</h4><p>类成员的移动，还原更好的 更少修改的数据结构</p>
+<h4 id="搬移语句到函数"><a href="#搬移语句到函数" class="headerlink" title="搬移语句到函数"></a>搬移语句到函数</h4><p>黄金法则：消除重复代码</p>
+<h4 id="移动代码"><a href="#移动代码" class="headerlink" title="移动代码"></a>移动代码</h4><p>黄金发着：如果移动代码中的变量在另一个地方被修改，则需要认真检查代码的关联性。</p>
+<p>重新组织数据：</p>
+<h4 id="拆分循环"><a href="#拆分循环" class="headerlink" title="拆分循环"></a>拆分循环</h4><p>拆分循环，让一个循环只做一件事情，可以放弃性能from pyhanlp import HanLP</p>
+<h4 id="字段改名"><a href="#字段改名" class="headerlink" title="字段改名"></a>字段改名</h4><p>如果记录的作用域较小则可以直接改，如果记录在多出用到，则需要将其封装为类，提供访问和修改的方法，这样可以大大减少出错。</p>
+<h4 id="以查询取代派生变量"><a href="#以查询取代派生变量" class="headerlink" title="以查询取代派生变量"></a>以查询取代派生变量</h4><p>即把数据的修改统一变成查询函数中进行。不要在其他的函数中进行变量的修改。比如每次修改都需要加100金额，这个操作可以放在查询中统一运行一次。</p>
+<h4 id="把引用对象改为值对象"><a href="#把引用对象改为值对象" class="headerlink" title="把引用对象改为值对象"></a>把引用对象改为值对象</h4><p>保证对象的不可变性，当需要传入对象或者使用内部对象时，利用属性重新new一个新对象  </p>
+<h4 id="把值对象改为引用对象"><a href="#把值对象改为引用对象" class="headerlink" title="把值对象改为引用对象"></a>把值对象改为引用对象</h4><p>对于一个客观实体，只有一个代表它的对象。这意味着我需要某种形式的仓库，在仓库中可以找到所有这些实体对象。直为每个实体创建一次对象，以后始终从仓库中获取改对象。</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">初始化：构建<span class="meta">MAP</span>仓库</span><br><span class="line">构建对象：如果没有重复id就新建对象加入<span class="meta">Map</span>中</span><br><span class="line">获取对象：根据MAPkey获取对象</span><br><span class="line">仓库对象可以是单例的</span><br></pre></td></tr></table></figure>
+<p><strong>有多对一的关系，都需要考虑这个</strong></p>
+<h4 id="分解条件表达式"><a href="#分解条件表达式" class="headerlink" title="分解条件表达式"></a>分解条件表达式</h4><p>把条件分支中各个部分提炼函数，包括条件的判断，执行的语句。可以让人更好的关注判断本身而不用考虑具体逻辑。</p>
+<h4 id="合并条件表达式"><a href="#合并条件表达式" class="headerlink" title="合并条件表达式"></a>合并条件表达式</h4><p>一连串的条件检查:检查条件各不相同，最终的行为却一致，就可以将它们合并为一个表达式，并用分解条件表达式来提炼函数。</p>
+<h4 id="以return-语句取代嵌套条件表达式"><a href="#以return-语句取代嵌套条件表达式" class="headerlink" title="以return 语句取代嵌套条件表达式"></a>以return 语句取代嵌套条件表达式</h4><p>if else if else等多重嵌套循环，可以转变为if return if return 核心逻辑。保证了：如果这个情况不是该函数核心逻辑所关心的，如果它发生了，请做一些必要的整理工作，然后退出。</p>
+<p>如果存在多重if嵌套，但是没有else的情况，可以使用反转逻辑表达式来解决提取核心逻辑</p>
+<h4 id="引入特例"><a href="#引入特例" class="headerlink" title="引入特例"></a>引入特例</h4><p>1.把检查特殊情况的逻辑变成方法或者数据结构，只管引用或调用，逻辑只写一次</p>
+<p>2.为数据结构添加特殊情况的结构，这样就省了每次检查都写特殊情况的逻辑</p>
+<h4 id="将查询函数与修改函数分离"><a href="#将查询函数与修改函数分离" class="headerlink" title="将查询函数与修改函数分离"></a>将查询函数与修改函数分离</h4><p>任何有返回值的函数都不应该有副作用</p>
+<h4 id="函数参数化合并"><a href="#函数参数化合并" class="headerlink" title="函数参数化合并"></a>函数参数化合并</h4><p>通过增加参数，把具有相似逻辑的函数合并。注意合并是为了减少重复，而不是单纯的赋值过来加switch case</p>
+<h4 id="移除标记参数"><a href="#移除标记参数" class="headerlink" title="移除标记参数"></a>移除标记参数</h4><p>参数不应该作为标记传入，当发现函数需要传入一些字面量，而非变量的时候，就需要考虑拆解和优化</p>
+<h4 id="保持对象的完整性"><a href="#保持对象的完整性" class="headerlink" title="保持对象的完整性"></a>保持对象的完整性</h4><p>如果是要从对象中拆解参数传给函数，那还不如把这个对象传给函数，在函数内部再进行拆解</p>
+<h4 id="移除设值函数"><a href="#移除设值函数" class="headerlink" title="移除设值函数"></a>移除设值函数</h4><p>如果不希望在对象创建后此字段还有机会被改变，就不要为它提供设值函数（同时该字段声明为不可变）</p>
+<h4 id="将复杂的函数转为对象-将复杂的对象转为函数"><a href="#将复杂的函数转为对象-将复杂的对象转为函数" class="headerlink" title="将复杂的函数转为对象==将复杂的对象转为函数"></a>将复杂的函数转为对象==将复杂的对象转为函数</h4><h3 id="针对继承"><a href="#针对继承" class="headerlink" title="针对继承"></a>针对继承</h3><h4 id="函数上下移动和属性上下移动"><a href="#函数上下移动和属性上下移动" class="headerlink" title="函数上下移动和属性上下移动"></a>函数上下移动和属性上下移动</h4><h4 id="构造函数上移"><a href="#构造函数上移" class="headerlink" title="构造函数上移"></a>构造函数上移</h4><p>将非子类特有的属性放在父类的构造函数中初始化</p>
+<h4 id="以子类取代类型码"><a href="#以子类取代类型码" class="headerlink" title="以子类取代类型码"></a>以子类取代类型码</h4><p>如果有类型的情况，就可以考虑多态。不过要在多态的操作的复杂性和语义的简洁扩展中选择（工厂函数提供不同的构造函数）</p>
+<h4 id="提炼超类"><a href="#提炼超类" class="headerlink" title="提炼超类"></a>提炼超类</h4><p>利用基本的继承机制将两个类的相似之处提炼到超类</p>
+<h4 id="折叠继承体系"><a href="#折叠继承体系" class="headerlink" title="折叠继承体系"></a>折叠继承体系</h4><p>将子类和超类合并为一个类</p>
+<h4 id="以委托取代子类"><a href="#以委托取代子类" class="headerlink" title="以委托取代子类"></a>以委托取代子类</h4><p>将子类用另外一个类取代，将继承的关系变为组合的关系，在父类中用if来决定调用父类还是子类（个人没看出优点）</p>
+<h4 id="以委托取代父类"><a href="#以委托取代父类" class="headerlink" title="以委托取代父类"></a>以委托取代父类</h4><p>子类只需要用到父类的一部分，将父类变成子类的一个属性，并初始化为父类的实例，然后就可以通过这个属性调用父类，从而去除继承关系。</p>
+<h4 id="UML类交互图"><a href="#UML类交互图" class="headerlink" title="UML类交互图"></a>UML类交互图</h4><p>越是复杂的逻辑，就越需要画清楚uml的交互关系</p>
 
       
     </div>
@@ -695,8 +729,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/30/JAVA学习/java核心技术/" rel="next" title="java核心技术基础知识">
-                <i class="fa fa-chevron-left"></i> java核心技术基础知识
+              <a href="/2019/04/30/竞赛经验/elo比赛心得/" rel="next" title="elo比赛心得">
+                <i class="fa fa-chevron-left"></i> elo比赛心得
               </a>
             
           </div>
@@ -829,7 +863,7 @@
      <span class="site-state-item-name">访客量</span>
 </div>
 <div class="site-state-item site-state-posts">
-      <span class="site-state-item-count">88.3k</span>
+      <span class="site-state-item-count">91.1k</span>
       <span class="site-state-item-name">总字数</span>
 </div>
           </nav>
@@ -888,7 +922,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#代码整洁"><span class="nav-number">1.</span> <span class="nav-text">代码整洁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#有意义的命名"><span class="nav-number">1.1.</span> <span class="nav-text">有意义的命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">1.2.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注释"><span class="nav-number">1.3.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据，对象的反对称性"><span class="nav-number">1.4.</span> <span class="nav-text">数据，对象的反对称性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误处理"><span class="nav-number">1.5.</span> <span class="nav-text">错误处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类"><span class="nav-number">1.6.</span> <span class="nav-text">类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#好的代码示范"><span class="nav-number">1.7.</span> <span class="nav-text">好的代码示范</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重构"><span class="nav-number">2.</span> <span class="nav-text">重构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重构的过程"><span class="nav-number">2.0.1.</span> <span class="nav-text">重构的过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构的原则"><span class="nav-number">2.0.2.</span> <span class="nav-text">重构的原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么情况下重构"><span class="nav-number">2.0.3.</span> <span class="nav-text">什么情况下重构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构筑测试体系"><span class="nav-number">2.0.4.</span> <span class="nav-text">构筑测试体系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构手法目录"><span class="nav-number">2.0.5.</span> <span class="nav-text">重构手法目录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#提炼函数"><span class="nav-number">2.0.5.1.</span> <span class="nav-text">提炼函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内联函数"><span class="nav-number">2.0.5.2.</span> <span class="nav-text">内联函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提炼变量"><span class="nav-number">2.0.5.3.</span> <span class="nav-text">提炼变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内联变量"><span class="nav-number">2.0.5.4.</span> <span class="nav-text">内联变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数声明修改"><span class="nav-number">2.0.5.5.</span> <span class="nav-text">函数声明修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#封装变量"><span class="nav-number">2.0.5.6.</span> <span class="nav-text">封装变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引入参数对象"><span class="nav-number">2.0.5.7.</span> <span class="nav-text">引入参数对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数组合成类"><span class="nav-number">2.0.5.8.</span> <span class="nav-text">函数组合成类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#封装记录"><span class="nav-number">2.0.5.9.</span> <span class="nav-text">封装记录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#封装集合"><span class="nav-number">2.0.5.10.</span> <span class="nav-text">封装集合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以对象取代基本类型"><span class="nav-number">2.0.5.11.</span> <span class="nav-text">以对象取代基本类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以查询取代临时变量"><span class="nav-number">2.0.5.12.</span> <span class="nav-text">以查询取代临时变量</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#代码整洁"><span class="nav-number">1.</span> <span class="nav-text">代码整洁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#有意义的命名"><span class="nav-number">1.1.</span> <span class="nav-text">有意义的命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">1.2.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注释"><span class="nav-number">1.3.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据，对象的反对称性"><span class="nav-number">1.4.</span> <span class="nav-text">数据，对象的反对称性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误处理"><span class="nav-number">1.5.</span> <span class="nav-text">错误处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类"><span class="nav-number">1.6.</span> <span class="nav-text">类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#好的代码示范"><span class="nav-number">1.7.</span> <span class="nav-text">好的代码示范</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重构"><span class="nav-number">2.</span> <span class="nav-text">重构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重构的过程"><span class="nav-number">2.0.1.</span> <span class="nav-text">重构的过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构的原则"><span class="nav-number">2.0.2.</span> <span class="nav-text">重构的原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么情况下重构"><span class="nav-number">2.0.3.</span> <span class="nav-text">什么情况下重构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构筑测试体系"><span class="nav-number">2.0.4.</span> <span class="nav-text">构筑测试体系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构手法目录"><span class="nav-number">2.0.5.</span> <span class="nav-text">重构手法目录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#提炼函数"><span class="nav-number">2.0.5.1.</span> <span class="nav-text">提炼函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内联函数"><span class="nav-number">2.0.5.2.</span> <span class="nav-text">内联函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提炼变量"><span class="nav-number">2.0.5.3.</span> <span class="nav-text">提炼变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内联变量"><span class="nav-number">2.0.5.4.</span> <span class="nav-text">内联变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数声明修改"><span class="nav-number">2.0.5.5.</span> <span class="nav-text">函数声明修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#封装变量"><span class="nav-number">2.0.5.6.</span> <span class="nav-text">封装变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引入参数对象"><span class="nav-number">2.0.5.7.</span> <span class="nav-text">引入参数对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数组合成类"><span class="nav-number">2.0.5.8.</span> <span class="nav-text">函数组合成类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#封装记录"><span class="nav-number">2.0.5.9.</span> <span class="nav-text">封装记录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#封装集合"><span class="nav-number">2.0.5.10.</span> <span class="nav-text">封装集合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以对象取代基本类型"><span class="nav-number">2.0.5.11.</span> <span class="nav-text">以对象取代基本类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以查询取代临时变量"><span class="nav-number">2.0.5.12.</span> <span class="nav-text">以查询取代临时变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#搬移函数"><span class="nav-number">2.0.5.13.</span> <span class="nav-text">搬移函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#搬移字段"><span class="nav-number">2.0.5.14.</span> <span class="nav-text">搬移字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#搬移语句到函数"><span class="nav-number">2.0.5.15.</span> <span class="nav-text">搬移语句到函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移动代码"><span class="nav-number">2.0.5.16.</span> <span class="nav-text">移动代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#拆分循环"><span class="nav-number">2.0.5.17.</span> <span class="nav-text">拆分循环</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字段改名"><span class="nav-number">2.0.5.18.</span> <span class="nav-text">字段改名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以查询取代派生变量"><span class="nav-number">2.0.5.19.</span> <span class="nav-text">以查询取代派生变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#把引用对象改为值对象"><span class="nav-number">2.0.5.20.</span> <span class="nav-text">把引用对象改为值对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#把值对象改为引用对象"><span class="nav-number">2.0.5.21.</span> <span class="nav-text">把值对象改为引用对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分解条件表达式"><span class="nav-number">2.0.5.22.</span> <span class="nav-text">分解条件表达式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#合并条件表达式"><span class="nav-number">2.0.5.23.</span> <span class="nav-text">合并条件表达式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以return-语句取代嵌套条件表达式"><span class="nav-number">2.0.5.24.</span> <span class="nav-text">以return 语句取代嵌套条件表达式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引入特例"><span class="nav-number">2.0.5.25.</span> <span class="nav-text">引入特例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将查询函数与修改函数分离"><span class="nav-number">2.0.5.26.</span> <span class="nav-text">将查询函数与修改函数分离</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数参数化合并"><span class="nav-number">2.0.5.27.</span> <span class="nav-text">函数参数化合并</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移除标记参数"><span class="nav-number">2.0.5.28.</span> <span class="nav-text">移除标记参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#保持对象的完整性"><span class="nav-number">2.0.5.29.</span> <span class="nav-text">保持对象的完整性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移除设值函数"><span class="nav-number">2.0.5.30.</span> <span class="nav-text">移除设值函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将复杂的函数转为对象-将复杂的对象转为函数"><span class="nav-number">2.0.5.31.</span> <span class="nav-text">将复杂的函数转为对象==将复杂的对象转为函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#针对继承"><span class="nav-number">2.0.6.</span> <span class="nav-text">针对继承</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#函数上下移动和属性上下移动"><span class="nav-number">2.0.6.1.</span> <span class="nav-text">函数上下移动和属性上下移动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构造函数上移"><span class="nav-number">2.0.6.2.</span> <span class="nav-text">构造函数上移</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以子类取代类型码"><span class="nav-number">2.0.6.3.</span> <span class="nav-text">以子类取代类型码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提炼超类"><span class="nav-number">2.0.6.4.</span> <span class="nav-text">提炼超类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#折叠继承体系"><span class="nav-number">2.0.6.5.</span> <span class="nav-text">折叠继承体系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以委托取代子类"><span class="nav-number">2.0.6.6.</span> <span class="nav-text">以委托取代子类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以委托取代父类"><span class="nav-number">2.0.6.7.</span> <span class="nav-text">以委托取代父类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UML类交互图"><span class="nav-number">2.0.6.8.</span> <span class="nav-text">UML类交互图</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
